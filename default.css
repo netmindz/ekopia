@@ -1,0 +1,16 @@
+div#album_list {
+/*	background-color: #0000FF; */
+}
+
+div#album_thumb {
+/*	background-color: #00FFFF; */
+	float: left;
+	padding: 15px 15px 15px 15px;
+/*	border: medium solid rgb(0,255,50); */
+}
+
+div#signature {
+	clear: both;
+	font-size: 9px;
+	text-align: right;
+}

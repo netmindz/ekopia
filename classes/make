@@ -1,0 +1,4 @@
+#!/usr/bin/php
+<?php 
+require("/home/www/codebase/make_classes.php");
+?>
