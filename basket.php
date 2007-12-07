@@ -34,10 +34,29 @@ if(count($items)) { ?>
 	}
 	?>
 </table>
-<a href="checkout.php"><img src="https://www.paypal.com/en_GB/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+<form name="_xclick" action="https://www.sandbox.paypal.com/uk/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="upload" value="1">
+<input type="hidden" name="notify_url" value="http://wjtvaiosz.netmindz.net/~will/id/ipn.php">
+<input type="hidden" name="return" value="http://wjtvaiosz.netmindz.net/~will/id/">
+<input type="hidden" name="cancel_return" value="http://wjtvaiosz.netmindz.net/~will/id/basket.php">
+<input type="hidden" name="business" value="seller_1197046991_biz@netmindz.net">
+<input type="hidden" name="currency_code" value="GBP">
+<?php
+	$i =0;
+	foreach($items as $id=>$details) {
+		$i++;
+	?>
+<input type="hidden" name="item_name_<?= $i ?>" value="<?= $details['name'] ?>">
+<input type="hidden" name="shipping_<?= $i ?>" value="1.00">
+<input type="hidden" name="amount_<?= $i ?>" value="10.00">
+	<?php
+	}
+?>
+<input type="image" src="http://www.sandbox.paypal.com/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!"></td>
+</form>
 <!--
 <form action="" method="post">
-<input type="hidden" name="notify_url" value="http://shop.ekopia.net/ipn.php">
 <input type="submit" value=" Pay ">
 -->
 </form>

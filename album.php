@@ -47,7 +47,7 @@ $album->get($_REQUEST['album_id']);
 		<form action="basket.php" method="POST">
 		<input type="hidden" name="action" value="add">
 		<input type="hidden" name="album_id" value="<?= $album->id ?>">
-		<input type="submit" value="Add to basket">
+		<input type="submit" value="Add to basket" class="inputbox">
 		</form>
 		<?php } else { ?>
 		Coming soon to buy here

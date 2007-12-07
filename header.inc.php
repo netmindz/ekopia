@@ -57,12 +57,16 @@
 							</table>		
 				</div>
 				<div class="moduletable">
-							<h3>Featured Album</h3>
+							<h3>Search</h3>
 				
 		<table class="contentpaneopen">
 				<tr>
 			<td valign="top" colspan="2">
-				<p><strong>TODO: Random album selected for here</strong></p>			</td>
+			<form action="search.php">
+			<input type="text" name="keyword" class="inputbox" size="15">
+			<input type="submit" value=" Search " class="inputbox">
+			</form>
+			</td>
 
 		</tr>
 				</table>

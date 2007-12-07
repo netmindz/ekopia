@@ -321,11 +321,8 @@ class album_template
 			//convert from DB properties
 			$this->convertDBProperties('from');		//needs to be changed to 'php' when legacy stuff is removed
 
-			if (isset($this->name) && ($this->name))
-				$this->DN = $this->name;
-			elseif (isset($this->title) && ($this->title))
-				$this->DN = $this->title;
-			else
+			if($this->release_year) { $this->DN = $this->name . " (" . $this->release_year . ")"; } else { $this->DN = $this->name; }
+			if(!trim($this->DN))	//if above returns empty value
 				$this->DN = "$this->id";
 			return true;
 			

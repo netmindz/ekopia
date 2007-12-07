@@ -34,7 +34,7 @@ class basket extends basket_template {
 			$detail = new $type();
 			$detail->get($item->item_id);
 
-			$list[$item->id]['name'] = $detail->DN;
+			$list[$item->id]['name'] = ucwords($item->type) . ": " . $detail->DN;
 		}
 		return($list);
 	}

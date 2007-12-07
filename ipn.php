@@ -1,8 +1,10 @@
 <?php
 ob_start();
 print_r($_REQUEST);
-mail("will@netmindz.net","ipn",ob_get_contents());
+$message = ob_get_contents();
 ob_end_clean();
+mail("will@netmindz.net","ipn",$message);
+file_put_contents("/tmp/ipn.txt",$message);
 
 // read the post from PayPal system and add 'cmd'
 $req = 'cmd=_notify-validate';
@@ -13,7 +15,7 @@ foreach ($_POST as $key => $value) {
 }
 
 // post back to PayPal system to validate
-$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
+$header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
 $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 $fp = fsockopen ('www.paypal.com', 80, $errno, $errstr, 30);
