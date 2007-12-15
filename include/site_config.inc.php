@@ -8,7 +8,10 @@ else {
 }
 ini_set("include_path",".:$docroot/includes:$docroot/classes:" . ini_get("include_path"));
 
+$CONF['artist']['order'] = "order by name";
+$CONF['type']['order'] = "order by name";
 $CONF['track']['order'] = "order by album_id,track_number,name";
+$CONF['album']['order'] = "order by name,release_year";
 $CONF['album']['DN'] = '<?php if($this->release_year) { $this->DN = $this->name . " (" . $this->release_year . ")"; } else { $this->DN = $this->name; } ?>';
 
 $CONF['db_name'] = "idspiral_shop";

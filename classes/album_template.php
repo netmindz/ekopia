@@ -282,7 +282,7 @@ class album_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "" ;
+		if(!$order) $order = "order by name,release_year" ;
 		$select = "SELECT albums.* FROM albums ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);

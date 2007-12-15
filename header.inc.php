@@ -31,7 +31,8 @@
             <div id="buttons">
               <ul id="mainlevel-nav">
 				<!-- nav -->
-<li><a href="http://www.inspiralled.net/"">Homepage</a></li>
+<li><a href="http://www.inspiralled.net/">Inspiral Homepage</a></li>
+<li><a href="./">Shop Homepage</a></li>
 <li><a href="browse.php">Browse</a></li>
 <li><a href="basket.php">Basket</a></li>
 			  </ul>

@@ -18,17 +18,19 @@ if(isset($_REQUEST['remove_id'])) {
 <?php
 $items = $basket->getItems();
 if(count($items)) { ?>
-<table>
+<table width="90%">
 <tr>
-	<th>Remove</th>
 	<th>Item</th>
+	<th>Price</th>
+	<th>&nbsp;</th>
 </tr>
 	<?php
 	foreach($items as $id=>$details) {
 		?>
 		<tr>
-			<td><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
 			<td><?= $details['name'] ?></td>
+			<td>&pound;<?= $details['value'] ?></td>
+			<td><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
 		</tr>
 		<?php
 	}

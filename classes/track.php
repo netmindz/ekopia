@@ -95,7 +95,9 @@ class track extends track_template {
 			}	
 		}
 		$mime = "audio/mpeg";
-		exec($this->_getRaw() . " | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1",$results,$return);
+		$cmd = $this->_getRaw() . " | sox -t wav - -t wav - trim 60 30 | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
+		exec($cmd,$results,$return);
+		//exit($cmd);
 		if($return) $error = implode("\n",$results);
 
 		if((!is_file($preview))||(!filesize($preview))) {
@@ -113,6 +115,21 @@ class track extends track_template {
 		else {
 			return($error);
 		}
+	}
+
+	function displayThumb()
+	{
+		$artist = new artist();
+		$artist->get($this->artist_id);
+		$album = new album();
+		$album->get($this->album_id);
+		?>
+		<div id="track_thumb">
+		Track: <?= $this->DN ?><br>
+		Artist: <?= $artist->DN ?><br>
+		Album: <a href="album.php?id=<?= $album->id ?>"><?= $album->DN ?></a><br>
+		</div>
+		<?php
 	}
 
 	function _getRaw()

@@ -1,6 +1,4 @@
-<?php
-require("include/common.php");
-?>
+<?php require("include/common.php"); ?>
 <?php include("header.inc.php"); ?>
 <?php
 
@@ -12,12 +10,12 @@ $album->get($_REQUEST['album_id']);
 	$artist->get($album->artist_id);
 
 	?>
+	<h2><?= $album->DN ?></h2>
 	<div style="float: right">
 	<object width="280" height="280" type="application/x-shockwave-flash" data="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>"></object>
 	</div>
-	<?php $image = new image(); $image->show($album->image_id); ?>
+	<?php $image = new image(); $image->show($album->image_id,250,250); ?>
 	<table>
-	<tr><th>Album:</th><td><?= $album->DN ?></td><tr>
 	<tr><th>Artist:</th><td><a href="browse.php?type=artist&id=<?= $artist->id ?>"><?= $artist->DN ?></a></td><tr>
 	<tr><th>Label:</th><td><a href="browse.php?type=label&id=<?= $label->id ?>"><?= $label->DN ?></a></td><tr>
 	</table>

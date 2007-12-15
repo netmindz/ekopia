@@ -7,6 +7,18 @@ div#album_thumb {
 	float: left;
 	padding: 15px 15px 15px 15px;
 /*	border: medium solid rgb(0,255,50); */
+	width: 250px;
+}
+
+div#album_thumb_image {
+	float: left;
+	padding: 0px 15px 0px 0px;
+}
+
+div#track_thumb {
+	float: left;
+	width: 125px;
+	padding: 15px 15px 15px 15px;
 }
 
 div#signature {

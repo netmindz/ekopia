@@ -9,7 +9,7 @@ class artist extends artist_template {
 			return($this->id);
 		}
 		else {
-			$this->setProperties(array('name'=>$name));
+			$this->setProperties(array('name'=>$name),"addslashes");
 			return($this->add());
 		}
 	}		

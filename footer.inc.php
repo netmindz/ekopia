@@ -22,7 +22,7 @@
 	&copy; 2007 inspiralled</div>
 
 <div id="signature">
-Copyright WJT 2007
+&copy; <a href="http://www.netmindz.net/?shop">WJT 2007</a>
 </div>
 
       	  </div>
