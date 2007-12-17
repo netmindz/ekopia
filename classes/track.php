@@ -27,6 +27,10 @@ class track extends track_template {
 
 		$error = "";
 
+		if(!is_file($raw)) {
+			return("failed to find raw");
+		}
+
 		if($type == "wav") {
 			$fh = popen($this->_getRaw(),'r') or die();
 			header("Content-Type: audio/x-wav");
@@ -86,22 +90,30 @@ class track extends track_template {
 	{
 		$preview = "encoded/mp3/$this->album_id/preview_$this->id.mp3";
 		$filename = "$this->id.mp3"; 
+		$mime = "audio/mpeg";
 
 		$error = "";
 
-		if(!is_file($preview)) {
+		if((!is_file($preview))||(filesize($preview) < 1024)) {
 			if(!is_dir(dirname($preview))) {
 					exec("mkdir -p " . dirname($preview));
 			}	
+			$preview_length = 60;
+			$fade = 10;
+			$total_length = ($preview_length + ($fade * 2));
+			if($raw = $this->_getRaw()) {
+				$cmd = $this->_getRaw() . " | sox -t wav - -t wav - trim 60 $total_length | sox -t wav - -t wav - fade t $fade ".($total_length - $fade)." $fade | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
+				exec($cmd,$results,$return);
+				if($return) $error = "$cmd = " . implode("\n",$results);
+			}
+			else {
+				$error = "failed to find raw";
+			}
 		}
-		$mime = "audio/mpeg";
-		$cmd = $this->_getRaw() . " | sox -t wav - -t wav - trim 60 30 | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
-		exec($cmd,$results,$return);
-		//exit($cmd);
-		if($return) $error = implode("\n",$results);
 
-		if((!is_file($preview))||(!filesize($preview))) {
+		if((!is_file($preview))||(filesize($preview) < 1024)) {
 			$error = "failed to find preview (" . $error . ")";
+			@unlink($preview);
 		}
 		if(!$error)  {
 			header("Content-Type: $mime");
@@ -134,7 +146,13 @@ class track extends track_template {
 
 	function _getRaw()
 	{
-		return("flac -dc raw/$this->album_id/$this->track_number.flac");
+		$file = "raw/$this->album_id/$this->track_number.flac";
+		if(!is_file($file)) {
+			return false;
+		}
+		else {
+			return("flac -dc $file");
+		}
 	}
 }
 ?>

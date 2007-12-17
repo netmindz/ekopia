@@ -1,6 +1,7 @@
 <pre>
 <?php
 require("include/common.php");
+require("include/amazon.inc.php");
 
 function import_dir($src)
 {
@@ -17,6 +18,8 @@ function import_dir($src)
 
 function import_file($src)
 {
+	global $albums;	
+
 	$info_map = array('title'=>'name','tracknumber'=>'track_number','album'=>'album','artist'=>'artist','date'=>'release_year');
 	$raw = array();
 	exec("metaflac --list \"$src\"",$results);
@@ -43,7 +46,8 @@ function import_file($src)
 	unset($info['album']);
 	unset($info['release_year']);
 
-	
+	$albums[$album->id]['name'] = $album->name;
+	$albums[$album->id]['artists'][$artist->id] = $artist->name;
 
 	$track = new track();
 	$track->addTrack($info);
@@ -53,10 +57,37 @@ function import_file($src)
 	$dest = "raw/" . $album->id . "/" . sprintf("%d",$track->track_number) . ".flac";
 	if(!is_dir(dirname($dest))) mkdir(dirname($dest));
 	if(!is_file($dest)) copy($src,$dest); 
+	set_time_limit(10);
 	flush();
 	print "<hr/>\n";
 }
-
+$albums = array();
 import_dir("to_import");
+
+print "<h1>Amazon lookups</h1>\n";
+
+foreach($albums as $album_id=>$a) {
+	$album = new album();
+	$album->get($album_id);
+	if(!$album->image_id) {
+		$details = amazon_getAlbum($a['artists'],$a['name'],"");
+		#print_r($details);
+
+		$image_url = "";
+		if($details->ImageUrlLarge) {
+			$image_url = $details->ImageUrlLarge;
+		}
+		elseif($details->ImageUrlMedium) {
+			$image_url = $details->ImageUrlMedium;
+		}
+		if($image_url) {
+			print "Grabbing image for $album->DN\n";
+			$file = tempnam("/tmp/","cover");
+			file_put_contents($file,file_get_contents($image_url));
+			$image = new image();
+			$album->setField("image_id",$image->upload($file,$album->DN.".jpg"));
+		}
+	}
+}
 ?>
 </pre>

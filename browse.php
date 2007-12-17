@@ -14,7 +14,7 @@ else {
 
 	$album = new album();
 	if(isset($_REQUEST['id'])) {
-		$album->getListByType($type,$_REQUEST['id']);
+		$count = $album->getListByType($type,$_REQUEST['id']);
 		$typeObj = new $type();
 		$typeObj->get($_REQUEST['id']);
 		?>
@@ -24,9 +24,10 @@ else {
 	else {
 		if($type != "album") {
 			$typeObj = new $type();
-			$typeObj->getList();
+			$count = $typeObj->getList();
 			?>
 			<h2><?= ucwords($type) ?>s</h2>
+			<p><?= $count ?> found</p>
 			<ul>
 			<?php
 			while($typeObj->getNext()) { ?>
@@ -35,12 +36,13 @@ else {
 			}	
 		}
 		else {
-			$album->getList();
+			$count = $album->getList();
 		}
 	}
 	?>
 <!--	<h1>Albums</h1> -->
 	<div id="album_list">
+	<p><?= $count ?> albums</p>
 	<?php
 	while($album->getNext()) {
 		$album->displayThumb();

@@ -5,7 +5,9 @@ class album extends album_template {
 
 	function lookupOrAdd($name,$artist_id,$release_year)
 	{
-		if($this->getByOther(array('name'=>$name,'artist_id'=>$artist_id))) {
+		// not getting the album artist, just the track artist
+		#if($this->getByOther(array('name'=>$name,'artist_id'=>$artist_id))) {
+		if($this->getByOther(array('name'=>$name))) {
 			return($this->id);
 		}
 		else {
@@ -17,6 +19,11 @@ class album extends album_template {
 	function getListByType($type,$id)
 	{
 		return($this->getList("where ${type}_id='".$id."'"));
+	}
+		
+	function getByName($name)
+	{
+		return($this->getByOther(array('name'=>$name)));
 	}
 		
 

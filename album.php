@@ -20,6 +20,7 @@ $album->get($_REQUEST['album_id']);
 	<tr><th>Label:</th><td><a href="browse.php?type=label&id=<?= $label->id ?>"><?= $label->DN ?></a></td><tr>
 	</table>
 
+	<p><?= nl2br($album->summary); ?></p>
 	Tracks<br>
 	<ul>
 	<?php
