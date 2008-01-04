@@ -64,7 +64,7 @@ function amazon_getAlbum($artists,$album,$asin)
 				foreach($item->Artists as $artist) {
 					$artist = strtolower($artist);
 					if(in_array($artist,$artists)) {
-						print "Found match in amazon<br>\n";
+						print "Found match in amazon for $album<br>\n";
 						$details = $item;
 						$albumObj = new album();
 						$albumObj->getByName($album);

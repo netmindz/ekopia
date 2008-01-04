@@ -1,5 +1,4 @@
 <?php require("include/common.php"); ?>
-<?php include("header.inc.php"); ?>
 <?php
 
 $album = new album();
@@ -9,7 +8,9 @@ $album->get($_REQUEST['album_id']);
 	$artist = new artist();
 	$artist->get($album->artist_id);
 
+	$page_title = $artist->DN . " - " . $album->DN;
 	?>
+	<?php include("header.inc.php"); ?>
 	<h2><?= $album->DN ?></h2>
 	<div style="float: right">
 	<object width="280" height="280" type="application/x-shockwave-flash" data="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>"></object>

@@ -85,7 +85,7 @@ foreach($albums as $album_id=>$a) {
 			$file = tempnam("/tmp/","cover");
 			file_put_contents($file,file_get_contents($image_url));
 			$image = new image();
-			$album->setField("image_id",$image->upload($file,$album->DN.".jpg"));
+			$album->setField("image_id",$image->upload($file,ereg_replace("[^a-zA-Z]","",$album->DN).".jpg"));
 		}
 	}
 }

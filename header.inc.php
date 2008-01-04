@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>inspiralled - shop</title>
+<title>inspiralled - <?php if(isset($page_title)) { print $page_title; } else { ?>shop<?php } ?></title>
 <meta name="robots" content="index, follow" />
-	<link rel="shortcut icon" href="http://www.inspiralled.net/images/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="http://www.inspiralled.net/images/favicon.ico" /> -->
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="http://www.inspiralled.net/templates/sp_main/css/template_css.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="default.css"/>

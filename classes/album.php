@@ -11,7 +11,7 @@ class album extends album_template {
 			return($this->id);
 		}
 		else {
-			$this->setProperties(array('name'=>$name,'artist_id'=>$artist_id,'release_year'=>$release_year));
+			$this->setProperties(array('name'=>addslashes($name),'artist_id'=>$artist_id,'release_year'=>$release_year));
 			return($this->add());
 		}
 	}		
