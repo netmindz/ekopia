@@ -5,20 +5,28 @@ require("include/amazon.inc.php");
 
 function import_dir($src)
 {
+	global $files;
 	$hd = dir($src);
 	while($name = $hd->read()) {
 		if(is_file("$src/$name")&&ereg('\.flac$',$name)) {
-			import_file("$src/$name");
+			if(!in_array("$src/$name",$files)) {
+				import_file("$src/$name");
+				$files[] = "$src/$name";
+			}
+			else {
+				print "skipping $name\n";
+			}
 		}
 		elseif(is_dir("$src/$name")&&(!ereg('^\.',$name))) {
 			import_dir("$src/$name");
 		}
 	}
+	file_put_contents("to_import/seen.dat",implode("\n",$files));
 }
 
 function import_file($src)
 {
-	global $albums;	
+	global $albums;
 
 	$info_map = array('title'=>'name','tracknumber'=>'track_number','album'=>'album','artist'=>'artist','date'=>'release_year');
 	$raw = array();
@@ -62,6 +70,12 @@ function import_file($src)
 	print "<hr/>\n";
 }
 $albums = array();
+$files = array();
+
+$tmp = file("to_import/seen.dat");
+foreach($tmp as $t) {
+	$files[] = trim($t);
+}
 import_dir("to_import");
 
 print "<h1>Amazon lookups</h1>\n";

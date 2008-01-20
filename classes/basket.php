@@ -34,7 +34,15 @@ class basket extends basket_template {
 			$detail = new $type();
 			$detail->get($item->item_id);
 
+			$list[$item->id]['type'] = $item->type;
+			if($type == "album") {
+				$list[$item->id]['shipping'] = 1;
+			}
+			else {
+				$list[$item->id]['shipping'] = 0;
+			}
 			$list[$item->id]['name'] = ucwords($item->type) . ": " . $detail->DN;
+			if($type == "track") $list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
 			$list[$item->id]['value'] = $detail->price;
 		}
 		return($list);

@@ -41,7 +41,7 @@ $album->get($_REQUEST['album_id']);
 		(<a href="download.php?track_id=<?= $track->id ?>&type=wav">wav</a>)
 <?php } ?>
 		<?php
-		if($track->download == "yes") { 
+		if($track->price) { 
 			$download_avail = true;
 			?>
 			<input type="checkbox" name="tracks[<?= $track->id ?>]" checked="true">
