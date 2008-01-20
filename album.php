@@ -24,11 +24,13 @@ $album->get($_REQUEST['album_id']);
 	<p><?= nl2br($album->summary); ?></p>
 	Tracks<br>
 	<ul>
+	<form action="basket.php" method="POST">
 	<?php
 	
 	$track = new track();
 	$track->getTrackListings($album->id);
 	$track_artist = new artist();
+	$download_avail = false;
 	while($track->getNext()) {
 		$track_artist->get($track->artist_id);
 		?>
@@ -38,16 +40,32 @@ $album->get($_REQUEST['album_id']);
 		(<a href="download.php?track_id=<?= $track->id ?>&type=ogg">ogg</a>)
 		(<a href="download.php?track_id=<?= $track->id ?>&type=wav">wav</a>)
 <?php } ?>
+		<?php
+		if($track->download == "yes") { 
+			$download_avail = true;
+			?>
+			<input type="checkbox" name="tracks[<?= $track->id ?>]" checked="true">
+			<?
+		}
+		?>
 		</li>
 		<?php
 	}
 	?>
+	<?php
+	if($download_avail == true) { ?>
+		<input type="submit" class="inputbox" value=" Add Tracks to Basket ">
+		<?php
+	}
+	?>
+	</form>
 	</ul>
 		<?php if($album->price) { ?>
 		<form action="basket.php" method="POST">
 		<input type="hidden" name="action" value="add">
 		<input type="hidden" name="album_id" value="<?= $album->id ?>">
-		<input type="submit" value="Add to basket" class="inputbox">
+		&pound; <?= $album->price ?>
+		<input type="submit" value="Add CD basket" class="inputbox">
 		</form>
 		<?php } else { ?>
 		Coming soon to buy here

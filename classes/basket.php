@@ -11,7 +11,7 @@ class basket extends basket_template {
 		}
 		else {
 			$this->basket_ref = time();
-			@session_start();
+			session_start();
 			$_SESSION['basket_ref'] = $this->basket_ref;
 		}
 		if(!$this->getByOther(array('basket_ref'=>$this->basket_ref))) $this->add();
@@ -46,14 +46,14 @@ class basket extends basket_template {
 		return($item->delete($id));
 	}
 
-	function clearBasket()
+	function clear()
 	{
 		$items = $this->getItems();
 		foreach(array_keys($items) as $item_id) {
-			$item =  new item();
+			$item =  new basket_item();
 			$item->delete($item_id);
 		}
-		$this->delete($this->id);
+	#	$this->delete($this->id);
 	}
 }
 ?>

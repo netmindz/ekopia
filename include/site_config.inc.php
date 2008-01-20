@@ -3,10 +3,14 @@
 if(ereg('~',$_SERVER['PHP_SELF'])) {
 	$docroot="/home/will/public_html/id";
 	$CONF['url'] = "http://wjtvaio.netmindz.net/~will/id";
+	$CONF['paypal_address'] = 'seller_1197046991_biz@netmindz.net';
+	$CONF['paypal_host'] = 'www.sandbox.paypal.com';
 }
 else {
 	$docroot=$_SERVER['DOCUMENT_ROOT'];
 	$CONF['url'] = "http://shop.ralf.netmindz.net";
+	$CONF['paypal_address'] = 'paypal@inspiralled.net';
+	$CONF['paypal_host'] = 'www.paypal.com';
 }
 ini_set("include_path",".:$docroot/includes:$docroot/classes:" . ini_get("include_path"));
 

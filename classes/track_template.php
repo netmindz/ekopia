@@ -1,7 +1,7 @@
 <?
 class track_template
 {
-	var $id, $album_id, $track_number, $name, $artist_id, $duration, $download, $type_id, $tag_FKL;
+	var $id, $album_id, $track_number, $name, $artist_id, $duration, $type_id, $price, $tag_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -36,8 +36,8 @@ class track_template
 		$this->name = "";
 		$this->artist_id = "";
 		$this->duration = "";
-		$this->download = "";
 		$this->type_id = "";
+		$this->price = "";
 		$this->tag_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
@@ -69,8 +69,8 @@ class track_template
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['artist_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "artist", "gen_type" => "int");
 		$this->_field_descs['duration'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
-		$this->_field_descs['download'] = array ("type" => "enum('no','yes')", "default" => "no", "values" => array('no','yes',), "gen_type" => "enum");
 		$this->_field_descs['type_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "type", "gen_type" => "int");
+		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['tag_FKL'] = array ("fk" => "track_tag", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
@@ -116,11 +116,6 @@ class track_template
 		}//IF
 
 
-		if(!in_array($this->download,$this->_field_descs['download']['values']) && $this->download!='NULL') {
-			if($this->download!='') trigger_error("Invalid enum value ".$this->download." for track->download, using default",E_USER_WARNING);
-			$this->download = $this->_field_descs['download']['default'];
-		}//IF
-
 		if($this->type_id != (int)$this->type_id && $this->type_id!='NOW()' && $this->type_id!='NULL'){
 			trigger_error("wrong type for track->type_id",E_USER_WARNING);
 			settype($this->type_id,"int");
@@ -128,12 +123,12 @@ class track_template
 
 
 		
-		$raw_sql  = "INSERT INTO tracks (`album_id`, `track_number`, `name`, `artist_id`, `duration`, `download`, `type_id`)";
+		$raw_sql  = "INSERT INTO tracks (`album_id`, `track_number`, `name`, `artist_id`, `duration`, `type_id`, `price`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->album_id)."', '".addslashes($this->track_number)."', '".addslashes($this->name)."', '".addslashes($this->artist_id)."', '".addslashes($this->duration)."', '".addslashes($this->download)."', '".addslashes($this->type_id)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->album_id)."', '".addslashes($this->track_number)."', '".addslashes($this->name)."', '".addslashes($this->artist_id)."', '".addslashes($this->duration)."', '".addslashes($this->type_id)."', '".addslashes($this->price)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->album_id', '$this->track_number', '$this->name', '$this->artist_id', '$this->duration', '$this->download', '$this->type_id')";
+			$raw_sql.= " VALUES ('$this->album_id', '$this->track_number', '$this->name', '$this->artist_id', '$this->duration', '$this->type_id', '$this->price')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -190,11 +185,6 @@ class track_template
 		}//IF
 
 
-		if(!in_array($this->download,$this->_field_descs['download']['values']) && $this->download!='NULL') {
-			if($this->download!='') trigger_error("Invalid enum value ".$this->download." for track->download, using default",E_USER_WARNING);
-			$this->download = $this->_field_descs['download']['default'];
-		}//IF
-
 		if($this->type_id != (int)$this->type_id && $this->type_id!='NOW()' && $this->type_id!='NULL'){
 			trigger_error("wrong type for track->type_id",E_USER_WARNING);
 			settype($this->type_id,"int");
@@ -203,9 +193,9 @@ class track_template
 
 		$raw_sql  = "UPDATE tracks SET ";
 		if($addslashes) {
-			$raw_sql.= "`album_id`='".addslashes($this->album_id)."', `track_number`='".addslashes($this->track_number)."', `name`='".addslashes($this->name)."', `artist_id`='".addslashes($this->artist_id)."', `duration`='".addslashes($this->duration)."', `download`='".addslashes($this->download)."', `type_id`='".addslashes($this->type_id)."'";
+			$raw_sql.= "`album_id`='".addslashes($this->album_id)."', `track_number`='".addslashes($this->track_number)."', `name`='".addslashes($this->name)."', `artist_id`='".addslashes($this->artist_id)."', `duration`='".addslashes($this->duration)."', `type_id`='".addslashes($this->type_id)."', `price`='".addslashes($this->price)."'";
 		}else{
-			$raw_sql.= "`album_id`='$this->album_id', `track_number`='$this->track_number', `name`='$this->name', `artist_id`='$this->artist_id', `duration`='$this->duration', `download`='$this->download', `type_id`='$this->type_id'";
+			$raw_sql.= "`album_id`='$this->album_id', `track_number`='$this->track_number', `name`='$this->name', `artist_id`='$this->artist_id', `duration`='$this->duration', `type_id`='$this->type_id', `price`='$this->price'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1

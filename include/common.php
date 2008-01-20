@@ -10,8 +10,10 @@ require("classes/label.php");
 require("classes/track.php");
 require("classes/basket.php");
 require("classes/basket_item.php");
+require("classes/order.php");
 require("classes/image.php");
 
-if(count($_COOKIE)) session_start();
-
+if(count($_COOKIE)) {
+	session_start();
+}
 ?>

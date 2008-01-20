@@ -1,10 +1,11 @@
 <?php
 ob_start();
 print_r($_REQUEST);
-$message = ob_get_contents();
+$ipn = ob_get_contents();
 ob_end_clean();
-mail("will@netmindz.net","ipn",$message);
-file_put_contents("/tmp/ipn.txt",$message);
+file_put_contents("/tmp/ipn.txt",$ipn);
+
+include("include/common.php");
 
 // read the post from PayPal system and add 'cmd'
 $req = 'cmd=_notify-validate';
@@ -20,15 +21,7 @@ $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 $fp = fsockopen ('www.paypal.com', 80, $errno, $errstr, 30);
 
-// assign posted variables to local variables
-$item_name = $_POST['item_name'];
-$item_number = $_POST['item_number'];
-$payment_status = $_POST['payment_status'];
-$payment_amount = $_POST['mc_gross'];
-$payment_currency = $_POST['mc_currency'];
-$txn_id = $_POST['txn_id'];
-$receiver_email = $_POST['receiver_email'];
-$payer_email = $_POST['payer_email'];
+
 
 if (!$fp) {
 	// HTTP ERROR
@@ -42,11 +35,15 @@ if (!$fp) {
 			// check that receiver_email is your Primary PayPal email
 			// check that payment_amount/payment_currency are correct
 			// process payment
-
 			$order = new order();
+			$order->paypalIPN();
+			
 		}
 		else if (strcmp ($res, "INVALID") == 0) {
 			// log for manual investigation
+			mail("will@netmindz.net","IPN Error","res ($res) ipn($ipn");
+			$order = new order();
+			$order->paypalIPN();
 		}
 	}
 	fclose ($fp);

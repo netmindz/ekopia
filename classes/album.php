@@ -48,7 +48,7 @@ class album extends album_template {
                 <form action="basket.php" method="POST">
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="album_id" value="<?= $this->id ?>">
-                <input type="submit" value="Add to basket" class="inputbox">
+                &pound; <?= $this->price ?> <input type="submit" value="Add to basket" class="inputbox">
                 </form>
                 <?php } else { ?>
                 Coming soon to buy here
