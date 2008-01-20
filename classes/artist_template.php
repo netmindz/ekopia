@@ -48,6 +48,8 @@ class artist_template
 			'baskets'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'images'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'labels'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'line_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'orders'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'tags'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'track_tags'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'tracks'	=>	array ("pk"	=>	"id", "comment"	=>	""),

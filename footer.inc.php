@@ -19,10 +19,10 @@
           <div id="footerx_outer">
             <div id="footerx_inner">
 				<div align="center">
-	&copy; 2007 inspiralled</div>
+	&copy; 2008 inspiralled</div>
 
 <div id="signature">
-&copy; <a href="http://www.netmindz.net/?shop">WJT 2007</a>
+&copy; <a href="http://www.netmindz.net/?shop">WJT 2008</a>
 </div>
 
       	  </div>

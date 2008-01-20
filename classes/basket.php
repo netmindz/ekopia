@@ -45,5 +45,15 @@ class basket extends basket_template {
 		$item = new basket_item();
 		return($item->delete($id));
 	}
+
+	function clearBasket()
+	{
+		$items = $this->getItems();
+		foreach(array_keys($items) as $item_id) {
+			$item =  new item();
+			$item->delete($item_id);
+		}
+		$this->delete($this->id);
+	}
 }
 ?>

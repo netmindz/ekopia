@@ -42,6 +42,8 @@ if (!$fp) {
 			// check that receiver_email is your Primary PayPal email
 			// check that payment_amount/payment_currency are correct
 			// process payment
+
+			$order = new order();
 		}
 		else if (strcmp ($res, "INVALID") == 0) {
 			// log for manual investigation

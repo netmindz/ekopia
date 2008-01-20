@@ -10,6 +10,12 @@ div#album_thumb {
 	width: 250px;
 }
 
+a:hover   { color: #7c8b2c; font-weight: bold; text-decoration: none }
+
+div#album_thumb img {
+	border: none;
+}
+
 div#album_thumb_image {
 	float: left;
 	padding: 0px 15px 0px 0px;

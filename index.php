@@ -1,3 +1,4 @@
+<?php include("include/common.php"); ?>
 <?php include("header.inc.php"); ?>
 <h1>Welcome</h1>
 Welcome to the brand new inspiralled shop
@@ -27,19 +28,48 @@ if(ereg("OK",$banner)) {
                 list($key,$value) = explode(": ",$line);
                 $data[strtolower($key)] = $value;
         }
+	#print_r($data);
 	?>
 	<h2>Currently Playing In Store</h2>
-	<table>
+	<table width="100%">
 	<tr>
-		<th>Artist</th>
-		<td><?= $data['artist'] ?></td>
+		<th>Artist :</th>
+		<td><?= $data['artist'] ?>
+			<?php 
+			$artist = new artist();
+			if($artist->getByOther(array('name'=>$data['artist']))) {
+				?>
+				(<a href="browse.php?type=artist&id=<?= $artist->id ?>">View Tracks</a>)
+				<?php
+			}
+			?>
+		</td>
+		<td rowspan="3" align="center">
+		<?php
+		$album = new album();
+		if($album->getByOther(array('name'=>$data['album']))) {
+			?>
+			<a href="album.php?album_id=<?= $album->id ?>">
+			<?php
+			if($album->image_id) {
+				$image = new image();
+				$image->show($album->image_id,150,150);
+				print "<br>";
+			}
+			?>
+			View Album</a>
+
+			<?php
+		}
+		?>
+		</td>
 	</tr>
 	<tr>
-		<th>Album</th>
-		<td><?= $data['album'] ?></td>
+		<th>Album :</th>
+		<td><?if($album->id) { ?><a href="album.php?album_id=<?= $album->id ?>"><? } ?><?= $data['album'] ?><? if($album->id) { ?></a><? } ?></td>
 	</tr>
 	<tr>
-		<th>Track</th>
+		<th>Track :</th>
 		<td><?= $data['title'] ?></td>
 	</tr>
 	</table>

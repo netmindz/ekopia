@@ -49,4 +49,25 @@ else {
 	}
 	?>
 	</div>
+	<br clear="all">
+<?php
+if($type == "artist") {
+	?>
+	<h2>Tracks by <?= $typeObj->name ?></h2>
+	<ul>
+	<?php
+	$track = new track();
+	$count = $track->getList("where artist_id=$typeObj->id");
+	while($track->getNext()) {
+		$track_album = new album();
+		$track_album->get($track->album_id);
+		?>
+		<li><?= $track->DN ?> on <a href="album.php?album_id=<?= $track_album->id ?>"><?= $track_album->DN ?></a></li>
+		<?php
+	}
+	?>
+	</ul>
+	<?
+}
+?>
 <?php include("footer.inc.php"); ?>

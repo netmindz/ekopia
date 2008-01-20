@@ -32,7 +32,7 @@ $album->get($_REQUEST['album_id']);
 	while($track->getNext()) {
 		$track_artist->get($track->artist_id);
 		?>
-		<li><?= $track->track_number ?> - <?= $track->DN ?> - <?= $track_artist->DN ?></a>
+		<li><?= $track->track_number ?> - <?= $track->DN ?><?php if($track_artist->id != $artist->id)  { ?> - <a href="browse.php?type=artist&id=<?= $track_artist->id ?>"><?= $track_artist->DN ?></a><? } ?></a>
 <?php if($_SERVER['HTTP_HOST'] == "localhost") { ?>
 		(<a href="download.php?track_id=<?= $track->id ?>&type=mp3">mp3</a>)
 		(<a href="download.php?track_id=<?= $track->id ?>&type=ogg">ogg</a>)
