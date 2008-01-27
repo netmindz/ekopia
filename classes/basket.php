@@ -26,6 +26,7 @@ class basket extends basket_template {
 
 	function getItems()
 	{
+		$format_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'0.2','wav'=>'0.5');
 		$list = array();
 		$item = new basket_item();
 		$item->getList("where basket_id='$this->id'");
@@ -42,8 +43,11 @@ class basket extends basket_template {
 				$list[$item->id]['shipping'] = 0;
 			}
 			$list[$item->id]['name'] = ucwords($item->type) . ": " . $detail->DN;
-			if($type == "track") $list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
 			$list[$item->id]['value'] = $detail->price;
+			if($type == "track") {
+				$list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
+				$list[$item->id]['value'] += $format_prices[$_SESSION['format']];	
+			}
 		}
 		return($list);
 	}

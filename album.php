@@ -13,7 +13,8 @@ $album->get($_REQUEST['album_id']);
 	<?php include("header.inc.php"); ?>
 	<h2><?= $album->DN ?></h2>
 	<div style="float: right">
-	<object width="280" height="280" type="application/x-shockwave-flash" data="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>"></object>
+	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="280" height="280" id="player" align="middle">
+<param name="allowScriptAccess" value="sameDomain" /><param name="movie" value="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>" quality="high" bgcolor="#ffffff" width="280" height="280" name="player" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>
 	</div>
 	<?php $image = new image(); $image->show($album->image_id,250,250); ?>
 	<table>

@@ -78,6 +78,7 @@ if($basket_has_downloads) { ?>
 <option value="mp3" <? if($_SESSION['format'] == "mp3") print "selected"; ?>>MP3</option>
 <option value="ogg" <? if($_SESSION['format'] == "ogg") print "selected"; ?>>Ogg Vorbis</option>
 <option value="flac" <? if($_SESSION['format'] == "flac") print "selected"; ?>>Flac</option>
+<option value="wav" <? if($_SESSION['format'] == "wav") print "selected"; ?>>Wave</option>
 </select>
 <input type="submit" value=" Change Format " class="inputbox">
 </form>

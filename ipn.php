@@ -42,8 +42,8 @@ if (!$fp) {
 		else if (strcmp ($res, "INVALID") == 0) {
 			// log for manual investigation
 			mail("will@netmindz.net","IPN Error","res ($res) ipn($ipn");
-			$order = new order();
-			$order->paypalIPN();
+#			$order = new order();
+#			$order->paypalIPN();
 		}
 	}
 	fclose ($fp);
