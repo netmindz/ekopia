@@ -6,6 +6,7 @@ if(ereg('~',$_SERVER['PHP_SELF'])) {
 	$CONF['paypal_address'] = 'seller_1197046991_biz@netmindz.net';
 	$CONF['paypal_host'] = 'www.sandbox.paypal.com';
 	$CONF['shop_email'] = "will@netmindz.net";
+	$CONF['db_name'] = "idspiral_shop";
 }
 else {
 	$docroot=$_SERVER['DOCUMENT_ROOT'];
@@ -13,7 +14,8 @@ else {
 	$CONF['paypal_address'] = 'shop@inspiralled.net';
 	$CONF['paypal_host'] = 'www.paypal.com';
 	$CONF['shop_email'] = "shop@inspiralled.net";
-	
+	$CONF['db_name'] = "ekopia_shop";
+	$CONF['db_host'] = "ralf.netmindz.net";
 }
 ini_set("include_path",".:$docroot/includes:$docroot/classes:" . ini_get("include_path"));
 
@@ -23,9 +25,8 @@ $CONF['track']['order'] = "order by album_id,track_number,name";
 $CONF['album']['order'] = "order by name,release_year";
 $CONF['album']['DN'] = '<?php if($this->release_year) { $this->DN = $this->name . " (" . $this->release_year . ")"; } else { $this->DN = $this->name; } ?>';
 
-$CONF['db_name'] = "idspiral_shop";
-$CONF['db_username'] = "idspiral_shop";
-$CONF['db_pass'] = "idspiral_shoppass";
+$CONF['db_username'] = $CONF['db_name'];
+$CONF['db_pass'] = $CONF['db_username'] . "pass";
 $CONF['db_sys_admin'] = "will@netmindz.net";
 
 

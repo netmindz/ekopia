@@ -21,8 +21,8 @@ class track extends track_template {
 
 	function getDownload($type)
 	{
-		$raw = "raw/$this->album_id/$this->id.flac";
-		$download = "encoded/$this->album_id/$this->id.$type";
+		$raw = "../raw/$this->album_id/$this->track_number.flac";
+		$download = "../encoded/$this->album_id/$this->id.$type";
 		$filename = "$this->track_number - $this->name.$type"; 
 
 		$error = "";
@@ -88,7 +88,7 @@ class track extends track_template {
 
 	function getPreview()
 	{
-		$preview = "encoded/mp3/$this->album_id/preview_$this->id.mp3";
+		$preview = "../encoded/mp3/$this->album_id/preview_$this->id.mp3";
 		$filename = "$this->id.mp3"; 
 		$mime = "audio/mpeg";
 
@@ -146,7 +146,7 @@ class track extends track_template {
 
 	function _getRaw()
 	{
-		$file = "raw/$this->album_id/$this->track_number.flac";
+		$file = "../raw/$this->album_id/$this->track_number.flac";
 		if(!is_file($file)) {
 			return false;
 		}

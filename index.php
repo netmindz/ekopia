@@ -4,7 +4,7 @@
 Welcome to the brand new inspiralled shop
 <?php
 flush();
-$fp = fsockopen("10.0.11.6",6600);
+$fp = fsockopen("10.0.11.6",6600,$errno,$errstr,5);
 $banner = fgets($fp,255);
 if(ereg("OK",$banner)) {
 	fputs($fp,"status\n");

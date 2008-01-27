@@ -21,7 +21,7 @@ function import_dir($src)
 			import_dir("$src/$name");
 		}
 	}
-	file_put_contents("to_import/seen.dat",implode("\n",$files));
+	file_put_contents("../to_import/seen.dat",implode("\n",$files));
 }
 
 function import_file($src)
@@ -62,7 +62,7 @@ function import_file($src)
 
 	print_r($info);
 
-	$dest = "raw/" . $album->id . "/" . sprintf("%d",$track->track_number) . ".flac";
+	$dest = "../raw/" . $album->id . "/" . sprintf("%d",$track->track_number) . ".flac";
 	if(!is_dir(dirname($dest))) mkdir(dirname($dest));
 	if(!is_file($dest)) copy($src,$dest); 
 	set_time_limit(10);
@@ -72,11 +72,11 @@ function import_file($src)
 $albums = array();
 $files = array();
 
-$tmp = file("to_import/seen.dat");
+$tmp = file("../to_import/seen.dat");
 foreach($tmp as $t) {
 	$files[] = trim($t);
 }
-import_dir("to_import");
+import_dir("../to_import");
 
 print "<h1>Amazon lookups</h1>\n";
 
