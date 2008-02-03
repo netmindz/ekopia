@@ -218,7 +218,7 @@ class label_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "" ;
+		if(!$order) $order = "order by name" ;
 		$select = "SELECT labels.* FROM labels ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);

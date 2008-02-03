@@ -1,5 +1,9 @@
 <?php
 require("include/common.php");
+
+$page_title="@page_title@";
+ob_start();
+
 ?>
 <?php include("header.inc.php"); ?>
 
@@ -19,9 +23,11 @@ else {
 		$typeObj->get($_REQUEST['id']);
 		?>
 		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
-		<?php	
+		<?php
+		$page_title = ucwords($type) . " - " . $typeObj->DN;
 	}
 	else {
+		$page_title = "Browse " . ucwords($type);
 		if($type != "album") {
 			$typeObj = new $type();
 			$count = $typeObj->getList();
@@ -69,5 +75,12 @@ if($type == "artist") {
 	</ul>
 	<?
 }
+?>
+<?php
+
+$page = ob_get_contents();
+ob_end_clean();
+print str_replace("@page_title@",$page_title,$page);
+
 ?>
 <?php include("footer.inc.php"); ?>

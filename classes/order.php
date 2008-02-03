@@ -40,11 +40,14 @@ class order extends order_template {
 		$item_list = "";
 		foreach($paypal['item'] as $key=>$item) {
 				$item_list .= $item['name'] . "\n";
-				$bi = new basket_item();
-				$bi->get($item['number']);
-				$li = new line_item();
-				$li->create($bi->type.":".$bi->item_id,$item['price']);
-				$bi->delete($bi->id);
+				if($new_order) {
+					$bi = new basket_item();
+					$bi->get($item['number']);
+					$li = new line_item();
+					//$li->create($this->id,$bi->type.":".$bi->item_id,$item['price']);
+					$li->create($this->id,$item['name'],$item['price']);
+					$bi->delete($bi->id);
+				}
 		}
 		$address = $paypal['address']['name']."\n".$paypal['address']['street']."\n".$paypal['address']['city']."\n".$paypal['address']['state']."\n".$paypal['address']['zip']."\n".$paypal['address']['country'];
 

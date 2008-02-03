@@ -1,34 +1,10 @@
 <?php include("include/common.php"); ?>
+<?php require("include/mpd.php"); ?>
 <?php include("header.inc.php"); ?>
 <h1>Welcome</h1>
 Welcome to the brand new inspiralled shop
 <?php
-flush();
-$fp = fsockopen("10.0.11.6",6600,$errno,$errstr,5);
-$banner = fgets($fp,255);
-if(ereg("OK",$banner)) {
-	fputs($fp,"status\n");
-	$sanity = 0;
-	$data = array();
-	while($line = trim(fgets($fp,255))) {
-		#print $line . "<br>\n";
-		if($sanity > 1000) break;
-		$sanity++;
-		if($line=="OK") break;
-		list($key,$value) = explode(": ",$line);
-		$data[$key] = $value;
-	}
-
-	fputs($fp,"playlistinfo " . $data['song'] . "\n");
-	        while($line = trim(fgets($fp,255))) {
-                #print $line . "<br>\n";
-                if($sanity > 1000) break;
-                $sanity++;
-                if($line=="OK") break;
-                list($key,$value) = explode(": ",$line);
-                $data[strtolower($key)] = $value;
-        }
-	#print_r($data);
+if($data = mpd_now_playing()) {
 	?>
 	<h2>Currently Playing In Store</h2>
 	<table width="100%">
@@ -70,7 +46,7 @@ if(ereg("OK",$banner)) {
 	</tr>
 	<tr>
 		<th>Track :</th>
-		<td><?= $data['title'] ?></td>
+		<td><?= $data['title'] ?> (<?= $data['time'] ?>)</td>
 	</tr>
 	</table>
 	<?php

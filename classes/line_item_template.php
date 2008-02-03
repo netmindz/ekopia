@@ -1,7 +1,7 @@
 <?
 class line_item_template
 {
-	var $id, $item, $price;
+	var $id, $order_id, $item, $price;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -31,6 +31,7 @@ class line_item_template
 	{
 		$this->id = 0;
 
+		$this->order_id = "";
 		$this->item = "";
 		$this->price = "";
 		
@@ -58,6 +59,7 @@ class line_item_template
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['order_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "order", "gen_type" => "int");
 		$this->_field_descs['item'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 
@@ -80,13 +82,19 @@ class line_item_template
 		}//IF
 
 
+		if($this->order_id != (int)$this->order_id && $this->order_id!='NOW()' && $this->order_id!='NULL'){
+			trigger_error("wrong type for line_item->order_id",E_USER_WARNING);
+			settype($this->order_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO line_items (`item`, `price`)";
+		$raw_sql  = "INSERT INTO line_items (`order_id`, `item`, `price`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->item)."', '".addslashes($this->price)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->order_id)."', '".addslashes($this->item)."', '".addslashes($this->price)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->item', '$this->price')";
+			$raw_sql.= " VALUES ('$this->order_id', '$this->item', '$this->price')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -119,11 +127,17 @@ class line_item_template
 		}//IF
 
 
+		if($this->order_id != (int)$this->order_id && $this->order_id!='NOW()' && $this->order_id!='NULL'){
+			trigger_error("wrong type for line_item->order_id",E_USER_WARNING);
+			settype($this->order_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE line_items SET ";
 		if($addslashes) {
-			$raw_sql.= "`item`='".addslashes($this->item)."', `price`='".addslashes($this->price)."'";
+			$raw_sql.= "`order_id`='".addslashes($this->order_id)."', `item`='".addslashes($this->item)."', `price`='".addslashes($this->price)."'";
 		}else{
-			$raw_sql.= "`item`='$this->item', `price`='$this->price'";
+			$raw_sql.= "`order_id`='$this->order_id', `item`='$this->item', `price`='$this->price'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1

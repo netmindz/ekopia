@@ -41,7 +41,7 @@ class album extends album_template {
 		$image->show($this->image_id,100,100);
 		?></a>
 		</div>
-                Album: <a href="album.php?album_id=<?= $this->id ?>"><?= $this->DN ?></a><br>
+                Album: <a href="album.php?album_id=<?= $this->id ?>"><?= $this->name ?></a><br>
                 Artist: <a href="browse.php?type=artist&id=<?= $artist->id ?>"><?= $artist->DN ?></a><br>
                 Label: <a href="browse.php?type=label&id=<?= $label->id ?>"><?= $label->DN ?></a><br>
                 <?php if($this->price) { ?>

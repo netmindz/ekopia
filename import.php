@@ -11,7 +11,7 @@ function import_dir($src)
 		if(is_file("$src/$name")&&ereg('\.flac$',$name)) {
 			if(!in_array("$src/$name",$files)) {
 				import_file("$src/$name");
-				$files[] = "$src/$name";
+				$files[] = str_replace("../","","$src/$name");
 			}
 			else {
 				print "skipping $name\n";
