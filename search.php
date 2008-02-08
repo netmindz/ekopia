@@ -21,6 +21,25 @@ if($_REQUEST['keyword']) {
 	<br clear="all"/>
 	<?php
 
+	$artist = new artist();
+	if($artist->search($_REQUEST['keyword'],array('name'))) {
+		?>
+		<h2>Artists</h2>
+		<ul>
+		<?php
+		while($artist->getNext()) { 
+			?><li><a href="browse.php?type=artist&id=<?= $artist->id ?>"><?= $artist->DN ?></a></li><?
+		}
+		?>
+		</ul>
+		<?
+	}
+	else 	{
+		?>
+		<p>No Artists matches your search</p>
+		<?php
+	}
+
 	$track = new track();
 	if($track->search($_REQUEST['keyword'],array('name'))) {
 		?>
