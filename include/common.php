@@ -13,6 +13,7 @@ require("classes/basket_item.php");
 require("classes/order.php");
 require("classes/image.php");
 require("classes/line_item.php");
+require("classes/page.php");
 
 if(count($_COOKIE)) {
 	session_start();

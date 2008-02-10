@@ -60,6 +60,7 @@ class album_template
 			'labels'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'line_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'orders'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'pages'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'tags'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'track_tags'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'tracks'	=>	array ("pk"	=>	"id", "comment"	=>	""),
@@ -69,7 +70,7 @@ class album_template
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
-		$this->_field_descs['summary'] = array ("type" => "tinytext", "gen_type" => "text");
+		$this->_field_descs['summary'] = array ("type" => "tinytext", "gen_type" => "text", "extra_type" => "richtext");
 		$this->_field_descs['artist_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "artist", "gen_type" => "int");
 		$this->_field_descs['label_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "label", "gen_type" => "int");
 		$this->_field_descs['release_year'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");

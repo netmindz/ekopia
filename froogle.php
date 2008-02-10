@@ -22,7 +22,7 @@ function get_rss() {
 		$artist = new artist();
 		$artist->get($album->artist_id);
 		$rss .= '<item>
-<title>'.htmlspecialchars($album->name).'</title>
+<title>'.htmlspecialchars($album->name).' CD Album by '.htmlspecialchars($artist->name).'</title>
 <g:expiration_date>'.date("Y-m-d",strtotime("next month")).'</g:expiration_date>
 <g:brand>'.htmlspecialchars($artist->name).'</g:brand>
 <g:condition>new</g:condition>
@@ -34,7 +34,13 @@ function get_rss() {
 <g:product_type>CD</g:product_type>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
 <g:edition>'.$album->release_year.'</g:edition>
+<g:year>'.$album->release_year.'</g:year>
 <g:format>CD</g:format>
+<g:payment_accepted>Cash</g:payment_accepted>
+<g:payment_accepted>Visa</g:payment_accepted>
+<g:payment_accepted>MasterCard</g:payment_accepted>
+<g:payment_notes>Cash only for pickup from store</g:payment_notes>
+<g:pickup>true</g:pickup>
 </item>';
 	}
 	$rss .= '</channel></rss>';

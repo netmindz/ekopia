@@ -92,4 +92,8 @@
 		
 		<span class="article_seperator">&nbsp;</span>
 
-					
+<?php
+$page = new page();
+$page->getByOther(array('name'=>basename($_SERVER['PHP_SELF'])));
+print $page->content;
+?>			

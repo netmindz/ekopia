@@ -25,6 +25,8 @@ $CONF['type']['order'] = "order by name";
 $CONF['track']['order'] = "order by album_id,track_number,name";
 $CONF['album']['order'] = "order by name,release_year";
 $CONF['album']['DN'] = '<?php if($this->release_year) { $this->DN = $this->name . " (" . $this->release_year . ")"; } else { $this->DN = $this->name; } ?>';
+$CONF['album']['richtext'] = array('summary');
+$CONF['page']['richtext'] = array('content');
 
 $CONF['db_username'] = $CONF['db_name'];
 $CONF['db_pass'] = $CONF['db_username'] . "pass";

@@ -9,9 +9,10 @@ function import_dir($src)
 	$hd = dir($src);
 	while($name = $hd->read()) {
 		if(is_file("$src/$name")&&ereg('\.flac$',$name)) {
-			if(!in_array("$src/$name",$files)) {
+			$key = str_replace("../","","$src/$name");
+			if(!in_array($key,$files)) {
 				import_file("$src/$name");
-				$files[] = str_replace("../","","$src/$name");
+				$files[] = $key;
 			}
 			else {
 				print "skipping $name\n";

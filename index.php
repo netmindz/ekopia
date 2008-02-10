@@ -1,8 +1,6 @@
 <?php include("include/common.php"); ?>
 <?php require("include/mpd.php"); ?>
 <?php include("header.inc.php"); ?>
-<h1>Welcome</h1>
-Welcome to the brand new inspiralled shop
 <?php
 if($data = mpd_now_playing()) {
 	?>
