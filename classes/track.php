@@ -88,7 +88,7 @@ class track extends track_template {
 
 	function getPreview()
 	{
-		$preview = "../encoded/mp3/$this->album_id/preview_$this->id.mp3";
+		$preview = "previews/$this->album_id/$this->track_number.mp3";
 		$filename = "$this->id.mp3"; 
 		$mime = "audio/mpeg";
 
@@ -116,6 +116,7 @@ class track extends track_template {
 			@unlink($preview);
 		}
 		if(!$error)  {
+			/*
 			header("Content-Type: $mime");
 			header("Content-Length: " . filesize($preview));
 			header("Content-Disposition: attachment;filename=" . urlencode($filename));
@@ -123,6 +124,9 @@ class track extends track_template {
 			while(!feof($fh)) {
 				print fgets($fh,255);
 			}
+			*/
+			header("Location: $preview");
+			exit();
 		}
 		else {
 			return($error);
