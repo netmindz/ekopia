@@ -4,7 +4,7 @@ function mpd_now_playing()
 {
 	flush();
 	$data = array();
-	$fp = @fsockopen("10.0.11.6",6600,$errno,$errstr,5);
+	$fp = @fsockopen("10.0.11.4",6600,$errno,$errstr,5);
 	if($fp) {
 		$banner = fgets($fp,255);
 		if(ereg("OK",$banner)) {
