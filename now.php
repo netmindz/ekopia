@@ -29,7 +29,7 @@ if($data = mpd_now_playing()) { ?>
 			$artist = new artist();
 			if($artist->getByOther(array('name'=>$data['artist']))) {
 				?>
-				(<a href="browse.php?type=artist&id=<?= $artist->id ?>">View Tracks</a>)
+				(<a href="browse.php?type=artist&id=<?= $artist->id ?>" target="_new">View Tracks</a>)
 				<?php
 			}
 			?>
@@ -37,7 +37,7 @@ if($data = mpd_now_playing()) { ?>
 	</tr>
 	<tr>
 		<td>Album :</td>
-		<td><?if($album->id) { ?><a href="album.php?album_id=<?= $album->id ?>"><? } ?><?= $data['album'] ?><? if($album->id) { ?></a><? } ?></td>
+		<td><?if($album->id) { ?><a href="album.php?album_id=<?= $album->id ?>" target="_new" ><? } ?><?= $data['album'] ?><? if($album->id) { ?></a><? } ?></td>
         </tr>
 	<tr>
 		<td>Track :</td>
