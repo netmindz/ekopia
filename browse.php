@@ -25,6 +25,7 @@ else {
 		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
 		<?php
 		$page_title = ucwords($type) . " - " . $typeObj->DN;
+		print $typeObj->summary;
 	}
 	else {
 		$page_title = "Browse " . ucwords($type);

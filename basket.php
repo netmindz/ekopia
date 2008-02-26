@@ -83,7 +83,7 @@ if($basket_has_downloads) { ?>
 <input type="submit" value=" Change Format " class="inputbox">
 </form>
 <? } ?>
-<br>
+<br/>
 <form name="_xclick" action="https://<?= $CONF['paypal_host'] ?>/uk/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_cart">
 <input type="hidden" name="upload" value="1">

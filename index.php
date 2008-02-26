@@ -13,7 +13,7 @@ if($data = mpd_now_playing()) {
 			$artist = new artist();
 			if($artist->getByOther(array('name'=>$data['artist']))) {
 				?>
-				(<a href="browse.php?type=artist&id=<?= $artist->id ?>">View Tracks</a>)
+				(<a href="browse.php?type=artist&amp;id=<?= $artist->id ?>">View Tracks</a>)
 				<?php
 			}
 			?>
@@ -28,7 +28,7 @@ if($data = mpd_now_playing()) {
 			if($album->image_id) {
 				$image = new image();
 				$image->show($album->image_id,150,150);
-				print "<br>";
+				print "<br/>";
 			}
 			?>
 			View Album</a>

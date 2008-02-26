@@ -143,7 +143,7 @@ var rnd = Math.round(Math.random() * 4)
 								<tr align="left"><td><a href="browse.php?type=album" class="mainlevel" >Albums</a></td></tr>
 								<tr align="left"><td><a href="browse.php?type=artist" class="mainlevel" >Artists</a></td></tr>
 								<tr align="left"><td><a href="browse.php?type=label" class="mainlevel" >Labels</a></td></tr>
-								<tr align="left"><td><a href="browse.php?type=type" class="mainlevel" >Genres</a></td></tr>
+								<!-- <tr align="left"><td><a href="browse.php?type=type" class="mainlevel" >Genres</a></td></tr> -->
 							</table>		
 				</div>
 				<div class="moduletable">
@@ -153,7 +153,7 @@ var rnd = Math.round(Math.random() * 4)
 				<tr>
 			<td valign="top" colspan="2">
 			<form action="search.php">
-			<input type="text" name="keyword" class="inputbox" size="10">
+			<input type="text" name="keyword" class="inputbox" size="10"/>
 			</form>
 			</td>
 

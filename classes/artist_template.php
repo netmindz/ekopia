@@ -1,7 +1,7 @@
 <?
 class artist_template
 {
-	var $id, $name;
+	var $id, $name, $summary;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -32,6 +32,7 @@ class artist_template
 		$this->id = 0;
 
 		$this->name = "";
+		$this->summary = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -59,6 +60,7 @@ class artist_template
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['summary'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
 
 	}//__constructor
 	
@@ -80,12 +82,12 @@ class artist_template
 
 
 		
-		$raw_sql  = "INSERT INTO artists (`name`)";
+		$raw_sql  = "INSERT INTO artists (`name`, `summary`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->name)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->summary)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->name')";
+			$raw_sql.= " VALUES ('$this->name', '$this->summary')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -120,9 +122,9 @@ class artist_template
 
 		$raw_sql  = "UPDATE artists SET ";
 		if($addslashes) {
-			$raw_sql.= "`name`='".addslashes($this->name)."'";
+			$raw_sql.= "`name`='".addslashes($this->name)."', `summary`='".addslashes($this->summary)."'";
 		}else{
-			$raw_sql.= "`name`='$this->name'";
+			$raw_sql.= "`name`='$this->name', `summary`='$this->summary'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1

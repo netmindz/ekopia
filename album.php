@@ -23,9 +23,9 @@ $album->get($_REQUEST['album_id']);
 	</table>
 
 	<p><?= nl2br($album->summary); ?></p>
-	Tracks<br>
+	Tracks<br/>
 	<ul>
-	<form action="basket.php" method="POST">
+	<form action="basket.php" method="post">
 	<?php
 	
 	$track = new track();
@@ -45,7 +45,7 @@ $album->get($_REQUEST['album_id']);
 		if($track->price) { 
 			$download_avail = true;
 			?>
-			<input type="checkbox" name="tracks[<?= $track->id ?>]" checked="true">
+			<input type="checkbox" name="tracks[<?= $track->id ?>]" checked="true" />
 			<?
 		}
 		?>
@@ -55,7 +55,7 @@ $album->get($_REQUEST['album_id']);
 	?>
 	<?php
 	if($download_avail == true) { ?>
-		<input type="submit" class="inputbox" value=" Add Tracks to Basket ">
+		<input type="submit" class="inputbox" value=" Add Tracks to Basket "/>
 		<?php
 	}
 	?>
@@ -63,10 +63,10 @@ $album->get($_REQUEST['album_id']);
 	</ul>
 		<?php if($album->price) { ?>
 		<form action="basket.php" method="POST">
-		<input type="hidden" name="action" value="add">
-		<input type="hidden" name="album_id" value="<?= $album->id ?>">
+		<input type="hidden" name="action" value="add"/>
+		<input type="hidden" name="album_id" value="<?= $album->id ?>"/>
 		&pound; <?= $album->price ?>
-		<input type="submit" value="Add CD basket" class="inputbox">
+		<input type="submit" value="Add CD basket" class="inputbox"/>
 		</form>
 		<?php } else { ?>
 		Coming soon to buy here
