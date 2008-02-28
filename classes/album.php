@@ -7,11 +7,27 @@ class album extends album_template {
 	{
 		// not getting the album artist, just the track artist
 		#if($this->getByOther(array('name'=>$name,'artist_id'=>$artist_id))) {
+		if(ereg('^(.+) \[(.+)\]$',$name,$matches)) {
+			$name = $matches[1];
+			$label_reference = $matches[2];
+		}
+		else {
+			$label_reference = "";
+		}
+		if(eregi('^(.+) \((.+ records)\)$',$name,$matches)) {
+			$name = $matches[1];
+			$label = new label();
+			$label_id = $label->LookupOrAdd($matches[2]);
+		}
+		else {
+			$label_id = 0;
+		}
 		if($this->getByOther(array('name'=>$name))) {
 			return($this->id);
 		}
 		else {
-			$this->setProperties(array('name'=>addslashes($name),'artist_id'=>$artist_id,'release_year'=>$release_year));
+			$this->setProperties(array('name'=>addslashes($name),'artist_id'=>$artist_id,
+			'release_year'=>$release_year,'label_reference'=>$label_reference,'label_id'=>$label_id));
 			return($this->add());
 		}
 	}		
