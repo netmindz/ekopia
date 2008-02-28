@@ -7,6 +7,7 @@ if(ereg('~',$_SERVER['PHP_SELF'])||(isset($_SERVER['HOSTNAME']))) {
 	$CONF['paypal_host'] = 'www.sandbox.paypal.com';
 	$CONF['shop_email'] = "will@netmindz.net";
 	$CONF['db_name'] = "idspiral_shop";
+	$CONF['use_rewrite'] = false;
 }
 else {
 	$docroot=$_SERVER['DOCUMENT_ROOT'];
@@ -16,6 +17,7 @@ else {
 	$CONF['shop_email'] = "shop@inspiralled.net";
 	$CONF['db_name'] = "ekopia_shop";
 	$CONF['db_host'] = "ralf.netmindz.net";
+	$CONF['use_rewrite'] = true;
 }
 ini_set("include_path",".:$docroot/includes:$docroot/classes:" . ini_get("include_path"));
 

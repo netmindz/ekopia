@@ -10,19 +10,27 @@ ob_start();
 <?php include("header.inc.php"); ?>
 
 <?php
+
+$type = "album";
+if(ereg("/browse/([^/]+)(.*)",$_SERVER['PHP_SELF'],$matches)) {
+	$type = $matches[1];
+	if(ereg("/[^/]+/([0-9]+)",$matches[2],$mat)) {
+		$id = $mat[1];
+	}
+}
 if((isset($_REQUEST['type']))&&(in_array($_REQUEST['type'],array('artist','album','label',"type")))) {
 	$type = $_REQUEST['type'];
 }
-else {
-	$type = "album";
+if(isset($_REQUEST['id'])) {
+	$id = $_REQUEST['id'];
 }
 
 
 	$album = new album();
-	if(isset($_REQUEST['id'])) {
-		$count = $album->getListByType($type,$_REQUEST['id']);
+	if(isset($id)) {
+		$count = $album->getListByType($type,$id);
 		$typeObj = new $type();
-		$typeObj->get($_REQUEST['id']);
+		$typeObj->get($id);
 		?>
 		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
 		<?php
@@ -41,9 +49,8 @@ else {
 			<ul>
 			<?php
 			while($typeObj->getNext()) { ?>
-				<li><a href="browse.php?type=<?= $type ?>&id=<?= $typeObj->id ?>"><?= $typeObj->DN ?></a></li>
+				<li><a href="<?= browse_link($type,$typeObj->id,$typeObj->DN) ?>"><?= $typeObj->DN ?></a></li>
 				<?php
-				$keywords[] = $typeObj->DN;
 			}	
 		}
 		else {
@@ -76,7 +83,7 @@ if($type == "artist") {
 		?>
 		<li><?= $track->DN ?> on <a href="album.php?album_id=<?= $track_album->id ?>"><?= $track_album->DN ?></a></li>
 		<?php
-		$keywords[] = $track_album->DN;
+		$keywords[] = $track->DN;
 	}
 	?>
 	</ul>
@@ -87,8 +94,9 @@ if($type == "artist") {
 
 $page = ob_get_contents();
 ob_end_clean();
-print str_replace("@page_title@",$page_title,$page);
-print str_replace("@page_keywords@",implode(",",$keywords),$page);
+$page = str_replace("@page_title@",$page_title,$page);
+$page = str_replace("@page_keywords@",implode(", ",$keywords),$page);
+print $page;
 
 ?>
 <?php include("footer.inc.php"); ?>

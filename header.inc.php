@@ -3,14 +3,14 @@
 <head>
 <title>inspiralled - <?php if(isset($page_title)) { print $page_title; } else { ?>shop<?php } ?></title>
 <meta name="description" content="A showcase for some of the finest in downbeat electronica, multimedia" />
-<meta name="keywords" content="inSpiral lounge, chillout lounge, psychill lounge, psychill cafe, chillout music shop, psychill music shop, downbeat electronica music shop, <?php if(isset($page_keywords)) print $page_keywords ?>" />
+<meta name="keywords" content="inSpiral, chillout, psychill, downbeat, <?php if(isset($page_keywords)) print $page_keywords ?>" />
 <meta name="robots" content="index, follow" />
 	<link rel="shortcut icon" href="http://www.inspiralled.net/images/favicon.ico" />
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="http://www.inspiralled.net/templates/sp_main2/css/template_css.css" rel="stylesheet" type="text/css" />
 <link href="http://www.inspiralled.net/css/content.css" rel="stylesheet" type="text/css" />
 
-<link href="default.css" rel="stylesheet" type="text/css" />
+<link href="<?= $CONF['url'] ?>/default.css" rel="stylesheet" type="text/css" />
 
 
 <!--[if lte IE 6]>
@@ -122,9 +122,9 @@ var rnd = Math.round(Math.random() * 4)
               <ul id="mainlevel-nav">
 				<!-- nav -->
 <li><a href="http://www.inspiralled.net/">Inspiral Homepage</a></li>
-<li><a href="./">Shop Homepage</a></li>
-<li><a href="browse.php">Browse</a></li>
-<li><a href="basket.php">Basket</a></li>
+<li><a href="<?= $CONF['url']?>">Shop Homepage</a></li>
+<li><a href="<?= $CONF['url']?>/browse.php">Browse</a></li>
+<li><a href="<?= $CONF['url']?>/basket.php">Basket</a></li>
 
 </ul>            </div>
 
@@ -139,9 +139,9 @@ var rnd = Math.round(Math.random() * 4)
               		<div class="moduletable">
 							<h3>Browse</h3>
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
-								<tr align="left"><td><a href="browse.php?type=album" class="mainlevel" >Albums</a></td></tr>
-								<tr align="left"><td><a href="browse.php?type=artist" class="mainlevel" >Artists</a></td></tr>
-								<tr align="left"><td><a href="browse.php?type=label" class="mainlevel" >Labels</a></td></tr>
+								<tr align="left"><td><a href="<?= browse_link("album") ?>" class="mainlevel" >Albums</a></td></tr>
+								<tr align="left"><td><a href="<?= browse_link("artist") ?>" class="mainlevel" >Artists</a></td></tr>
+								<tr align="left"><td><a href="<?= browse_link("label") ?>" class="mainlevel" >Labels</a></td></tr>
 								<!-- <tr align="left"><td><a href="browse.php?type=type" class="mainlevel" >Genres</a></td></tr> -->
 							</table>		
 				</div>
@@ -151,7 +151,7 @@ var rnd = Math.round(Math.random() * 4)
 		<table class="contentpaneopen">
 				<tr>
 			<td valign="top" colspan="2">
-			<form action="search.php">
+			<form action="<?= $CONF['url'] ?>/search.php" method="post">
 			<input type="text" name="keyword" class="inputbox" size="10"/>
 			</form>
 			</td>

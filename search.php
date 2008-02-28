@@ -18,7 +18,7 @@ if($_REQUEST['keyword']) {
 		<?php
 	}
 	?>
-	<br clear="all"/>
+	<br clear="left"/> 
 	<?php
 
 	$artist = new artist();
@@ -28,7 +28,7 @@ if($_REQUEST['keyword']) {
 		<ul>
 		<?php
 		while($artist->getNext()) { 
-			?><li><a href="browse.php?type=artist&id=<?= $artist->id ?>"><?= $artist->DN ?></a></li><?
+			?><li><a href="<?= browse_link("artist",$artist->id,$artist->DN) ?>"><?= $artist->DN ?></a></li><?
 		}
 		?>
 		</ul>

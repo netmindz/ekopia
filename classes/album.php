@@ -29,6 +29,7 @@ class album extends album_template {
 
 	function displayThumb()
 	{
+		global $CONF;
 		$label = new label();
                 $label->get($this->label_id);
                 $artist = new artist();
@@ -42,10 +43,10 @@ class album extends album_template {
 		?></a>
 		</div>
                 Album: <a href="album.php?album_id=<?= $this->id ?>"><?= $this->name ?></a><br/>
-                Artist: <a href="browse.php?type=artist&amp;id=<?= $artist->id ?>"><?= $artist->DN ?></a><br/>
-                Label: <a href="browse.php?type=label&amp;id=<?= $label->id ?>"><?= $label->DN ?></a><br/>
+                Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
+                Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
                 <?php if($this->price) { ?>
-                <form action="basket.php" method="post">
+                <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
                 <input type="hidden" name="album_id" value="<?= $this->id ?>" />
                 &pound; <?= $this->price ?> <input type="submit" value="Add to basket" class="inputbox" />

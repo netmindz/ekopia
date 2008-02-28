@@ -18,4 +18,26 @@ require("classes/page.php");
 if(count($_COOKIE)) {
 	session_start();
 }
+
+function browse_link($type,$id="",$name="")
+{
+        global $CONF;
+        if($CONF['use_rewrite']) {
+                if($id) {
+                        return("/browse/$type/".urlencode($name)."/$id");
+                }
+                else {
+                        return("/browse/$type");
+                }
+        }
+        else {
+                if($id) {
+                        return($CONF['url']."/browse.php?type=$type&amp;id=$id");
+                }
+                else {
+                        return($CONF['url']."/browse.php?type=$type");
+                }
+        }
+}
+
 ?>

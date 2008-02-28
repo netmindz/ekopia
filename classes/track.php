@@ -142,8 +142,8 @@ class track extends track_template {
 		?>
 		<div id="track_thumb">
 		Track: <?= $this->DN ?><br>
-		Artist: <?= $artist->DN ?><br>
-		Album: <a href="album.php?album_id=<?= $album->id ?>"><?= $album->DN ?></a><br>
+		Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN) ?>"><?= $artist->DN ?></a><br/>
+		Album: <a href="album.php?album_id=<?= $album->id ?>"><?= $album->DN ?></a><br/>
 		</div>
 		<?php
 	}
