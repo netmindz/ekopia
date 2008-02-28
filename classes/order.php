@@ -8,10 +8,16 @@ class order extends order_template {
 		global $CONF;
 		$new_order = false;
 		$payment_updated = false;
-		if(!$this->getByOther(array('paypal_txn_id'=>$_REQUEST['txn_id']))) {
-			$this->paypal_txn_id = $_REQUEST['txn_id'];
-			$this->add();
-			$new_order = true;
+		if(isset($_REQUEST['parent_txn_id'])) {
+			// refund
+			$this->getByOther(array('paypal_txn_id'=>$_REQUEST['parent_txn_id']));
+		}
+		else {
+			if(!$this->getByOther(array('paypal_txn_id'=>$_REQUEST['txn_id']))) {
+				$this->paypal_txn_id = $_REQUEST['txn_id'];
+				$this->add();
+				$new_order = true;
+			}
 		}
 		if($this->payment_status != $_REQUEST['payment_status']) $payment_updated = true;
 		
