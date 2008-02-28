@@ -2,6 +2,8 @@
 require("include/common.php");
 
 $page_title="@page_title@";
+$page_keywords="@page_keywords@";
+$keywords = array();
 ob_start();
 
 ?>
@@ -26,6 +28,7 @@ else {
 		<?php
 		$page_title = ucwords($type) . " - " . $typeObj->DN;
 		print $typeObj->summary;
+		$keywords[] = $typeObj->DN;
 	}
 	else {
 		$page_title = "Browse " . ucwords($type);
@@ -39,7 +42,8 @@ else {
 			<?php
 			while($typeObj->getNext()) { ?>
 				<li><a href="browse.php?type=<?= $type ?>&id=<?= $typeObj->id ?>"><?= $typeObj->DN ?></a></li>
-			<?php
+				<?php
+				$keywords[] = $typeObj->DN;
 			}	
 		}
 		else {
@@ -53,6 +57,7 @@ else {
 	<?php
 	while($album->getNext()) {
 		$album->displayThumb();
+		$keywords[] = $album->name;
 	}
 	?>
 	</div>
@@ -71,6 +76,7 @@ if($type == "artist") {
 		?>
 		<li><?= $track->DN ?> on <a href="album.php?album_id=<?= $track_album->id ?>"><?= $track_album->DN ?></a></li>
 		<?php
+		$keywords[] = $track_album->DN;
 	}
 	?>
 	</ul>
@@ -82,6 +88,7 @@ if($type == "artist") {
 $page = ob_get_contents();
 ob_end_clean();
 print str_replace("@page_title@",$page_title,$page);
+print str_replace("@page_keywords@",implode(",",$keywords),$page);
 
 ?>
 <?php include("footer.inc.php"); ?>

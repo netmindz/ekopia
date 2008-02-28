@@ -2,9 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>inspiralled - <?php if(isset($page_title)) { print $page_title; } else { ?>shop<?php } ?></title>
-<meta name="description" content="A showcase for some of the finest in visionary cuisine, downbeat electronica, multimedia and performances, healthy living and conscious being." />
-<meta name="keywords" content="inSpiral lounge, chillout lounge, psychill lounge, psychill cafe, visionary cuisine, conscious books, organic cafe, organic food, fair trade cafe, chillout music shop, psychill music shop, downbeat electronica music shop, vegetarian food, vegan food, organic salad bar, healthy cakes, green, positive change, eco, conscious, environmental" />
-<meta name="Generator" content="Joomla! - Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved." />
+<meta name="description" content="A showcase for some of the finest in downbeat electronica, multimedia" />
+<meta name="keywords" content="inSpiral lounge, chillout lounge, psychill lounge, psychill cafe, chillout music shop, psychill music shop, downbeat electronica music shop, <?php if(isset($page_keywords)) print $page_keywords ?>" />
 <meta name="robots" content="index, follow" />
 	<link rel="shortcut icon" href="http://www.inspiralled.net/images/favicon.ico" />
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
