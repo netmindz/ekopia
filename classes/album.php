@@ -53,12 +53,12 @@ class album extends album_template {
 		 ?>
                 <div id="album_thumb">
 		<div id="album_thumb_image">
-		<a href="album.php?album_id=<?= $this->id ?>"><?php
+		<a href="<?= $CONF['url'] ?>/album.php?album_id=<?= $this->id ?>"><?php
 		$image = new image();
 		$image->show($this->image_id,100,100);
 		?></a>
 		</div>
-                Album: <a href="album.php?album_id=<?= $this->id ?>"><?= $this->name ?></a><br/>
+                Album: <a href="<?= $CONF['url'] ?>/album.php?album_id=<?= $this->id ?>"><?= $this->name ?></a><br/>
                 Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
                 Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
                 <?php if($this->price) { ?>

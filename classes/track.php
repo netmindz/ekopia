@@ -53,8 +53,8 @@ class track extends track_template {
 				$id3 = "--tt \"$this->name\" ";
 				$id3 .= "--ta \"$artist->name\" ";
 				$id3 .= "--tl \"$album->name\" ";
-				exec($this->_getRaw() . " | lame --preset cd --replaygain-accurate --brief -c $id3 - $download 2>&1",$results,$return);
-				if($return) $error = implode("\n",$results);
+				$id3 .= "--tn $this->track_number ";
+				$exec = $this->_getRaw() . " | lame --preset cd --replaygain-accurate --brief -c $id3 - $download 2>&1";
 			}
 			elseif($type == "ogg") {
 				$mime = "application/ogg";
@@ -62,11 +62,14 @@ class track extends track_template {
 				$id3 .= "--tracknum $this->track_number ";
 				$id3 .= "--artist \"$artist->name\" ";
 				$id3 .= "--album \"$album->name\" ";
-				exec($this->_getRaw() . " | oggenc -q 7 $id3 --raw - -o $download 2>&1",$results,$return);
-				if($return) $error = implode("\n",$results);
+				$exec = $this->_getRaw() . " | oggenc -q 7 $id3 --raw - -o $download 2>&1";
 			}
 			else {
 				$error = "Unsupported type requested";
+			}
+			if(!is_file($download)) {
+				exec($exec,$results,$return);
+                                if($return) $error = implode("\n",$results);
 			}
 			if((!is_file($download))||(!filesize($download))) {
 				$error = "failed to find download in the $type format (" . $error . ")";

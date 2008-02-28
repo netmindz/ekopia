@@ -45,7 +45,7 @@ class order extends order_template {
 					$bi->get($item['number']);
 					$li = new line_item();
 					//$li->create($this->id,$bi->type.":".$bi->item_id,$item['price']);
-					$li->create($this->id,$item['name'],$item['price']);
+					$li->create($this->id,$item['name'],$item['price'],$bi->type,$bi->item_id);
 					$bi->delete($bi->id);
 				}
 		}
@@ -53,7 +53,7 @@ class order extends order_template {
 
 		if($new_order) {	
 			mail($CONF['shop_email'],"Shop Order : #$this->id","Payment Status: $this->payment_status\nItems:\n".$item_list."\n Address:\n" . $address . "\nDebug: $message","From: ".$CONF['shop_email']);
-			mail($this->customer_email,"Order Confirmation #$this->id","Thankyou for you order from our online shop.\n\nPayment Status: $this->payment_status\n\nItems:\n" . $item_list . "\nAddress: " . $address,"From: ".$CONF['shop_email']."\nBcc: will@netmindz.net");
+			mail($this->customer_email,"Order Confirmation #$this->id","Thankyou for you order from our online shop.\n\nPayment Status: $this->payment_status\n\nItems:\n" . $item_list . "\nAddress: " . $address ."\n\n".$CONF['url']."/complete.php?order_id=$this->id&email=".urlencode($this->customer_email),"From: ".$CONF['shop_email']."\nBcc: will@netmindz.net");
 		}
 		elseif($payment_updated) {
 			mail($CONF['shop_email'],"Order Update : #$this->id","Payment Status: $this->payment_status");

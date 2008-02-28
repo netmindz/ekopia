@@ -84,6 +84,7 @@ if($basket_has_downloads) { ?>
 </form>
 <? } ?>
 <br/>
+<h2>Checkout</h2>
 <form name="_xclick" action="https://<?= $CONF['paypal_host'] ?>/uk/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_cart">
 <input type="hidden" name="upload" value="1">
@@ -106,6 +107,8 @@ if($basket_has_downloads) { ?>
 ?>
 <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </form>
+<br/>
+<br>
 <!--
 <form action="" method="post">
 <input type="submit" value=" Pay ">

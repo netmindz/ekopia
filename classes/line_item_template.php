@@ -1,7 +1,7 @@
 <?
 class line_item_template
 {
-	var $id, $order_id, $item, $price;
+	var $id, $order_id, $item, $price, $type, $item_id;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -34,6 +34,8 @@ class line_item_template
 		$this->order_id = "";
 		$this->item = "";
 		$this->price = "";
+		$this->type = "";
+		$this->item_id = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -63,6 +65,8 @@ class line_item_template
 		$this->_field_descs['order_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "order", "gen_type" => "int");
 		$this->_field_descs['item'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
+		$this->_field_descs['type'] = array ("type" => "varchar(50)", "length" => "50", "gen_type" => "string");
+		$this->_field_descs['item_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -89,13 +93,19 @@ class line_item_template
 		}//IF
 
 
+		if($this->item_id != (int)$this->item_id && $this->item_id!='NOW()' && $this->item_id!='NULL'){
+			trigger_error("wrong type for line_item->item_id",E_USER_WARNING);
+			settype($this->item_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO line_items (`order_id`, `item`, `price`)";
+		$raw_sql  = "INSERT INTO line_items (`order_id`, `item`, `price`, `type`, `item_id`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->order_id)."', '".addslashes($this->item)."', '".addslashes($this->price)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->order_id)."', '".addslashes($this->item)."', '".addslashes($this->price)."', '".addslashes($this->type)."', '".addslashes($this->item_id)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->order_id', '$this->item', '$this->price')";
+			$raw_sql.= " VALUES ('$this->order_id', '$this->item', '$this->price', '$this->type', '$this->item_id')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -134,11 +144,17 @@ class line_item_template
 		}//IF
 
 
+		if($this->item_id != (int)$this->item_id && $this->item_id!='NOW()' && $this->item_id!='NULL'){
+			trigger_error("wrong type for line_item->item_id",E_USER_WARNING);
+			settype($this->item_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE line_items SET ";
 		if($addslashes) {
-			$raw_sql.= "`order_id`='".addslashes($this->order_id)."', `item`='".addslashes($this->item)."', `price`='".addslashes($this->price)."'";
+			$raw_sql.= "`order_id`='".addslashes($this->order_id)."', `item`='".addslashes($this->item)."', `price`='".addslashes($this->price)."', `type`='".addslashes($this->type)."', `item_id`='".addslashes($this->item_id)."'";
 		}else{
-			$raw_sql.= "`order_id`='$this->order_id', `item`='$this->item', `price`='$this->price'";
+			$raw_sql.= "`order_id`='$this->order_id', `item`='$this->item', `price`='$this->price', `type`='$this->type', `item_id`='$this->item_id'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1
