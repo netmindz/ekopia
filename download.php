@@ -12,7 +12,7 @@ $li = new line_item();
 $li->get($_REQUEST['item_id']);
 if($li->order_id != $order->id) exit("Error");
 
-if(ereg(' \(([a-z]+)\)$',$li->item,$matches)) {
+if(ereg(' \(([a-z3]+)\)$',$li->item,$matches)) {
 	$type = $matches[1];
 }
 else {

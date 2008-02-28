@@ -54,7 +54,7 @@ class track extends track_template {
 				$id3 .= "--ta \"$artist->name\" ";
 				$id3 .= "--tl \"$album->name\" ";
 				$id3 .= "--tn $this->track_number ";
-				$exec = $this->_getRaw() . " | lame --preset cd --replaygain-accurate --brief -c $id3 - $download 2>&1";
+				$exec = $this->_getRaw() . " | lame --preset cd --brief -c $id3 - $download 2>&1";
 			}
 			elseif($type == "ogg") {
 				$mime = "application/ogg";
