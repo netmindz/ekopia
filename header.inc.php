@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>inspiralled - <?php if(isset($page_title)) { print $page_title; } else { ?>shop<?php } ?></title>
+<title><?php if(isset($page_title)) { print $page_title; } else { ?>Inspiralled Shop<?php } ?></title>
 <meta name="description" content="A showcase for some of the finest in downbeat electronica, multimedia" />
 <meta name="keywords" content="inSpiral, chillout, psychill, downbeat, <?php if(isset($page_keywords)) print $page_keywords ?>" />
 <meta name="robots" content="index, follow" />

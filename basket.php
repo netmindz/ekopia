@@ -30,7 +30,8 @@ if(isset($_REQUEST['clear'])) {
 <?php
 $items = $basket->getItems();
 if(count($items)) { ?>
-<table width="90%" border=0>
+<h2>Basket</h2>
+<table width="90%" border="0">
 <tr>
 	<th>Item</th>
 	<th>Price</th>
@@ -61,12 +62,10 @@ if(count($items)) { ?>
 <tr>
 	<th align="right">Shipping Total:</th>
         <th>&pound; <?= $shipping ?></th>
-        <th>&nbsp;</th>
 </tr>
 <tr>
 	<th align="right">Total:</th>
         <th>&pound; <?= ($shipping + $total) ?></th>
-        <th>&nbsp;</th>
 </tr>
 </table>
 </form>
@@ -114,5 +113,7 @@ if($basket_has_downloads) { ?>
 <input type="submit" value=" Pay ">
 -->
 </form>
+<?php } else { ?>
+<h2>Basket Empty</h2>
 <?php } ?>
 <? include("footer.inc.php"); ?>

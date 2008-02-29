@@ -1,6 +1,7 @@
 <?php require("include/common.php"); ?>
 <?php
 
+
 $album = new album();
 $album->get($_REQUEST['album_id']);
 	$label = new label();
@@ -11,10 +12,10 @@ $album->get($_REQUEST['album_id']);
 	$page_title = $artist->DN . " - " . $album->DN;
 	?>
 	<?php include("header.inc.php"); ?>
-	<h2><?= $album->DN ?></h2>
+	<h2><?= $album->DN ?> by <a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></h2>
 	<div style="float: right">
 	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="280" height="280" id="player" align="middle">
-<param name="allowScriptAccess" value="sameDomain" /><param name="movie" value="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>" quality="high" bgcolor="#ffffff" width="280" height="280" name="player" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>
+<PARAM NAME="wmode" VALUE="transparent"> <param name="allowScriptAccess" value="sameDomain" /><param name="movie" value="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="mp3player.swf?playlist=playlist.php?album_id=<?= $album->id ?>" quality="high" bgcolor="#ffffff" width="280" height="280" name="player" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" /></object>
 	</div>
 	<?php $image = new image(); $image->show($album->image_id,250,250); ?>
 	<table>

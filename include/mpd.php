@@ -21,6 +21,7 @@ function mpd_now_playing()
 			}
 	
 			fputs($fp,"playlistinfo " . $data['song'] . "\n");
+			$data['title'] = "";
 			while(($line = trim(fgets($fp,255)))&&($sanity < 1000)) {
 					$sanity++;
 					if($line=="OK") break;
