@@ -43,7 +43,7 @@ if(count($items)) { ?>
 	$basket_has_downloads = false;
 	foreach($items as $id=>$details) {
 		$total += $details['value'];
-		$total += $details['shipping'];
+		$shipping += $details['shipping'];
 		if($details['type'] == "track") $basket_has_downloads = true;
 		?>
 		<tr>
