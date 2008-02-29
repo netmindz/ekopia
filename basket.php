@@ -16,6 +16,14 @@ if(isset($_POST['tracks'])) {
 if(!isset($_SESSION['format'])) $_SESSION['format'] = "mp3";
 if(isset($_POST['format'])) $_SESSION['format'] = $_POST['format'];
 
+$default_country = "row";
+if(isset($_SERVER['GEOIP_CONTINENT_CODE'])&&$_SERVER['GEOIP_CONTINENT_CODE'] == "EU") $default_country = "eu";
+if(isset($_SERVER['GEOIP_COUNTRY_CODE'])&&$_SERVER['GEOIP_COUNTRY_CODE'] == "GB") $default_country = "uk";
+if(!isset($_SESSION['country'])) $_SESSION['country'] = $default_country;
+
+if(isset($_POST['country'])) $_SESSION['country'] = $_POST['country'];
+
+
 if(isset($_REQUEST['remove_id'])) {
 	$basket->removeItem($_REQUEST['remove_id']);
 }
@@ -46,8 +54,8 @@ if(count($items)) { ?>
 		$shipping += $details['shipping'];
 		if($details['type'] == "track") $basket_has_downloads = true;
 		?>
-		<tr>
-			<td><?= $details['name'] ?></td>
+		<tr valign="middle">
+			<td><? if(isset($details['image_id'])) { $image = new image(); $image->show($details['image_id'],50,50,"align=\"left\""); } ?><?= $details['name'] ?></td>
 			<td>&pound;<?= $details['value'] ?></td>
 			<td><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
 		</tr>
@@ -82,6 +90,14 @@ if($basket_has_downloads) { ?>
 <input type="submit" value=" Change Format " class="inputbox">
 </form>
 <? } ?>
+<form method="POST" name="country">
+<select name="country" onChange="document.forms.country.submit()">
+<option value="uk" <? if($_SESSION['country'] == "uk") print "selected"; ?>>UK</option>
+<option value="eu" <? if($_SESSION['country'] == "eu") print "selected"; ?>>Europe</option>
+<option value="row" <? if($_SESSION['country'] == "row") print "selected"; ?>>Rest of world</option>
+</select>
+<input type="submit" value=" Change Shipping " class="inputbox">
+</form>
 <br/>
 <h2>Checkout</h2>
 <form name="_xclick" action="https://<?= $CONF['paypal_host'] ?>/uk/cgi-bin/webscr" method="post">
