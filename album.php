@@ -25,8 +25,8 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	</div>
 	<?php $image = new image(); $image->show($album->image_id,250,250); ?>
 	<table>
-	<tr><th>Artist:</th><td><a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></td><tr>
-	<tr><th>Label:</th><td><a href="<?= browse_link("label",$label->id,$label->name) ?>"><?= $label->DN ?></a></td><tr>
+	<tr><th>Artist:</th><td><a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></td></tr>
+	<tr><th>Label:</th><td><a href="<?= browse_link("label",$label->id,$label->name) ?>"><?= $label->DN ?></a></td></tr>
 	</table>
 
 	<p><?= nl2br($album->summary); ?></p>
