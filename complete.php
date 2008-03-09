@@ -1,9 +1,9 @@
 <?php include("include/common.php"); ?>
-<?php include("header.inc.php"); ?>
 <?php
 $basket = new basket();
 $basket->clear();
 ?>
+<?php include("header.inc.php"); ?>
 <h1>Thankyou</h1>
 Thankyou for your order from the shop. You should get an email shortly confirming your order
 <?php

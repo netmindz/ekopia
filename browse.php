@@ -34,12 +34,12 @@ if(isset($_REQUEST['id'])) {
 		?>
 		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
 		<?php
-		$page_title = ucwords($type) . " - " . $typeObj->DN;
+		$page_title = ucwords($type) . " - " . $typeObj->DN . " @ inspiralled shop";
 		print $typeObj->summary;
 		$keywords[] = $typeObj->DN;
 	}
 	else {
-		$page_title = "Browse " . ucwords($type);
+		$page_title = "Browse " . ucwords($type) . "s @ inspiralled shop";
 		if($type != "album") {
 			$typeObj = new $type();
 			$count = $typeObj->getList();
@@ -81,7 +81,7 @@ if($type == "artist") {
 		$track_album = new album();
 		$track_album->get($track->album_id);
 		?>
-		<li><?= $track->DN ?> on <a href="album.php?album_id=<?= $track_album->id ?>"><?= $track_album->DN ?></a></li>
+		<li><?= $track->DN ?> on <a href="<?= album_link($track_album->id,$track_album->name) ?>"><?= $track_album->DN ?></a></li>
 		<?php
 		$keywords[] = $track->DN;
 	}

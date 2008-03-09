@@ -40,4 +40,14 @@ function browse_link($type,$id="",$name="")
         }
 }
 
+function album_link($album_id,$name)
+{
+	global $CONF;
+	if($CONF['use_rewrite']) {
+		return("/album/$album_id/" . urlencode($name));
+	}
+	else {
+		return($CONF['url']."/album.php?album_id=".$album_id);
+	}
+}
 ?>

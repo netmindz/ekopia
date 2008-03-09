@@ -29,7 +29,7 @@ function get_rss() {
 <description>'.htmlspecialchars($album->summary).'</description>
 <guid>'.$album->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
-<link>'.$CONF['url'].'/album.php?album_id='.$album->id.'</link>
+<link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
 <g:price>'.$album->price.'</g:price>
 <g:product_type>CD</g:product_type>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>

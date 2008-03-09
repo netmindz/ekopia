@@ -58,7 +58,7 @@ class album extends album_template {
 		$image->show($this->image_id,100,100,"alt=\"$this->name\" title=\"Click to view album $this->name\"");
 		?></a>
 		</div>
-                Album: <a href="<?= $CONF['url'] ?>/album.php?album_id=<?= $this->id ?>"><?= $this->name ?></a><br/>
+                Album: <a href="<?= album_link($this->id,$this->name) ?>"><?= $this->name ?></a><br/>
                 Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
                 Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
                 <?php if($this->price) { ?>
