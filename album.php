@@ -82,7 +82,12 @@ else {
 	<div id="album_list">
 	<?php
 	$alist = new album();
-	$alist->getList("where label_id=" . $label->id,"order by rand()","limit 0,4");
+	if($artist->id != 198) $alist->getList("where artist_id=" . $artist->id,"order by rand()","limit 0,2");
+	while($alist->getNext()) { ?>
+		<?php
+		$alist->displayThumb();
+	}
+	$alist->getList("where label_id=" . $label->id,"order by rand()","limit 0,2");
 	while($alist->getNext()) { ?>
 		<?php
 		$alist->displayThumb();
