@@ -78,7 +78,18 @@ else {
 		<?php } else { ?>
 		Coming soon to buy here
 		<?php } ?>
+	<h2>Similar Albums</h2>
+	<div id="album_list">
 	<?php
-?>
+	$alist = new album();
+	$alist->getList("where label_id=" . $label->id);
+	while($alist->getNext()) { ?>
+		<?php
+		$alist->albumThumb();
+	}
+	?>
+	</div>
+		
+	
 <?php include("footer.inc.php"); ?>
 
