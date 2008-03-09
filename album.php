@@ -85,7 +85,7 @@ else {
 	$alist->getList("where label_id=" . $label->id);
 	while($alist->getNext()) { ?>
 		<?php
-		$alist->albumThumb();
+		$alist->displayThumb();
 	}
 	?>
 	</div>
