@@ -14,7 +14,8 @@ else {
 	$artist = new artist();
 	$artist->get($album->artist_id);
 
-	$page_title = $artist->DN . " - " . $album->DN;
+	$page_title = $artist->DN . " - " . $album->DN . " on " . $label->DN;
+	$page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN));
 	?>
 	<?php include("header.inc.php"); ?>
 	<h2><?= $album->DN ?> by <a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></h2>
