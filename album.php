@@ -9,13 +9,13 @@ if(ereg("/album/([^/]+)(.*)",$_SERVER['PHP_SELF'],$matches)) {
 else {
 	$album->get($_REQUEST['album_id']);
 }
-	$label = new label();
-	$label->get($album->label_id);
-	$artist = new artist();
-	$artist->get($album->artist_id);
+$label = new label();
+$label->get($album->label_id);
+$artist = new artist();
+$artist->get($album->artist_id);
 
-	$page_title = $artist->DN . " - " . $album->DN . " on " . $label->DN;
-	$page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN));
+$page_title = $artist->DN . " - " . $album->DN . " on " . $label->DN;
+$page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN));
 	?>
 	<?php include("header.inc.php"); ?>
 	<h2><?= $album->DN ?> by <a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></h2>
@@ -79,7 +79,7 @@ else {
 		Coming soon to buy here
 		<?php } ?>
 	<h2>Similar Albums</h2>
-	<div id="album_list">
+<!--	<div id="album_list"> -->
 	<?php
 	$alist = new album();
 	if($artist->id != 198) $alist->getList("where id != $album->id AND artist_id=$artist->id","order by rand()","limit 0,2");
@@ -93,7 +93,7 @@ else {
 		$alist->displayThumb();
 	}
 	?>
-	</div>
+<!--	</div> -->
 		
 	
 <?php include("footer.inc.php"); ?>
