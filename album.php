@@ -69,7 +69,7 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	</ul>
 	</form>
 		<?php if($album->price) { ?>
-		<form action="<?= $CONF['url'] ?>/basket.php" method="POST">
+		<form action="<?= $CONF['url'] ?>/basket.php" method="post">
 		<input type="hidden" name="action" value="add"/>
 		<input type="hidden" name="album_id" value="<?= $album->id ?>"/>
 		&pound; <?= $album->price ?>
