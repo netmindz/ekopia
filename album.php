@@ -31,8 +31,8 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 
 	<p><?= nl2br($album->summary); ?></p>
 	Tracks<br/>
-	<ul>
 	<form action="<?= $CONF['url'] ?>/basket.php" method="post">
+	<ul>
 	<?php
 	
 	$track = new track();
@@ -42,7 +42,7 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	while($track->getNext()) {
 		$track_artist->get($track->artist_id);
 		?>
-		<li><?= $track->track_number ?> - <?= $track->DN ?><?php if($track_artist->id != $artist->id)  { ?> - <a href="<?= browse_link("artist",$track_artist->id,$track_artist->name) ?>"><?= $track_artist->DN ?></a><? } ?></a>
+		<li><?= $track->track_number ?> - <?= $track->DN ?><?php if($track_artist->id != $artist->id)  { ?> - <a href="<?= browse_link("artist",$track_artist->id,$track_artist->name) ?>"><?= $track_artist->DN ?></a><? } ?>
 <?php if($_SERVER['HTTP_HOST'] == "localhost") { ?>
 		(<a href="download.php?track_id=<?= $track->id ?>&type=mp3">mp3</a>)
 		(<a href="download.php?track_id=<?= $track->id ?>&type=ogg">ogg</a>)
@@ -66,8 +66,8 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 		<?php
 	}
 	?>
-	</form>
 	</ul>
+	</form>
 		<?php if($album->price) { ?>
 		<form action="<?= $CONF['url'] ?>/basket.php" method="POST">
 		<input type="hidden" name="action" value="add"/>
