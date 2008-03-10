@@ -46,12 +46,15 @@ while($line_item->getNext()) {
 }
 ?>
 </ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 <h2>See also</h2>
 <p>If you like these, you might also want to check out these albums</p>
 <div id="album_list">
 <?php
 $album = new album();
-$album->getList("where album_id not in (".implode(",",$albums).") AND ((artist_id in (".implode(",",$artists).") OR (label_id in (".implode(",",$labels)."))))","order by rand()","limit 0,4");
+$album->getList("where id not in (".implode(",",$albums).") AND ((artist_id in (".implode(",",$artists).") OR (label_id in (".implode(",",$labels)."))))","order by rand()","limit 0,4");
 while($album->getNext()) {
 	$album->displayThumb();
 }
