@@ -1,5 +1,6 @@
 <pre>
 <?php
+
 require("include/common.php");
 require("include/amazon.inc.php");
 
@@ -63,9 +64,14 @@ function import_file($src)
 
 	print_r($info);
 
+
 	$dest = "../raw/" . $album->id . "/" . sprintf("%d",$track->track_number) . ".flac";
-	if(!is_dir(dirname($dest))) mkdir(dirname($dest));
-	if(!is_file($dest)) copy($src,$dest); 
+        $path = pathinfo($_SERVER['DOCUMENT_ROOT'] . "/" . $src);
+        $src = $path['dirname'] . "/" . $path['basename'];
+        if(!is_dir(dirname($dest))) mkdir(dirname($dest));
+        if(is_file($dest)) unlink($dest);
+        if(!is_link($dest)) symlink($src,$dest);
+
 	set_time_limit(10);
 	flush();
 	print "<hr/>\n";
