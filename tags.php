@@ -19,18 +19,19 @@ $tag = new tag();
 if(!$id) {
 	?>
 	<h1>Tags</h1>
-	<ul>
+	<p>
 	<?
 	$page_title = "Tags";
-	$tag->getList();
-	while($tag->getNext()) {
+	$tags = $tag->getTags();
+	foreach($tags as $tag) {
 		$keywords[] = $tag->DN . " albums and tracks";
+		$size = floor(28 * $tag->perc);
 		?>
-		<li><a href="tags.php?id=<?= $tag->id ?>"><?= $tag->DN ?></a></li>
+		<a href="tags.php?id=<?= $tag->id ?>" style="font-size <?= $size ?>px"><?= str_replace(" ","&nbsp;",$tag->DN) ?></a>
 		<?
 	}
 	?>
-	</ul>
+	</p>
 	<?
 }
 else {
