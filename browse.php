@@ -81,7 +81,7 @@ if($type == "artist") {
 		$track_album = new album();
 		$track_album->get($track->album_id);
 		?>
-		<li><?= $track->DN ?> on <a href="<?= album_link($track_album->id,$track_album->name) ?>"><?= $track_album->DN ?></a></li>
+		<li><?= $track->name ?> on <a href="<?= album_link($track_album->id,$track_album->name) ?>"><?= $track_album->DN ?></a></li>
 		<?php
 		$keywords[] = $track->DN;
 	}

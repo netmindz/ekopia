@@ -50,7 +50,7 @@ function get_rss() {
 
 if(ereg("download",$_SERVER['QUERY_STRING'])) {
 	header("Content-Type: text/xml");
-	header("Content-Disposition: attachment;filename=".$destination_file);
+	//header("Content-Disposition: attachment;filename=".$destination_file);
 	print get_rss();
 	exit();
 }

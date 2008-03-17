@@ -24,10 +24,10 @@ if(!$id) {
 	$page_title = "Tags";
 	$tags = $tag->getTags();
 	foreach($tags as $tag) {
-		$keywords[] = $tag->DN . " albums and tracks";
+		$keywords[] = $tag->name;
 		$size = floor(28 * $tag->perc);
 		?>
-		<a href="tags.php?id=<?= $tag->id ?>" style="font-size <?= $size ?>px"><?= str_replace(" ","&nbsp;",$tag->DN) ?></a>
+		<a href="tags.php?id=<?= $tag->id ?>" style="font-size: <?= $size ?>px"><?= str_replace(" ","&nbsp;",$tag->name) ?></a>
 		<?
 	}
 	?>
@@ -36,8 +36,8 @@ if(!$id) {
 }
 else {
 	$tag->get($id);
-	$page_title = $tag->DN;
-	$keywords[] = $tag->DN;
+	$page_title = $tag->name;
+	$keywords[] = $tag->name;
 	?>
 	<h1><?= $tag->DN ?></h1>
 	<div id="albm_list">
@@ -45,10 +45,22 @@ else {
 	$atag = new album_tag();
 	$atag->getList("where tag_FK=".$tag->id,"order by rand()");
 	while($atag->getNext()) {
-		$keywords[] = $album->name;
 		$album = new album();
-		$album->get($atag->album_id);
+		$album->get($atag->album_FK);
 		$album->displayThumb();
+		$keywords[] = $album->name;
+	}
+	?>
+	</div>
+	<div id="track_list">
+	<?
+	$ttag = new track_tag();
+	$ttag->getList("where tag_FK=".$tag->id,"order by rand()");
+	while($ttag->getNext()) {
+		$track = new track();
+		$track->get($atag->track_FK);
+		$track->displayThumb();
+		$keywords[] = $track->name;
 	}
 	?>
 	</div>

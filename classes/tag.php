@@ -10,7 +10,7 @@ class tag extends tag_template {
 		$max = 0;
 		$list = array();
 		$tmp = new tag();
-		$tmp->getList();
+		$tmp->getList("where public='yes'");
 		while($tmp->getNext()) {
 			$at = new album_tag();
 			$i = $at->getList("where tag_FK=$tmp->id");

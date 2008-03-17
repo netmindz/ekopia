@@ -1,7 +1,7 @@
 <?
 class tag_template
 {
-	var $id, $name, $album_FKL, $track_FKL;
+	var $id, $name, $public, $album_FKL, $track_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -32,6 +32,7 @@ class tag_template
 		$this->id = 0;
 
 		$this->name = "";
+		$this->public = "";
 		$this->album_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		$this->track_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
@@ -61,6 +62,7 @@ class tag_template
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(50)", "length" => "50", "gen_type" => "string");
+		$this->_field_descs['public'] = array ("type" => "enum('yes','no')", "default" => "yes", "values" => array('yes','no',), "gen_type" => "enum");
 		$this->_field_descs['album_FKL'] = array ("fk" => "album_tag", "gen_type" => "many2many", "fkl" => "1");
 		$this->_field_descs['track_FKL'] = array ("fk" => "track_tag", "gen_type" => "many2many", "fkl" => "1");
 
@@ -83,13 +85,18 @@ class tag_template
 		}//IF
 
 
+		if(!in_array($this->public,$this->_field_descs['public']['values']) && $this->public!='NULL') {
+			if($this->public!='') trigger_error("Invalid enum value ".$this->public." for tag->public, using default",E_USER_WARNING);
+			$this->public = $this->_field_descs['public']['default'];
+		}//IF
+
 		
-		$raw_sql  = "INSERT INTO tags (`name`)";
+		$raw_sql  = "INSERT INTO tags (`name`, `public`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->name)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->public)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->name')";
+			$raw_sql.= " VALUES ('$this->name', '$this->public')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -122,11 +129,16 @@ class tag_template
 		}//IF
 
 
+		if(!in_array($this->public,$this->_field_descs['public']['values']) && $this->public!='NULL') {
+			if($this->public!='') trigger_error("Invalid enum value ".$this->public." for tag->public, using default",E_USER_WARNING);
+			$this->public = $this->_field_descs['public']['default'];
+		}//IF
+
 		$raw_sql  = "UPDATE tags SET ";
 		if($addslashes) {
-			$raw_sql.= "`name`='".addslashes($this->name)."'";
+			$raw_sql.= "`name`='".addslashes($this->name)."', `public`='".addslashes($this->public)."'";
 		}else{
-			$raw_sql.= "`name`='$this->name'";
+			$raw_sql.= "`name`='$this->name', `public`='$this->public'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1

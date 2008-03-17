@@ -50,6 +50,11 @@ class order extends order_template {
 					$bi = new basket_item();
 					$bi->get($item['number']);
 					$li = new line_item();
+					if($bi->type == "album") {
+						$album = new album();
+						$album->get($bi->item_id);
+						$album->setField("stock_count",($album->stock_count - 1));
+					}
 					//$li->create($this->id,$bi->type.":".$bi->item_id,$item['price']);
 					$li->create($this->id,$item['name'],$item['price'],$bi->type,$bi->item_id);
 					$bi->delete($bi->id);
