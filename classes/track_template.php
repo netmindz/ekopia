@@ -332,11 +332,8 @@ class track_template
 			//convert from DB properties
 			$this->convertDBProperties('from');		//needs to be changed to 'php' when legacy stuff is removed
 
-			if (isset($this->name) && ($this->name))
-				$this->DN = $this->name;
-			elseif (isset($this->title) && ($this->title))
-				$this->DN = $this->title;
-			else
+			$album = new album(); $album->get($this->album_id); $this->DN = $this->name . " on " . $album->DN;
+			if(!trim($this->DN))	//if above returns empty value
 				$this->DN = "$this->id";
 			return true;
 			
@@ -465,10 +462,16 @@ class track_template
 								trigger_error("::setProperties can't set $key to be an array",E_USER_WARNING);
 							}
 						}
-						if ($addSlashes)
+						// provided by PHPOF
+						if(class_exists("XString")) {
+		                                        $value = XString::FilterMS_ASCII($value);
+                               			}
+						if ($addSlashes) {
 							$this->$key = addslashes($value);
-						else
+						}
+						else {
 							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

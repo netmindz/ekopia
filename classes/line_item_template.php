@@ -423,10 +423,16 @@ class line_item_template
 								trigger_error("::setProperties can't set $key to be an array",E_USER_WARNING);
 							}
 						}
-						if ($addSlashes)
+						// provided by PHPOF
+						if(class_exists("XString")) {
+		                                        $value = XString::FilterMS_ASCII($value);
+                               			}
+						if ($addSlashes) {
 							$this->$key = addslashes($value);
-						else
+						}
+						else {
 							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

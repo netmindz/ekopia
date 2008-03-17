@@ -1,5 +1,6 @@
 <?
 require("track_template.php");
+if(!class_exists("album")) include("album.php");
 
 class track extends track_template {
 		
