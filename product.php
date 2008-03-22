@@ -13,6 +13,9 @@ $page_keywords = implode(", ",array($product->name,$type->name));
 <?php include("header.inc.php"); ?>
 <h1><?= $product->name ?></h1>
 
+<?php  $image = new image(); $image->show($product->image_id); ?>
+<p><?= $product->description ?></p>
+
 <?php if($product->price) { ?>
                 <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
