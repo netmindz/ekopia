@@ -9,19 +9,19 @@ class tag extends tag_template {
 	{
 		$max = 0;
 		$list = array();
-		$tmp = new tag();
-		$tmp->getList("where public='yes'");
-		while($tmp->getNext()) {
+		$tag = new tag();
+		$tag->getList("where public='yes'");
+		while($tag->getNext()) {
 			$at = new album_tag();
-			$i = $at->getList("where tag_FK=$tmp->id");
+			$i = $at->getList("where tag_FK=$tag->id");
 			$tt = new track_tag();
-			$i += $tt->getList("where tag_FK=$tmp->id");
+			$i += $tt->getList("where tag_FK=$tag->id");
 			if($i > $max) $max = $i;
-			$tmp->count = $i;
-			if($i) $list[$tmp->id] = $tmp;
+			$tag->count = $i;
+			if($i) $list[] = clone($tag);
 		}
-		foreach($list as $id=>$tag) {
-			$list[$id]->perc = floor($tag->count/$max);
+		foreach($list as $tag) {
+			$tag->perc = floor($tag->count/$max);
 		}
 		return($list);
 	}		

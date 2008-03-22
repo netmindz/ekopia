@@ -67,7 +67,7 @@ if(isset($_REQUEST['id'])) {
 		?>
 		<p>Browse:
 		<?php
-		foreach($prefixes as $prefix) print "&#149; <a href=\"browse.php?prefix=$prefix\">$prefix</a> ";
+		foreach($prefixes as $prefix) print "&#149;&nbsp;<a href=\"" . browse_link("album") ."?prefix=$prefix\">$prefix</a> ";
 		?>
 		</p>
 		<?php
