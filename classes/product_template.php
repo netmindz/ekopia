@@ -1,7 +1,7 @@
 <?
 class product_template
 {
-	var $id, $type_id, $title, $intro, $image_id, $price, $shipping_weight;
+	var $id, $type_id, $name, $intro, $description, $image_id, $price, $shipping_weight;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -32,8 +32,9 @@ class product_template
 		$this->id = 0;
 
 		$this->type_id = "";
-		$this->title = "";
+		$this->name = "";
 		$this->intro = "";
+		$this->description = "";
 		$this->image_id = "";
 		$this->price = "";
 		$this->shipping_weight = "";
@@ -65,8 +66,9 @@ class product_template
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['type_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "type", "gen_type" => "int");
-		$this->_field_descs['title'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['intro'] = array ("type" => "tinytext", "gen_type" => "text");
+		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text");
 		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -109,12 +111,12 @@ class product_template
 
 
 		
-		$raw_sql  = "INSERT INTO products (`type_id`, `title`, `intro`, `image_id`, `price`, `shipping_weight`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `image_id`, `price`, `shipping_weight`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->type_id)."', '".addslashes($this->title)."', '".addslashes($this->intro)."', '".addslashes($this->image_id)."', '".addslashes($this->price)."', '".addslashes($this->shipping_weight)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->type_id)."', '".addslashes($this->name)."', '".addslashes($this->intro)."', '".addslashes($this->description)."', '".addslashes($this->image_id)."', '".addslashes($this->price)."', '".addslashes($this->shipping_weight)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->type_id', '$this->title', '$this->intro', '$this->image_id', '$this->price', '$this->shipping_weight')";
+			$raw_sql.= " VALUES ('$this->type_id', '$this->name', '$this->intro', '$this->description', '$this->image_id', '$this->price', '$this->shipping_weight')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -167,9 +169,9 @@ class product_template
 
 		$raw_sql  = "UPDATE products SET ";
 		if($addslashes) {
-			$raw_sql.= "`type_id`='".addslashes($this->type_id)."', `title`='".addslashes($this->title)."', `intro`='".addslashes($this->intro)."', `image_id`='".addslashes($this->image_id)."', `price`='".addslashes($this->price)."', `shipping_weight`='".addslashes($this->shipping_weight)."'";
+			$raw_sql.= "`type_id`='".addslashes($this->type_id)."', `name`='".addslashes($this->name)."', `intro`='".addslashes($this->intro)."', `description`='".addslashes($this->description)."', `image_id`='".addslashes($this->image_id)."', `price`='".addslashes($this->price)."', `shipping_weight`='".addslashes($this->shipping_weight)."'";
 		}else{
-			$raw_sql.= "`type_id`='$this->type_id', `title`='$this->title', `intro`='$this->intro', `image_id`='$this->image_id', `price`='$this->price', `shipping_weight`='$this->shipping_weight'";
+			$raw_sql.= "`type_id`='$this->type_id', `name`='$this->name', `intro`='$this->intro', `description`='$this->description', `image_id`='$this->image_id', `price`='$this->price', `shipping_weight`='$this->shipping_weight'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1
