@@ -92,5 +92,11 @@ class album extends album_template {
                 </div>
 		<?
 	}
+		
+
+	function getNew($count)
+	{
+		return($this->getList("where price > 0","order by added desc","limit 0,$count"));
+	}
 }
 ?>

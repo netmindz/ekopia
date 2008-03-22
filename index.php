@@ -1,6 +1,17 @@
 <?php include("include/common.php"); ?>
 <?php require("include/mpd.php"); ?>
 <?php include("header.inc.php"); ?>
+<h2>Latest Albums</h2>
+<ul>
+<?php
+$album = new album();
+$album->getNew(5);
+while($album->getNext()) { ?>
+	<li><a href="<?= album_link($album->id,$album->name) ?>"><?= $album->name ?></li>
+	<?php
+} 
+?>
+</ul>
 <?php
 if($data = mpd_now_playing()) {
 	?>
