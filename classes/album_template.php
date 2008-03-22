@@ -1,7 +1,7 @@
 <?
 class album_template
 {
-	var $id, $name, $price, $summary, $artist_id, $label_id, $release_year, $location, $label_reference, $image_id, $amazon_asin, $stock_count, $tag_FKL;
+	var $id, $name, $price, $summary, $artist_id, $label_id, $release_year, $location, $label_reference, $image_id, $amazon_asin, $stock_count, $added, $tag_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -42,6 +42,7 @@ class album_template
 		$this->image_id = "";
 		$this->amazon_asin = "";
 		$this->stock_count = "";
+		$this->added = "";
 		$this->tag_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
@@ -80,6 +81,7 @@ class album_template
 		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
 		$this->_field_descs['amazon_asin'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['stock_count'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['added'] = array ("type" => "datetime", "gen_type" => "datetime");
 		$this->_field_descs['tag_FKL'] = array ("fk" => "album_tag", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
@@ -132,12 +134,12 @@ class album_template
 
 
 		
-		$raw_sql  = "INSERT INTO albums (`name`, `price`, `summary`, `artist_id`, `label_id`, `release_year`, `location`, `label_reference`, `image_id`, `amazon_asin`, `stock_count`)";
+		$raw_sql  = "INSERT INTO albums (`name`, `price`, `summary`, `artist_id`, `label_id`, `release_year`, `location`, `label_reference`, `image_id`, `amazon_asin`, `stock_count`, `added`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->price)."', '".addslashes($this->summary)."', '".addslashes($this->artist_id)."', '".addslashes($this->label_id)."', '".addslashes($this->release_year)."', '".addslashes($this->location)."', '".addslashes($this->label_reference)."', '".addslashes($this->image_id)."', '".addslashes($this->amazon_asin)."', '".addslashes($this->stock_count)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->price)."', '".addslashes($this->summary)."', '".addslashes($this->artist_id)."', '".addslashes($this->label_id)."', '".addslashes($this->release_year)."', '".addslashes($this->location)."', '".addslashes($this->label_reference)."', '".addslashes($this->image_id)."', '".addslashes($this->amazon_asin)."', '".addslashes($this->stock_count)."', '".addslashes($this->added)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->name', '$this->price', '$this->summary', '$this->artist_id', '$this->label_id', '$this->release_year', '$this->location', '$this->label_reference', '$this->image_id', '$this->amazon_asin', '$this->stock_count')";
+			$raw_sql.= " VALUES ('$this->name', '$this->price', '$this->summary', '$this->artist_id', '$this->label_id', '$this->release_year', '$this->location', '$this->label_reference', '$this->image_id', '$this->amazon_asin', '$this->stock_count', '$this->added')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -202,9 +204,9 @@ class album_template
 
 		$raw_sql  = "UPDATE albums SET ";
 		if($addslashes) {
-			$raw_sql.= "`name`='".addslashes($this->name)."', `price`='".addslashes($this->price)."', `summary`='".addslashes($this->summary)."', `artist_id`='".addslashes($this->artist_id)."', `label_id`='".addslashes($this->label_id)."', `release_year`='".addslashes($this->release_year)."', `location`='".addslashes($this->location)."', `label_reference`='".addslashes($this->label_reference)."', `image_id`='".addslashes($this->image_id)."', `amazon_asin`='".addslashes($this->amazon_asin)."', `stock_count`='".addslashes($this->stock_count)."'";
+			$raw_sql.= "`name`='".addslashes($this->name)."', `price`='".addslashes($this->price)."', `summary`='".addslashes($this->summary)."', `artist_id`='".addslashes($this->artist_id)."', `label_id`='".addslashes($this->label_id)."', `release_year`='".addslashes($this->release_year)."', `location`='".addslashes($this->location)."', `label_reference`='".addslashes($this->label_reference)."', `image_id`='".addslashes($this->image_id)."', `amazon_asin`='".addslashes($this->amazon_asin)."', `stock_count`='".addslashes($this->stock_count)."', `added`='".addslashes($this->added)."'";
 		}else{
-			$raw_sql.= "`name`='$this->name', `price`='$this->price', `summary`='$this->summary', `artist_id`='$this->artist_id', `label_id`='$this->label_id', `release_year`='$this->release_year', `location`='$this->location', `label_reference`='$this->label_reference', `image_id`='$this->image_id', `amazon_asin`='$this->amazon_asin', `stock_count`='$this->stock_count'";
+			$raw_sql.= "`name`='$this->name', `price`='$this->price', `summary`='$this->summary', `artist_id`='$this->artist_id', `label_id`='$this->label_id', `release_year`='$this->release_year', `location`='$this->location', `label_reference`='$this->label_reference', `image_id`='$this->image_id', `amazon_asin`='$this->amazon_asin', `stock_count`='$this->stock_count', `added`='$this->added'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1

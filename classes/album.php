@@ -27,7 +27,7 @@ class album extends album_template {
 		}
 		else {
 			$this->setProperties(array('name'=>addslashes($name),'artist_id'=>$artist_id,
-			'release_year'=>$release_year,'label_reference'=>$label_reference,'label_id'=>$label_id));
+			'release_year'=>$release_year,'label_reference'=>$label_reference,'label_id'=>$label_id,'added'=>time()));
 			return($this->add());
 		}
 	}		
