@@ -36,7 +36,26 @@ class album extends album_template {
 	{
 		return($this->getList("where ${type}_id='".$id."'"));
 	}
-		
+	
+	function getListPrefixes()
+	{
+		$tmp = new album();
+		$tmp->getList();
+		$prefixes = array();
+		$tmp->getList();
+		while($tmp->getNext()) {
+			$prefixes[substr(strtoupper($tmp->name),0,1)] = 1;
+		}
+		$prefixes = array_keys($prefixes);
+		sort($prefixes);
+		return($prefixes);
+	}
+
+	function getListByPrefix($prefix)
+	{
+		return($this->getList("where name like '$prefix%'"));
+	}	
+	
 	function getByName($name)
 	{
 		return($this->getByOther(array('name'=>$name)));

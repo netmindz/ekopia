@@ -54,13 +54,25 @@ if(isset($_REQUEST['id'])) {
 			}	
 		}
 		else {
-			$count = $album->getList();
+			$prefixes = $album->getListPrefixes();
+			if(isset($_REQUEST['prefix'])) { $prefix = $_REQUEST['prefix']; } else { $prefix = $prefixes[0]; } 
+			$count = $album->getListbyPrefix($prefix);
 		}
 	}
 	?>
 <!--	<h1>Albums</h1> -->
 	<div id="album_list">
 	<p><?= $count ?> albums</p>
+	<?php if(isset($prefixes)) {
+		?>
+		<p>Browse:
+		<?php
+		foreach($prefixes as $prefix) print "&#149; <a href=\"browse.php?prefix=$prefix\">$prefix</a> ";
+		?>
+		</p>
+		<?php
+	}
+	?>
 	<?php
 	while($album->getNext()) {
 		$album->displayThumb();
