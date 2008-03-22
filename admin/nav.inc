@@ -6,4 +6,5 @@
 [ <a href="/admin/index.php?table=tags">tags</a> ] 
 [ <a href="/admin/index.php?table=tracks">tracks</a> ] 
 [ <a href="/admin/index.php?table=types">types</a> ] 
+[ <a href="/admin/index.php?table=products">products</a> ] 
 </p>

@@ -1,7 +1,7 @@
 <?
-class page_template
+class product_template
 {
-	var $id, $name, $content;
+	var $id, $type_id, $title, $intro, $image_id, $price, $shipping_weight;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -15,7 +15,7 @@ class page_template
 	 * @return void
 	 * @desc This is the PHP4 constructor. It calles the PHP5 constructor __construct()
 	 */
-	function page_template()
+	function product_template()
 	{
 		$this->__construct();
 	}//PHP4 constructor
@@ -31,13 +31,17 @@ class page_template
 	{
 		$this->id = 0;
 
-		$this->name = "";
-		$this->content = "";
+		$this->type_id = "";
+		$this->title = "";
+		$this->intro = "";
+		$this->image_id = "";
+		$this->price = "";
+		$this->shipping_weight = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
 		$this->_PKs = array('id');
-		$this->_table = 'pages';
+		$this->_table = 'products';
 		$this->_data_format = 'php';
 		$this->_labels = array(); 
 		$this->_form_label_ids = array();
@@ -60,8 +64,12 @@ class page_template
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
-		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
-		$this->_field_descs['content'] = array ("type" => "longtext", "gen_type" => "text", "extra_type" => "richtext");
+		$this->_field_descs['type_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "type", "gen_type" => "int");
+		$this->_field_descs['title'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['intro'] = array ("type" => "tinytext", "gen_type" => "text");
+		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
+		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
+		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -77,18 +85,36 @@ class page_template
 	function add($addslashes=0) {
 		
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for page->id",E_USER_WARNING);
+			trigger_error("wrong type for product->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
+		if($this->type_id != (int)$this->type_id && $this->type_id!='NOW()' && $this->type_id!='NULL'){
+			trigger_error("wrong type for product->type_id",E_USER_WARNING);
+			settype($this->type_id,"int");
+		}//IF
+
+
+		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
+			trigger_error("wrong type for product->image_id",E_USER_WARNING);
+			settype($this->image_id,"int");
+		}//IF
+
+
+		if($this->shipping_weight != (int)$this->shipping_weight && $this->shipping_weight!='NOW()' && $this->shipping_weight!='NULL'){
+			trigger_error("wrong type for product->shipping_weight",E_USER_WARNING);
+			settype($this->shipping_weight,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO pages (`name`, `content`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `title`, `intro`, `image_id`, `price`, `shipping_weight`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->content)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->type_id)."', '".addslashes($this->title)."', '".addslashes($this->intro)."', '".addslashes($this->image_id)."', '".addslashes($this->price)."', '".addslashes($this->shipping_weight)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->name', '$this->content')";
+			$raw_sql.= " VALUES ('$this->type_id', '$this->title', '$this->intro', '$this->image_id', '$this->price', '$this->shipping_weight')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -116,16 +142,34 @@ class page_template
 	{
 	
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for page->id",E_USER_WARNING);
+			trigger_error("wrong type for product->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
-		$raw_sql  = "UPDATE pages SET ";
+		if($this->type_id != (int)$this->type_id && $this->type_id!='NOW()' && $this->type_id!='NULL'){
+			trigger_error("wrong type for product->type_id",E_USER_WARNING);
+			settype($this->type_id,"int");
+		}//IF
+
+
+		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
+			trigger_error("wrong type for product->image_id",E_USER_WARNING);
+			settype($this->image_id,"int");
+		}//IF
+
+
+		if($this->shipping_weight != (int)$this->shipping_weight && $this->shipping_weight!='NOW()' && $this->shipping_weight!='NULL'){
+			trigger_error("wrong type for product->shipping_weight",E_USER_WARNING);
+			settype($this->shipping_weight,"int");
+		}//IF
+
+
+		$raw_sql  = "UPDATE products SET ";
 		if($addslashes) {
-			$raw_sql.= "`name`='".addslashes($this->name)."', `content`='".addslashes($this->content)."'";
+			$raw_sql.= "`type_id`='".addslashes($this->type_id)."', `title`='".addslashes($this->title)."', `intro`='".addslashes($this->intro)."', `image_id`='".addslashes($this->image_id)."', `price`='".addslashes($this->price)."', `shipping_weight`='".addslashes($this->shipping_weight)."'";
 		}else{
-			$raw_sql.= "`name`='$this->name', `content`='$this->content'";
+			$raw_sql.= "`type_id`='$this->type_id', `title`='$this->title', `intro`='$this->intro', `image_id`='$this->image_id', `price`='$this->price', `shipping_weight`='$this->shipping_weight'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1
@@ -157,11 +201,11 @@ class page_template
 		
 		//define the SQL to use to UPDATE the field...
 		if ($this->_field_descs[$fieldname]['gen_type'] == 'int' || $this->$fieldname == "NULL" || $this->$fieldname == "NOW()")
-			$sql = "UPDATE pages SET $fieldname = ".$this->$fieldname;
+			$sql = "UPDATE products SET $fieldname = ".$this->$fieldname;
 		elseif ($addslashes)
-			$sql = "UPDATE pages SET $fieldname = '".addslashes($this->$fieldname)."'";
+			$sql = "UPDATE products SET $fieldname = '".addslashes($this->$fieldname)."'";
 		else
-			$sql = "UPDATE pages SET $fieldname = '".$this->$fieldname."'";
+			$sql = "UPDATE products SET $fieldname = '".$this->$fieldname."'";
 		
 		
 		//Now add the WHERE clause
@@ -200,7 +244,7 @@ class page_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM pages WHERE 1
+		$sql = "DELETE FROM products WHERE 1
 
 		AND id = '$id' ";
 		
@@ -223,7 +267,7 @@ class page_template
 	function getList($where="", $order="", $limit="")
 	{
 		if(!$order) $order = "" ;
-		$select = "SELECT pages.* FROM pages ";
+		$select = "SELECT products.* FROM products ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
 		}else{
@@ -381,7 +425,7 @@ class page_template
 	
 					$child = new $child_class();
 					
-                        $child->_setPropertiesLinkages("page", $this->id, array_keys($value));
+                        $child->_setPropertiesLinkages("product", $this->id, array_keys($value));
                         
 				}
 				else {
@@ -610,7 +654,7 @@ class page_template
 				$fk_class = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
 				
-						$html .= $fk_class->createMatrix($input_name,"page",$this->id);
+						$html .= $fk_class->createMatrix($input_name,"product",$this->id);
 						
 				}
 				else {
@@ -629,7 +673,7 @@ class page_template
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
 				if ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
-						(isset($CONF['page'][$property]['max']) && $CONF['page'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
+						(isset($CONF['product'][$property]['max']) && $CONF['product'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
 					$html.= "<input type=\"radio\" name=\"$input_name\" value=\"1\" id=\"$html_id\"";
 					if($property_value)	//allow any possible value for True
 						$html.= " checked";
@@ -642,12 +686,12 @@ class page_template
 					
 					break;	//escape SWITCH statement
 					
-				}elseif (isset($CONF['page'][$property]['max']) && $CONF['page'][$property]['max']){
-					$min = ($CONF['page'][$property]['min'])? $CONF['page'][$property]['min'] : 0;
-					$step = ($CONF['page'][$property]['step'])? $CONF['page'][$property]['step'] : 1;
+				}elseif (isset($CONF['product'][$property]['max']) && $CONF['product'][$property]['max']){
+					$min = ($CONF['product'][$property]['min'])? $CONF['product'][$property]['min'] : 0;
+					$step = ($CONF['product'][$property]['step'])? $CONF['product'][$property]['step'] : 1;
 					if ($empty=='-None-')
 						$empty = '--';
-					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['page'][$property]['max'], $step, $empty);
+					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['product'][$property]['max'], $step, $empty);
 					break;	//escape SWITCH statement
 				}//IF integer is a Boolean
 				
@@ -660,8 +704,8 @@ class page_template
 				else
 					$maxlength = $matches[1];
 				
-				if (isset($CONF['page'][$property]['size']))
-					$size = $CONF['page'][$property]['size'];
+				if (isset($CONF['product'][$property]['size']))
+					$size = $CONF['product'][$property]['size'];
 				elseif($maxlength <= 30)
 					$size = $maxlength+1;
 				elseif ($maxlength <= 50)
@@ -759,11 +803,11 @@ class page_template
 						$future = 5;
 					}//IF date of birth field
 					
-					if (isset($CONF['page'][$property]['past']))
-						$past = $CONF['page'][$property]['past'];
+					if (isset($CONF['product'][$property]['past']))
+						$past = $CONF['product'][$property]['past'];
 					
-					if (isset($CONF['page'][$property]['future']))
-						$future = $CONF['page'][$property]['future'];
+					if (isset($CONF['product'][$property]['future']))
+						$future = $CONF['product'][$property]['future'];
 					
 					$html.= createDateSelect($input_name, $property_value, $past, $future);
 					$separator = " @ ";
