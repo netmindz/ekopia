@@ -68,7 +68,7 @@ class product_template
 		$this->_field_descs['type_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "type", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['intro'] = array ("type" => "tinytext", "gen_type" => "text");
-		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text");
+		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
 		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");

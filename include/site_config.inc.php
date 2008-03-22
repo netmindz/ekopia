@@ -2,7 +2,7 @@
 
 if(ereg('~',$_SERVER['PHP_SELF'])||(isset($_SERVER['HOSTNAME']))) {
 	$docroot="/home/will/public_html/id";
-	$CONF['url'] = "http://wjtvaio.netmindz.net/~will/id";
+	$CONF['url'] = "http://wjtvaiosz.netmindz.net/~will/id";
 	$CONF['paypal_address'] = 'seller_1197046991_biz@netmindz.net';
 	$CONF['paypal_host'] = 'www.sandbox.paypal.com';
 	$CONF['shop_email'] = "will@netmindz.net";
@@ -32,6 +32,7 @@ $CONF['label']['richtext'] = array('summary');
 $CONF['artist']['richtext'] = array('summary');
 $CONF['album']['richtext'] = array('summary');
 $CONF['page']['richtext'] = array('content');
+$CONF['product']['richtext'] = array('description');
 
 $CONF['db_username'] = $CONF['db_name'];
 $CONF['db_pass'] = $CONF['db_username'] . "pass";

@@ -18,6 +18,7 @@ require("classes/tag.php");
 require("classes/album_tag.php");
 require("classes/track_tag.php");
 require("classes/product.php");
+require("classes/type.php");
 
 
 if(count($_COOKIE)) {
