@@ -78,7 +78,7 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
 								<tr align="left"><td><a href="<?= browse_link("album") ?>" class="mainlevel" >Albums</a></td></tr>
 								<tr align="left"><td><a href="<?= browse_link("artist") ?>" class="mainlevel" >Artists</a></td></tr>
 								<tr align="left"><td><a href="<?= browse_link("label") ?>" class="mainlevel" >Labels</a></td></tr>
-								<!-- <tr align="left"><td><a href="browse.php?type=type" class="mainlevel" >Genres</a></td></tr> -->
+								<tr align="left"><td><a href="tags.php" class="mainlevel" >Styles</a></td></tr>
 							</table>		
 				</div>
  				<div class="moduletable">
@@ -114,12 +114,6 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
                         
 			<div style="padding: 0px; position: relative; border-top-width: 0px; border-bottom-width: 0px; background-position: 0px -9px;" class="myBox2">		
 <!--start content-->   
-										<table class="contentpaneopen">
-			<tr>
-								<td class="contentheading" width="100%">
-					inSpiral lounge shop									</td>
-							</tr>
-			</table>
 			
 		<table class="contentpaneopen">
 				<tr>
