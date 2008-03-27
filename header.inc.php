@@ -78,7 +78,7 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
 								<tr align="left"><td><a href="<?= browse_link("album") ?>" class="mainlevel" >Albums</a></td></tr>
 								<tr align="left"><td><a href="<?= browse_link("artist") ?>" class="mainlevel" >Artists</a></td></tr>
 								<tr align="left"><td><a href="<?= browse_link("label") ?>" class="mainlevel" >Labels</a></td></tr>
-								<tr align="left"><td><a href="tags.php" class="mainlevel" >Styles</a></td></tr>
+								<tr align="left"><td><a href="<?= $CONF['url'] ?>/tags.php" class="mainlevel" >Styles</a></td></tr>
 							</table>		
 				</div>
  				<div class="moduletable">
@@ -107,15 +107,16 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
             <div id="content_inner">
               <table border="0" cellpadding="0" cellspacing="0" width="100%" class="content_table">
                 <tr valign="top">
-                  <td width="99%"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="content_table">
+                  <td width="99%">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="content_table">
                                             
                       <tr>
                         <td colspan="0">  
                         
-			<div style="padding: 0px; position: relative; border-top-width: 0px; border-bottom-width: 0px; background-position: 0px -9px;" class="myBox2">		
+			<div style="padding: 0px; position: relative; border-top-width: 0px; border-bottom-width: 0px; background-position: 0px -9px;" class="myBox2<?php if($_SERVER['PHP_SELF'] != "/index.php") { ?>Wide<? } ?>">		
 <!--start content-->   
 			
-		<table class="contentpaneopen">
+		<table class="contentpaneopen<?php if($_SERVER['PHP_SELF'] != "/index.php") { ?>Wide<? } ?>">
 				<tr>
 			<td valign="top" colspan="2">
 

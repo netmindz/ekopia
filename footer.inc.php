@@ -18,6 +18,7 @@
             </div>
           </div>
 
+<? if($_SERVER['PHP_SELF'] == "/index.php") { ?>
                             <div class="myStream">
 
 <!--start radio-->   
@@ -27,6 +28,7 @@
 		</div>
 
 <!--end radio-->   
+<? } ?>
 
     </div>
 
