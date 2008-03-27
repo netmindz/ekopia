@@ -58,7 +58,7 @@ else {
 	$ttag->getList("where tag_FK=".$tag->id,"order by rand()");
 	while($ttag->getNext()) {
 		$track = new track();
-		$track->get($atag->track_FK);
+		$track->get($ttag->track_FK);
 		$track->displayThumb();
 		$keywords[] = $track->name;
 	}
