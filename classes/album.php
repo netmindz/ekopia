@@ -72,7 +72,7 @@ class album extends album_template {
 		 ?>
                 <div id="album_thumb">
 		<div id="album_thumb_image">
-		<a href="<?= $CONF['url'] ?>/album.php?album_id=<?= $this->id ?>"><?php
+		<a href="<?= album_link($this->id,$this->name) ?>">"><?php
 		$image = new image();
 		$image->show($this->image_id,100,100,"alt=\"$this->name\" title=\"Click to view album $this->name\"");
 		?></a>
