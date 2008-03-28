@@ -24,6 +24,7 @@ ini_set("include_path",".:$docroot/includes:$docroot/classes:" . ini_get("includ
 $CONF['label']['order'] = "order by name";
 $CONF['artist']['order'] = "order by name";
 $CONF['type']['order'] = "order by name";
+$CONF['tag']['order'] = "order by name";
 $CONF['track']['order'] = "order by album_id,track_number,name";
 $CONF['track']['DN'] = '<?php $album = new album(); $album->get($this->album_id); $this->DN = $this->name . " on " . $album->DN; ?>';
 $CONF['album']['order'] = "order by name,release_year";

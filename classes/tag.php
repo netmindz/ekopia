@@ -21,7 +21,7 @@ class tag extends tag_template {
 			if($i) $list[] = clone($tag);
 		}
 		foreach($list as $tag) {
-			$tag->perc = floor($tag->count/$max);
+			$tag->perc = $tag->count/$max;
 		}
 		return($list);
 	}		

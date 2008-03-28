@@ -26,6 +26,7 @@ if(!$id) {
 	foreach($tags as $tag) {
 		$keywords[] = $tag->name;
 		$size = floor(28 * $tag->perc);
+		if($size < 10) $size = 10;
 		?>
 		<a href="tags.php?id=<?= $tag->id ?>" style="font-size: <?= $size ?>px"><?= str_replace(" ","&nbsp;",$tag->name) ?></a>
 		<?
@@ -64,6 +65,7 @@ else {
 	}
 	?>
 	</div>
+	<br clear="all"/>
 	<p><a href="tags.php">Back to tags</a></p>
 	<?
 }

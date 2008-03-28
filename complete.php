@@ -37,7 +37,7 @@ while($line_item->getNext()) {
 	}
 	elseif($line_item->type == "album") {
 		$albums[] = $item->id;
-		if($item->artist_id != 198) $artists[] = $item->artist_id;
+		$artists[] = $item->artist_id;
 		$labels[] = $item->label_id;
 	}
 	?>
