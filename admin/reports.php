@@ -5,8 +5,9 @@ require("/home/www/codebase/fpdf.php");
 $reports = array();
 
 $reports['album_list'] =  array("title"=>"Album List","sql"=>"select id,name,price,stock_count from albums order by name");
-$reports['unamed'] =  array("title"=>"Unnamed Tracks","sql"=>"select albums.id,albums.name,sum(if(tracks.name = '',1,0)) as unnamed from tracks left join albums on album_id=albums.id group by albums.id having unamed > 0");
-$reports['orpahan_tracks'] =  array("title"=>"Orpahn Tracks","sql"=>"select tracks.id,tracks.name from tracks left join albums on album_id=albums.id where albums.name is null");
+$reports['unamed'] =  array("title"=>"Unnamed Tracks","sql"=>"select albums.id,albums.name,sum(if(tracks.name = '',1,0)) as unnamed from tracks left join albums on album_id=albums.id group by albums.id having unnamed > 0");
+$reports['orpahan_tracks'] =  array("title"=>"Orphan Tracks","sql"=>"select tracks.id,tracks.name from tracks left join albums on album_id=albums.id where albums.name is null");
+$reports['lonely_artists'] =  array("title"=>"Empty Artists","sql"=>"select artists.id,artists.name,count(tracks.artist_id) as track_count, count(albums.artist_id) as album_count from artists left join albums on artists.id=albums.artist_id left join tracks on artists.id=tracks.artist_id group by artists.id having album_count = 0 and track_count = 0");
 
 if(isset($_POST['report'])) {
 	$report = $_POST['report'];
