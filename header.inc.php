@@ -76,6 +76,7 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
 							<h3>Browse</h3>
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tr align="left"><td><a href="<?= browse_link("album") ?>" class="mainlevel" >Albums</a></td></tr>
+								<tr align="left"><td><a href="<?= $CONF['url'] ?>/new.php" class="mainlevel" >New Items</a></td></tr>
 								<tr align="left"><td><a href="<?= browse_link("artist") ?>" class="mainlevel" >Artists</a></td></tr>
 								<tr align="left"><td><a href="<?= browse_link("label") ?>" class="mainlevel" >Labels</a></td></tr>
 								<tr align="left"><td><a href="<?= $CONF['url'] ?>/tags.php" class="mainlevel" >Styles</a></td></tr>
