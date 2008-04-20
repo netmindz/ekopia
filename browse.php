@@ -34,12 +34,15 @@ if(isset($_REQUEST['id'])) {
 		?>
 		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
 		<?php
-		$page_title = ucwords($type) . " - " . $typeObj->DN . " @ inspiralled shop";
+		$page_title = ucwords($type) . " - " . $typeObj->DN . " @ inSpiral shop";
 		print $typeObj->summary;
 		$keywords[] = $typeObj->DN;
+		?>
+		<div class="edit">[&nbsp;<a href="edit.php?id=<?= $id ?>&amp;type=<?= $type ?>">edit</a>&nbsp;]</div>
+		<?
 	}
 	else {
-		$page_title = "Browse " . ucwords($type) . "s @ inspiralled shop";
+		$page_title = "Browse " . ucwords($type) . "s @ inSpiral shop";
 		if($type != "album") {
 			$typeObj = new $type();
 			$count = $typeObj->getList();
@@ -83,7 +86,7 @@ if(isset($_REQUEST['id'])) {
 	</div>
 	<br clear="all">
 <?php
-if($type == "artist") {
+if(($type == "artist")&&(isset($id))) {
 	?>
 	<h2>Tracks by <?= $typeObj->name ?></h2>
 	<ul>

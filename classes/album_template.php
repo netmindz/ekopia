@@ -68,12 +68,15 @@ class album_template
 			'track_tags'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'tracks'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'types'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'user_artists'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
+			'user_labels'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
+			'users'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
-		$this->_field_descs['summary'] = array ("type" => "tinytext", "gen_type" => "text", "extra_type" => "richtext");
+		$this->_field_descs['summary'] = array ("type" => "longtext", "gen_type" => "text", "extra_type" => "richtext");
 		$this->_field_descs['artist_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "artist", "gen_type" => "int");
 		$this->_field_descs['label_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "label", "gen_type" => "int");
 		$this->_field_descs['release_year'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -304,7 +307,7 @@ class album_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "order by name,release_year" ;
+		if(!$order) $order = "order by name,release_year";
 		$select = "SELECT albums.* FROM albums ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
@@ -366,7 +369,6 @@ class album_template
 	 */
 	function get($id, $addslashes = "")
 	{ 
-		//settype($,"int");
 		
 		$sql = "WHERE 1
 		AND id = '$id'";
@@ -477,7 +479,7 @@ class album_template
 						if(class_exists("XString")) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						if ($addSlashes) {
+						if (($addSlashes)&&($this->_field_descs[$key]['type'] != "blob")) {
 							$this->$key = addslashes($value);
 						}
 						else {

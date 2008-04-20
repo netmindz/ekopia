@@ -60,6 +60,9 @@ class order_template
 			'track_tags'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'tracks'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'types'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'user_artists'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
+			'user_labels'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
+			'users'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -228,7 +231,7 @@ class order_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "" ;
+		if(!$order) $order = "";
 		$select = "SELECT orders.* FROM orders ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
@@ -293,7 +296,6 @@ class order_template
 	 */
 	function get($id, $addslashes = "")
 	{ 
-		//settype($,"int");
 		
 		$sql = "WHERE 1
 		AND id = '$id'";
@@ -404,7 +406,7 @@ class order_template
 						if(class_exists("XString")) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						if ($addSlashes) {
+						if (($addSlashes)&&($this->_field_descs[$key]['type'] != "blob")) {
 							$this->$key = addslashes($value);
 						}
 						else {

@@ -19,10 +19,15 @@ require("classes/album_tag.php");
 require("classes/track_tag.php");
 require("classes/product.php");
 require("classes/type.php");
+require("classes/user.php");
 
 
+$user = new user();
 if(count($_COOKIE)) {
 	session_start();
+	if(isset($_SESSION['user_id'])) {
+		$user->get($_SESSION['user_id']);
+	}
 }
 
 function browse_link($type,$id="",$name="")

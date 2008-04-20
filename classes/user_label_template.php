@@ -1,7 +1,7 @@
 <?
-class basket_template
+class user_label_template
 {
-	var $id, $basket_ref;
+	var $id, $user_FK, $label_FK;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -15,7 +15,7 @@ class basket_template
 	 * @return void
 	 * @desc This is the PHP4 constructor. It calles the PHP5 constructor __construct()
 	 */
-	function basket_template()
+	function user_label_template()
 	{
 		$this->__construct();
 	}//PHP4 constructor
@@ -31,12 +31,13 @@ class basket_template
 	{
 		$this->id = 0;
 
-		$this->basket_ref = "";
+		$this->user_FK = "";
+		$this->label_FK = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
 		$this->_PKs = array('id');
-		$this->_table = 'baskets';
+		$this->_table = 'user_labels';
 		$this->_data_format = 'php';
 		$this->_labels = array(); 
 		$this->_form_label_ids = array();
@@ -62,7 +63,8 @@ class basket_template
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
-		$this->_field_descs['basket_ref'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
+		$this->_field_descs['user_FK'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['label_FK'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -78,18 +80,30 @@ class basket_template
 	function add($addslashes=0) {
 		
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for basket->id",E_USER_WARNING);
+			trigger_error("wrong type for user_label->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
+		if($this->user_FK != (int)$this->user_FK && $this->user_FK!='NOW()' && $this->user_FK!='NULL'){
+			trigger_error("wrong type for user_label->user_FK",E_USER_WARNING);
+			settype($this->user_FK,"int");
+		}//IF
+
+
+		if($this->label_FK != (int)$this->label_FK && $this->label_FK!='NOW()' && $this->label_FK!='NULL'){
+			trigger_error("wrong type for user_label->label_FK",E_USER_WARNING);
+			settype($this->label_FK,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO baskets (`basket_ref`)";
+		$raw_sql  = "INSERT INTO user_labels (`user_FK`, `label_FK`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->basket_ref)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->user_FK)."', '".addslashes($this->label_FK)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->basket_ref')";
+			$raw_sql.= " VALUES ('$this->user_FK', '$this->label_FK')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -117,16 +131,28 @@ class basket_template
 	{
 	
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for basket->id",E_USER_WARNING);
+			trigger_error("wrong type for user_label->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
-		$raw_sql  = "UPDATE baskets SET ";
+		if($this->user_FK != (int)$this->user_FK && $this->user_FK!='NOW()' && $this->user_FK!='NULL'){
+			trigger_error("wrong type for user_label->user_FK",E_USER_WARNING);
+			settype($this->user_FK,"int");
+		}//IF
+
+
+		if($this->label_FK != (int)$this->label_FK && $this->label_FK!='NOW()' && $this->label_FK!='NULL'){
+			trigger_error("wrong type for user_label->label_FK",E_USER_WARNING);
+			settype($this->label_FK,"int");
+		}//IF
+
+
+		$raw_sql  = "UPDATE user_labels SET ";
 		if($addslashes) {
-			$raw_sql.= "`basket_ref`='".addslashes($this->basket_ref)."'";
+			$raw_sql.= "`user_FK`='".addslashes($this->user_FK)."', `label_FK`='".addslashes($this->label_FK)."'";
 		}else{
-			$raw_sql.= "`basket_ref`='$this->basket_ref'";
+			$raw_sql.= "`user_FK`='$this->user_FK', `label_FK`='$this->label_FK'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1
@@ -158,11 +184,11 @@ class basket_template
 		
 		//define the SQL to use to UPDATE the field...
 		if ($this->_field_descs[$fieldname]['gen_type'] == 'int' || $this->$fieldname == "NULL" || $this->$fieldname == "NOW()")
-			$sql = "UPDATE baskets SET $fieldname = ".$this->$fieldname;
+			$sql = "UPDATE user_labels SET $fieldname = ".$this->$fieldname;
 		elseif ($addslashes)
-			$sql = "UPDATE baskets SET $fieldname = '".addslashes($this->$fieldname)."'";
+			$sql = "UPDATE user_labels SET $fieldname = '".addslashes($this->$fieldname)."'";
 		else
-			$sql = "UPDATE baskets SET $fieldname = '".$this->$fieldname."'";
+			$sql = "UPDATE user_labels SET $fieldname = '".$this->$fieldname."'";
 		
 		
 		//Now add the WHERE clause
@@ -201,7 +227,7 @@ class basket_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM baskets WHERE 1
+		$sql = "DELETE FROM user_labels WHERE 1
 
 		AND id = '$id' ";
 		
@@ -224,7 +250,7 @@ class basket_template
 	function getList($where="", $order="", $limit="")
 	{
 		if(!$order) $order = "";
-		$select = "SELECT baskets.* FROM baskets ";
+		$select = "SELECT user_labels.* FROM user_labels ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
 		}else{
@@ -381,7 +407,7 @@ class basket_template
 	
 					$child = new $child_class();
 					
-                        $child->_setPropertiesLinkages("basket", $this->id, array_keys($value));
+                        $child->_setPropertiesLinkages("user_label", $this->id, array_keys($value));
                         
 				}
 				else {
@@ -525,6 +551,79 @@ class basket_template
 
 
 
+
+	function _getLinkTableChildClassDetails($parent_class)
+	{
+		$details = array();
+		
+		// hacky auto discovery
+		foreach(array_keys($this->_field_descs) as $field) {
+			if(!isset($this->_field_descs[$field]['pk'])) {
+				if(!ereg($parent_class,$field)) {
+					if(eregi("(.+)(_FK|_id)",$field,$matches)) {
+						$details['child_class'] = $matches[1];
+						$details['suffix'] = $matches[2];
+						return($details);
+					}
+				}
+			}
+		}
+		trigger_error("_getLinkTableChildClass failed for ($parent_class)",E_USER_ERROR);
+	}
+	
+	function _setPropertiesLinkages($parent_class, $pk, $values)
+	{
+		$child_details = $this->_getLinkTableChildClassDetails($parent_class);
+		$child_class = $child_details['child_class'];
+		$child_table = premier_class_to_table($child_class);
+		$child_table_pk = $this->_table_data[$child_table]['pk'];
+
+		$sql = "DELETE FROM user_labels WHERE {$parent_class}_FK = '$pk'\n";
+		$sql .= " AND {$child_class}_FK NOT IN(" . implode("," , $values) .")";
+		$this->database->query($sql);
+	
+		$sql = "INSERT INTO user_labels\n";
+		$sql .= " (`{$parent_class}_FK`, `{$child_class}_FK`) ";
+		$sql .= "select '$pk',$child_table." . $child_table_pk. " from $child_table left join user_labels on ({$parent_class}_FK = '$pk' AND {$child_class}_FK = $child_table.$child_table_pk) where user_labels.id is null and $child_table.$child_table_pk in (" . implode(",",$values) . ")";
+		$this->database->query($sql);
+		
+	}
+	
+	function createMatrix($input_name, $parent_class, $parent_pk)
+	{
+		$html = "";
+		$html_id_base = $this->_createFormObjectID($input_name);
+		
+		$parent = new $parent_class();
+		if(!$parent_pk) {
+			return($html);
+		}
+		$parent->get($parent_pk) or die("failed to load parent $parent_class($parent_pk)");
+	
+		$child_details = $this->_getLinkTableChildClassDetails($parent_class);
+		
+		$child_class = $child_details['child_class'];
+		$suffix = $child_details['suffix'];
+		
+		@include_once("$child_class.php");
+		$child = new $child_class();
+		$child->getList();
+		while($child->getNext()) {
+			
+			$child_id = $child->{$child->_PK};
+			$html_id = $html_id_base . "_" . $child_id;
+			
+			$html .= "<div style=\"float: left; width: 220px;padding-bottom: 2px;\">\n\t<label for=\"$html_id\" style=\"text-align: right; width: 88%; float: left;\">$child->DN</label>\n\t<input style=\"float: left; text-align: left;\" type=\"checkbox\" name=\"" . $input_name . "[$child_id]\" id=\"$html_id\"";
+			if($this->getByOther(array($parent_class . $suffix => $parent_pk, $child_class . $suffix => $child->{$child->_PK}))) {
+				$html .= " CHECKED";
+			}
+			$html .= " />\n</div> " ;
+		}
+		
+		return($html);
+	}
+
+
 	
 	
 	
@@ -610,7 +709,7 @@ class basket_template
 				$fk_class = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
 				
-						$html .= $fk_class->createMatrix($input_name,"basket",$this->id);
+						$html .= $fk_class->createMatrix($input_name,"user_label",$this->id);
 						
 				}
 				else {
@@ -629,7 +728,7 @@ class basket_template
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
 				if ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
-						(isset($CONF['basket'][$property]['max']) && $CONF['basket'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
+						(isset($CONF['user_label'][$property]['max']) && $CONF['user_label'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
 					$html.= "<input type=\"radio\" name=\"$input_name\" value=\"1\" id=\"$html_id\"";
 					if($property_value)	//allow any possible value for True
 						$html.= " checked";
@@ -642,12 +741,12 @@ class basket_template
 					
 					break;	//escape SWITCH statement
 					
-				}elseif (isset($CONF['basket'][$property]['max']) && $CONF['basket'][$property]['max']){
-					$min = ($CONF['basket'][$property]['min'])? $CONF['basket'][$property]['min'] : 0;
-					$step = ($CONF['basket'][$property]['step'])? $CONF['basket'][$property]['step'] : 1;
+				}elseif (isset($CONF['user_label'][$property]['max']) && $CONF['user_label'][$property]['max']){
+					$min = ($CONF['user_label'][$property]['min'])? $CONF['user_label'][$property]['min'] : 0;
+					$step = ($CONF['user_label'][$property]['step'])? $CONF['user_label'][$property]['step'] : 1;
 					if ($empty=='-None-')
 						$empty = '--';
-					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['basket'][$property]['max'], $step, $empty);
+					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['user_label'][$property]['max'], $step, $empty);
 					break;	//escape SWITCH statement
 				}//IF integer is a Boolean
 				
@@ -660,8 +759,8 @@ class basket_template
 				else
 					$maxlength = $matches[1];
 				
-				if (isset($CONF['basket'][$property]['size']))
-					$size = $CONF['basket'][$property]['size'];
+				if (isset($CONF['user_label'][$property]['size']))
+					$size = $CONF['user_label'][$property]['size'];
 				elseif($maxlength <= 30)
 					$size = $maxlength+1;
 				elseif ($maxlength <= 50)
@@ -759,11 +858,11 @@ class basket_template
 						$future = 5;
 					}//IF date of birth field
 					
-					if (isset($CONF['basket'][$property]['past']))
-						$past = $CONF['basket'][$property]['past'];
+					if (isset($CONF['user_label'][$property]['past']))
+						$past = $CONF['user_label'][$property]['past'];
 					
-					if (isset($CONF['basket'][$property]['future']))
-						$future = $CONF['basket'][$property]['future'];
+					if (isset($CONF['user_label'][$property]['future']))
+						$future = $CONF['user_label'][$property]['future'];
 					
 					$html.= createDateSelect($input_name, $property_value, $past, $future);
 					$separator = " @ ";

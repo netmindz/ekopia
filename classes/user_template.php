@@ -1,7 +1,7 @@
 <?
-class basket_template
+class user_template
 {
-	var $id, $basket_ref;
+	var $id, $username, $password, $email, $artist_FKL, $label_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -15,7 +15,7 @@ class basket_template
 	 * @return void
 	 * @desc This is the PHP4 constructor. It calles the PHP5 constructor __construct()
 	 */
-	function basket_template()
+	function user_template()
 	{
 		$this->__construct();
 	}//PHP4 constructor
@@ -31,12 +31,16 @@ class basket_template
 	{
 		$this->id = 0;
 
-		$this->basket_ref = "";
+		$this->username = "";
+		$this->password = "";
+		$this->email = "";
+		$this->artist_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
+		$this->label_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
 		$this->_PKs = array('id');
-		$this->_table = 'baskets';
+		$this->_table = 'users';
 		$this->_data_format = 'php';
 		$this->_labels = array(); 
 		$this->_form_label_ids = array();
@@ -62,7 +66,11 @@ class basket_template
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
-		$this->_field_descs['basket_ref'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
+		$this->_field_descs['username'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['password'] = array ("type" => "varchar(32)", "length" => "32", "gen_type" => "string");
+		$this->_field_descs['email'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['artist_FKL'] = array ("fk" => "user_artist", "gen_type" => "many2many", "fkl" => "1");
+		$this->_field_descs['label_FKL'] = array ("fk" => "user_label", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
 	
@@ -78,18 +86,18 @@ class basket_template
 	function add($addslashes=0) {
 		
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for basket->id",E_USER_WARNING);
+			trigger_error("wrong type for user->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
 		
-		$raw_sql  = "INSERT INTO baskets (`basket_ref`)";
+		$raw_sql  = "INSERT INTO users (`username`, `password`, `email`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->basket_ref)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->username)."', '".addslashes($this->password)."', '".addslashes($this->email)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->basket_ref')";
+			$raw_sql.= " VALUES ('$this->username', '$this->password', '$this->email')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -117,16 +125,16 @@ class basket_template
 	{
 	
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for basket->id",E_USER_WARNING);
+			trigger_error("wrong type for user->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
-		$raw_sql  = "UPDATE baskets SET ";
+		$raw_sql  = "UPDATE users SET ";
 		if($addslashes) {
-			$raw_sql.= "`basket_ref`='".addslashes($this->basket_ref)."'";
+			$raw_sql.= "`username`='".addslashes($this->username)."', `password`='".addslashes($this->password)."', `email`='".addslashes($this->email)."'";
 		}else{
-			$raw_sql.= "`basket_ref`='$this->basket_ref'";
+			$raw_sql.= "`username`='$this->username', `password`='$this->password', `email`='$this->email'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1
@@ -158,11 +166,11 @@ class basket_template
 		
 		//define the SQL to use to UPDATE the field...
 		if ($this->_field_descs[$fieldname]['gen_type'] == 'int' || $this->$fieldname == "NULL" || $this->$fieldname == "NOW()")
-			$sql = "UPDATE baskets SET $fieldname = ".$this->$fieldname;
+			$sql = "UPDATE users SET $fieldname = ".$this->$fieldname;
 		elseif ($addslashes)
-			$sql = "UPDATE baskets SET $fieldname = '".addslashes($this->$fieldname)."'";
+			$sql = "UPDATE users SET $fieldname = '".addslashes($this->$fieldname)."'";
 		else
-			$sql = "UPDATE baskets SET $fieldname = '".$this->$fieldname."'";
+			$sql = "UPDATE users SET $fieldname = '".$this->$fieldname."'";
 		
 		
 		//Now add the WHERE clause
@@ -201,7 +209,7 @@ class basket_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM baskets WHERE 1
+		$sql = "DELETE FROM users WHERE 1
 
 		AND id = '$id' ";
 		
@@ -224,7 +232,7 @@ class basket_template
 	function getList($where="", $order="", $limit="")
 	{
 		if(!$order) $order = "";
-		$select = "SELECT baskets.* FROM baskets ";
+		$select = "SELECT users.* FROM users ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
 		}else{
@@ -262,11 +270,8 @@ class basket_template
 			//convert from DB properties
 			$this->convertDBProperties('from');		//needs to be changed to 'php' when legacy stuff is removed
 
-			if (isset($this->name) && ($this->name))
-				$this->DN = $this->name;
-			elseif (isset($this->title) && ($this->title))
-				$this->DN = $this->title;
-			else
+			$this->DN = "$this->username";
+			if(!trim($this->DN))	//if above returns empty value
 				$this->DN = "$this->id";
 			return true;
 			
@@ -381,7 +386,7 @@ class basket_template
 	
 					$child = new $child_class();
 					
-                        $child->_setPropertiesLinkages("basket", $this->id, array_keys($value));
+                        $child->_setPropertiesLinkages("user", $this->id, array_keys($value));
                         
 				}
 				else {
@@ -610,7 +615,7 @@ class basket_template
 				$fk_class = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
 				
-						$html .= $fk_class->createMatrix($input_name,"basket",$this->id);
+						$html .= $fk_class->createMatrix($input_name,"user",$this->id);
 						
 				}
 				else {
@@ -629,7 +634,7 @@ class basket_template
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
 				if ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
-						(isset($CONF['basket'][$property]['max']) && $CONF['basket'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
+						(isset($CONF['user'][$property]['max']) && $CONF['user'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
 					$html.= "<input type=\"radio\" name=\"$input_name\" value=\"1\" id=\"$html_id\"";
 					if($property_value)	//allow any possible value for True
 						$html.= " checked";
@@ -642,12 +647,12 @@ class basket_template
 					
 					break;	//escape SWITCH statement
 					
-				}elseif (isset($CONF['basket'][$property]['max']) && $CONF['basket'][$property]['max']){
-					$min = ($CONF['basket'][$property]['min'])? $CONF['basket'][$property]['min'] : 0;
-					$step = ($CONF['basket'][$property]['step'])? $CONF['basket'][$property]['step'] : 1;
+				}elseif (isset($CONF['user'][$property]['max']) && $CONF['user'][$property]['max']){
+					$min = ($CONF['user'][$property]['min'])? $CONF['user'][$property]['min'] : 0;
+					$step = ($CONF['user'][$property]['step'])? $CONF['user'][$property]['step'] : 1;
 					if ($empty=='-None-')
 						$empty = '--';
-					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['basket'][$property]['max'], $step, $empty);
+					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['user'][$property]['max'], $step, $empty);
 					break;	//escape SWITCH statement
 				}//IF integer is a Boolean
 				
@@ -660,8 +665,8 @@ class basket_template
 				else
 					$maxlength = $matches[1];
 				
-				if (isset($CONF['basket'][$property]['size']))
-					$size = $CONF['basket'][$property]['size'];
+				if (isset($CONF['user'][$property]['size']))
+					$size = $CONF['user'][$property]['size'];
 				elseif($maxlength <= 30)
 					$size = $maxlength+1;
 				elseif ($maxlength <= 50)
@@ -759,11 +764,11 @@ class basket_template
 						$future = 5;
 					}//IF date of birth field
 					
-					if (isset($CONF['basket'][$property]['past']))
-						$past = $CONF['basket'][$property]['past'];
+					if (isset($CONF['user'][$property]['past']))
+						$past = $CONF['user'][$property]['past'];
 					
-					if (isset($CONF['basket'][$property]['future']))
-						$future = $CONF['basket'][$property]['future'];
+					if (isset($CONF['user'][$property]['future']))
+						$future = $CONF['user'][$property]['future'];
 					
 					$html.= createDateSelect($input_name, $property_value, $past, $future);
 					$separator = " @ ";

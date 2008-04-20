@@ -2,12 +2,12 @@
 
 if(ereg('~',$_SERVER['PHP_SELF'])||(isset($_SERVER['HOSTNAME']))) {
 	$docroot="/home/will/public_html/id";
-	$CONF['url'] = "http://wjtvaiosz.netmindz.net/~will/id";
+	$CONF['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/~will/id";
 	$CONF['paypal_address'] = 'seller_1197046991_biz@netmindz.net';
 	$CONF['paypal_host'] = 'www.sandbox.paypal.com';
 	$CONF['shop_email'] = "will@netmindz.net";
-	$CONF['db_name'] = "idspiral_shop";
 	$CONF['use_rewrite'] = false;
+	$CONF['db_host'] = "flat.netmindz.net";
 }
 else {
 	$docroot=$_SERVER['DOCUMENT_ROOT'];
@@ -15,7 +15,6 @@ else {
 	$CONF['paypal_address'] = 'shop@inspiralled.net';
 	$CONF['paypal_host'] = 'www.paypal.com';
 	$CONF['shop_email'] = "shop@inspiralled.net";
-	$CONF['db_name'] = "ekopia_shop";
 	$CONF['db_host'] = "ralf.netmindz.net";
 	$CONF['use_rewrite'] = true;
 }
@@ -34,7 +33,9 @@ $CONF['artist']['richtext'] = array('summary');
 $CONF['album']['richtext'] = array('summary');
 $CONF['page']['richtext'] = array('content');
 $CONF['product']['richtext'] = array('description');
+$CONF['user']['DN'] = '$this->username';
 
+$CONF['db_name'] = "ekopia_shop";
 $CONF['db_username'] = $CONF['db_name'];
 $CONF['db_pass'] = $CONF['db_username'] . "pass";
 $CONF['db_sys_admin'] = "will@netmindz.net";

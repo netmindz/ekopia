@@ -1,7 +1,7 @@
 <?
 class label_template
 {
-	var $id, $name, $summary;
+	var $id, $name, $website, $summary, $image_id, $user_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -32,7 +32,10 @@ class label_template
 		$this->id = 0;
 
 		$this->name = "";
+		$this->website = "";
 		$this->summary = "";
+		$this->image_id = "";
+		$this->user_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -57,11 +60,17 @@ class label_template
 			'track_tags'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'tracks'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'types'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'user_artists'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
+			'user_labels'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
+			'users'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['website'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
 		$this->_field_descs['summary'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
+		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
+		$this->_field_descs['user_FKL'] = array ("fk" => "user_label", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
 	
@@ -82,13 +91,19 @@ class label_template
 		}//IF
 
 
+		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
+			trigger_error("wrong type for label->image_id",E_USER_WARNING);
+			settype($this->image_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO labels (`name`, `summary`)";
+		$raw_sql  = "INSERT INTO labels (`name`, `website`, `summary`, `image_id`)";
 		
 		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->summary)."')";
+				$raw_sql.= " VALUES ('".addslashes($this->name)."', '".addslashes($this->website)."', '".addslashes($this->summary)."', '".addslashes($this->image_id)."')";
 		}else{
-			$raw_sql.= " VALUES ('$this->name', '$this->summary')";
+			$raw_sql.= " VALUES ('$this->name', '$this->website', '$this->summary', '$this->image_id')";
 		}//IF slashes
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -121,11 +136,17 @@ class label_template
 		}//IF
 
 
+		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
+			trigger_error("wrong type for label->image_id",E_USER_WARNING);
+			settype($this->image_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE labels SET ";
 		if($addslashes) {
-			$raw_sql.= "`name`='".addslashes($this->name)."', `summary`='".addslashes($this->summary)."'";
+			$raw_sql.= "`name`='".addslashes($this->name)."', `website`='".addslashes($this->website)."', `summary`='".addslashes($this->summary)."', `image_id`='".addslashes($this->image_id)."'";
 		}else{
-			$raw_sql.= "`name`='$this->name', `summary`='$this->summary'";
+			$raw_sql.= "`name`='$this->name', `website`='$this->website', `summary`='$this->summary', `image_id`='$this->image_id'";
 		}//IF
 		
 		$raw_sql.= " WHERE 1
@@ -222,7 +243,7 @@ class label_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "order by name" ;
+		if(!$order) $order = "order by name";
 		$select = "SELECT labels.* FROM labels ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
@@ -287,7 +308,6 @@ class label_template
 	 */
 	function get($id, $addslashes = "")
 	{ 
-		//settype($,"int");
 		
 		$sql = "WHERE 1
 		AND id = '$id'";
@@ -398,7 +418,7 @@ class label_template
 						if(class_exists("XString")) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						if ($addSlashes) {
+						if (($addSlashes)&&($this->_field_descs[$key]['type'] != "blob")) {
 							$this->$key = addslashes($value);
 						}
 						else {
