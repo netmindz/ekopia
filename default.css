@@ -20,6 +20,8 @@ div#album_thumb img {
 div#album_thumb_image {
 	float: left;
 	padding: 0px 15px 0px 0px;
+	width: 110px;
+	height: 110px;
 }
 
 div#track_thumb {

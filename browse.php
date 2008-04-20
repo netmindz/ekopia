@@ -74,6 +74,7 @@ if(isset($_REQUEST['id'])) {
 		foreach($prefixes as $prefix) print "&#149;&nbsp;<a href=\"" . browse_link("album") ."${join}prefix=$prefix\">$prefix</a> ";
 		?>
 		</p>
+		<p><a href="list.php">View All</a></p>
 		<?php
 	}
 	?>
