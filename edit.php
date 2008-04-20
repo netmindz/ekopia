@@ -1,12 +1,12 @@
 <?php include("include/common.php"); ?>
 <?
+$user->checkLogin();
 $type_name = $_REQUEST['type'];
 $type_perm = "user_" . $type_name;
 ?>
 <?php include("classes/".$type_perm.".php"); ?>
 <?php include("header.inc.php"); ?>
 <?php
-$user->checkLogin();
 
 $type = new $type_name();
 $type->get($_GET['id']);
