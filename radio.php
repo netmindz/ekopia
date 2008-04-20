@@ -11,5 +11,6 @@
         <PARAM NAME="jorbis.player.icestats" VALUE="no">
         <PARAM NAME="jorbis.player.playonstartup" VALUE="yes">
 </applet>
+<iframe name="basefrm" src="http://shop.inspiralled.net/now2.php" marginwidth="0" marginheight="0"align="left" frameborder="0" height="324" scrolling="no" width="141"></iframe>
 </body>
 </html>
