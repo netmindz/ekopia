@@ -30,6 +30,9 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	</table>
 
 	<p><?= nl2br($album->summary); ?></p>
+	<table width="100%">
+	<tr>
+	<td>
 	Tracks<br/>
 	<form action="<?= $CONF['url'] ?>/basket.php" method="post">
 	<ul>
@@ -67,6 +70,25 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	}
 	?>
 	</ul>
+	</td>
+	<td>
+		Tags:<br>
+		<ul>
+		<?
+		$atag = new album_tag();
+		$atag->getByAlbum($album->id);
+		while($atag->getNext()) {
+			$tag = new tag();
+			$tag->get($atag->tag_FK);
+			?>
+			<li><a href="<?= $CONF['url'] ?>/tags.php?id=<?= $tag->id ?>"><?= $tag->name ?></a></li>
+			<?
+		}
+		?>
+		</ul>
+	</td>
+	</tr>
+	</table>
 	</form>
 		<?php if($album->price) { ?>
 		<form action="<?= $CONF['url'] ?>/basket.php" method="post">
