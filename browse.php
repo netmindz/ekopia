@@ -34,8 +34,10 @@ if(isset($_REQUEST['id'])) {
 		?>
 		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
 		<?php
+
 		$page_title = ucwords($type) . " - " . $typeObj->DN . " @ inSpiral shop";
 		print $typeObj->summary;
+		if($typeObj->website) { ?><p><a href="<?= $typeObj->website ?>"><?= $typeObj->DN ?> website</a></p><? }
 		$keywords[] = $typeObj->DN;
 		?>
 		<div class="edit">[&nbsp;<a href="edit.php?id=<?= $id ?>&amp;type=<?= $type ?>">edit</a>&nbsp;]</div>
