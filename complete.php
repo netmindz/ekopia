@@ -22,9 +22,9 @@ Items:
 <ul>
 <?
 $line_item = new line_item();
-$labels = array();
-$artists = array();
-$albums = array();
+$labels = array("-1");
+$artists = array("-1");
+$albums = array("-1");
 $line_item->getList("where order_id=" . $order->id);
 while($line_item->getNext()) {
 	$item = new $line_item->type();
@@ -33,6 +33,7 @@ while($line_item->getNext()) {
 	<li><?= ucwords($line_item->type) ?> - <?= $item->name ?>
 	<?
 	if($line_item->type == "track") {
+		$albums[] = $item->album_id;
 		?><a href="download.php?order_id=<?= $order->id ?>&amp;item_id=<?= $line_item->id ?>&amp;email=<?= urlencode($order->customer_email) ?>">Download</a><?php
 	}
 	elseif($line_item->type == "album") {
@@ -49,16 +50,22 @@ while($line_item->getNext()) {
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
-<h2>See also</h2>
-<p>If you like these, you might also want to check out these albums</p>
-<div id="album_list">
 <?php
 $album = new album();
-$album->getList("where id not in (".implode(",",$albums).") AND ((artist_id in (".implode(",",$artists).") OR (label_id in (".implode(",",$labels)."))))","order by rand()","limit 0,4");
-while($album->getNext()) {
-	$album->displayThumb();
+$see_also_count = $album->getList("where id not in (".implode(",",$albums).") AND ((artist_id in (".implode(",",$artists).") OR (label_id in (".implode(",",$labels)."))))","order by rand()","limit 0,4");
+if($see_also_count) {
+	?>
+	<h2>See also</h2>
+	<p>If you like these, you might also want to check out these albums</p>
+	<div id="album_list">
+	<?
+	while($album->getNext()) {
+		$album->displayThumb();
+	}
+	?>
+	</div>
+	<?
 }
 ?>
-</div>
 <?php include("footer.inc.php"); ?>
 
