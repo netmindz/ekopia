@@ -5,10 +5,10 @@ $login_failed = false;
 if(isset($_POST['username'])) { 
 	if(!$user->login($_POST['username'],$_POST['password'])) {
 		$login_failed = true;
-	}
-	elseif(isset($_REQUEST['url'])) {
-		header("Location: " . $_REQUEST['url']);
-		exit();
+		if(isset($_REQUEST['url'])) {
+			header("Location: " . $_REQUEST['url']);
+			exit();
+		}
 	}
 }
 include("header.inc.php");
@@ -16,6 +16,7 @@ if(($login_failed)||(!$user->id)) {
 ?>
 <? if($user->lastError) { ?><p class="error"><?= $user->lastError ?></p><? } ?>
 <form action="<?= $CONF['url'] ?>/login.php" method="post">
+<input type="hidden" name="url" value="<?= $_REQUEST['url'] ?>"/>
 <table>
 <tr>
 	<th>Username</th>

@@ -375,7 +375,7 @@ class basket_item_template
 			$object_props = get_object_vars($this);		//retrieve array of properties
 			
 			foreach ($properties as $key => $value) {
-				if($this->_field_descs[$key]['gen_type'] == "many2many") {
+				if(isset($this->_field_descs[$key]['fk'])) {
 					$child_class = $this->_field_descs[$key]['fk'];
 					
 					if(!class_exists($child_class)) {
@@ -383,11 +383,24 @@ class basket_item_template
 						@include "$child_class.php";		//attempt to load class file, but suppress errors if not found
 						@include "$child_class.class.php";		//attempt to load class file, but suppress errors if not found
 					}
-	
 					$child = new $child_class();
+					if($this->_field_descs[$key]['gen_type'] == "many2many") {
 					
-                        $child->_setPropertiesLinkages("basket_item", $this->id, array_keys($value));
+	                        $child->_setPropertiesLinkages("basket_item", $this->id, array_keys($value));
                         
+					}
+					else {
+						if((isset($_FILES[$key]))&&($_FILES[$key]["size"])) {
+							if($value) {
+								$child->delete($value);
+							}
+							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
+						}
+						else {
+							// use old value
+							$this->$key = $value;
+						}
+					}
 				}
 				else {
 					if(array_key_exists($key, $object_props)){
@@ -607,11 +620,19 @@ class basket_item_template
 					@include "$fk_class.php";		//attempt to load class file, but suppress errors if not found
 					@include "$fk_class.class.php";		//attempt to load class file, but suppress errors if not found
 				}
-				$fk_class = new $fk_class();
+				$fk = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
 				
-						$html .= $fk_class->createMatrix($input_name,"basket_item",$this->id);
+						$html .= $fk->createMatrix($input_name,"basket_item",$this->id);
 						
+				}
+				elseif($fk_class == "image") {
+					$fk->get($value);
+                                        if($fk->id) {
+                                        	print "$fk->name ";
+                                       	}
+                                        $html .= "<input type=\"hidden\" name=\"" . $input_name  ."\" value=\"$value\"><br>\n";
+                                   	$html .= "<input type=\"file\" name=\"".$property."\">";
 				}
 				else {
 					ob_start();
@@ -625,6 +646,9 @@ class basket_item_template
 			
 		} else {	//not a Foreign Key field...
 			switch ($this->_field_descs[$property]['gen_type']) {
+                          case 'blob' :
+					$html .= 'Binary Data';
+					break;
 			  case 'int' :
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length

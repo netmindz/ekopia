@@ -36,6 +36,10 @@ if(isset($_REQUEST['id'])) {
 		<?php
 
 		$page_title = ucwords($type) . " - " . $typeObj->DN . " @ inSpiral shop";
+		if($typeObj->image_id) {
+			$image =  new image();
+			$image->show($typeObj->image_id,150,150,"align='right'");
+		}
 		print $typeObj->summary;
 		if($typeObj->website) { ?><p><a href="<?= $typeObj->website ?>"><?= $typeObj->DN ?> website</a></p><? }
 		$keywords[] = $typeObj->DN;

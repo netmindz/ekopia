@@ -27,7 +27,7 @@ elseif(isset($_POST['values'])) {
 }
 else {
 	?>
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="<?= $type->id ?>">
 	<input type="hidden" name="type" value="<?= $type_name ?>">
 	<table>

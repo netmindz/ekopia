@@ -40,6 +40,25 @@ if($_REQUEST['keyword']) {
 		<?php
 	}
 
+	$label = new label();
+	if($label->search($_REQUEST['keyword'],array('name'))) {
+		?>
+		<h2>Labels</h2>
+		<ul>
+		<?php
+		while($label->getNext()) { 
+			?><li><a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a></li><?
+		}
+		?>
+		</ul>
+		<?
+	}
+	else 	{
+		?>
+		<p>No Labels matches your search</p>
+		<?php
+	}
+
 	$track = new track();
 	if($track->search($_REQUEST['keyword'],array('name'))) {
 		?>

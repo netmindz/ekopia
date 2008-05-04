@@ -24,7 +24,7 @@ class user extends user_template {
 	{
 		global $CONF;
 		if(!$this->id) {
-			header("Location: " . $CONF['url'] . "/login.php&url=".urlencode($_SERVER['PHP_SELF']));
+			header("Location: " . $CONF['url'] . "/login.php?url=".urlencode($_SERVER['PHP_SELF']));
 			exit();
 		}
 	}
