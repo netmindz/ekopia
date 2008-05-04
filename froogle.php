@@ -4,12 +4,12 @@ require("include/common.php");
 $ftp_server = "uploads.google.com";
 $ftp_username = "inspiralled";
 $ftp_password = "feedme2008!";
-$destination_file = "albums-uk.xml";
+$destinations = array("albums-uk.xml"=>1,"albums.xml"=>1.97330,'albums-de.xml'=>1.28);
 
 
-function get_rss() {
+function get_rss($rate,$country) {
 	global $CONF;
-	$rss='<?xml version="1.0"?>
+	$rss='<?xml version="1.0" encoding="iso-8859-1" ?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
 <channel>
 <title>Shop Listings</title>
@@ -19,6 +19,7 @@ function get_rss() {
 	$album = new album();
 	$album->getList("where price >0");
 	while($album->getNext()) {
+		$description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$album->summary)));
 		$artist = new artist();
 		$artist->get($album->artist_id);
 		$rss .= '<item>
@@ -26,11 +27,11 @@ function get_rss() {
 <g:expiration_date>'.date("Y-m-d",strtotime("next month")).'</g:expiration_date>
 <g:brand>'.htmlspecialchars($artist->name).'</g:brand>
 <g:condition>new</g:condition>
-<description>'.htmlspecialchars($album->summary).'</description>
-<guid>'.$album->id.'</guid>
+<description>'.$description.'</description>
+<guid>'.$country.$album->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
 <link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
-<g:price>'.$album->price.'</g:price>
+<g:price>'.round(($album->price * $rate),2).'</g:price>
 <g:product_type>CD</g:product_type>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
 <g:edition>'.$album->release_year.'</g:edition>
@@ -43,15 +44,20 @@ function get_rss() {
 <g:pickup>true</g:pickup>
 </item>';
 	}
-	$rss .= '</channel></rss>';
+	$rss .= '</channel>\n</rss>\n';
 
 	return($rss);
 }
 
 if(ereg("download",$_SERVER['QUERY_STRING'])) {
-	header("Content-Type: text/xml");
+	header("Content-Type: text/xml;charset=iso-8859-1");
 	//header("Content-Disposition: attachment;filename=".$destination_file);
-	print get_rss();
+	if(isset($_GET['file'])) {
+		print get_rss($destinations[$_GET['file']],"");
+	}
+	else {
+		print get_rss(1,"");
+	}
 	exit();
 }
 
@@ -63,27 +69,33 @@ $login_result = ftp_login($conn_id, $ftp_username,$ftp_password);
 
 // check connection
 if ((!$conn_id) || (!$login_result)) { 
-        echo "FTP connection has failed!";
-        echo "Attempted to connect to $ftp_server for user $ftp_username"; 
+        echo "FTP connection has failed!</br>\n";
+        echo "Attempted to connect to $ftp_server for user $ftp_username</br>\n"; 
         exit; 
     } else {
-        echo "Connected to $ftp_server, for user $ftp_username";
+        echo "Connected to $ftp_server, for user $ftp_username</br>\n";
     }
 
-$source_file = tempnam("/tmp/","albums");
-file_put_contents($source_file,get_rss());
+foreach($destinations as $destination_file=>$rate) {
+	print "$destination_file with rate of $rate<br>\n";
+	$source_file = tempnam("/tmp/","albums");
+	if(ereg("-(.+)\.xml",$destination_file,$matches)) {
+		$country = $matches[1];
+	}
+	else {
+		$country = "";
+	}
+	file_put_contents($source_file,get_rss($rate,$country));
 
-// upload the file
-$upload = ftp_put($conn_id, $destination_file, $source_file, FTP_BINARY); 
+	// check upload status
+	if (!ftp_put($conn_id, $destination_file, $source_file, FTP_BINARY)) { 
+	        echo "FTP upload of $source_file to $destination_file has failed!</br>\n";
+	} else {
+        	echo "Uploaded $source_file to $ftp_server as $destination_file</br>\n";
+	}
 
-// check upload status
-if (!$upload) { 
-        echo "FTP upload has failed!";
-    } else {
-        echo "Uploaded $source_file to $ftp_server as $destination_file";
-    }
-
-@unlink($source_file);
+	#@unlink($source_file);
+}
 
 // close the FTP stream 
 ftp_close($conn_id); 
