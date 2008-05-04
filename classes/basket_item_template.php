@@ -76,10 +76,9 @@ class basket_item_template
 	
 	/**
 	 * @return bool - false on fail, new ID on success, or true if no auto-inc primary key
-	 * @param int $addslashes		-	If True, addslashes to all fields before adding record
 	 * @desc This generic method enters all the current values of the properties into the database as a new record
 	 */
-	function add($addslashes=0) {
+	function add() {
 		
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
 			trigger_error("wrong type for basket_item->id",E_USER_WARNING);
@@ -102,11 +101,7 @@ class basket_item_template
 		
 		$raw_sql  = "INSERT INTO basket_items (`basket_id`, `type`, `item_id`)";
 		
-		if ($addslashes) {
-				$raw_sql.= " VALUES ('".addslashes($this->basket_id)."', '".addslashes($this->type)."', '".addslashes($this->item_id)."')";
-		}else{
-			$raw_sql.= " VALUES ('$this->basket_id', '$this->type', '$this->item_id')";
-		}//IF slashes
+		$raw_sql.= " VALUES ('".$this->database->escape($this->basket_id)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -126,10 +121,9 @@ class basket_item_template
 	
 	/**
 	 * @return unknown
-	 * @param int $addslashes		-	If True, addslashes to all fields before updating
 	 * @desc This generic method updates the database to reflect the current values of the objects properties
 	 */
-	function update($addslashes=0)
+	function update()
 	{
 	
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
@@ -151,12 +145,7 @@ class basket_item_template
 
 
 		$raw_sql  = "UPDATE basket_items SET ";
-		if($addslashes) {
-			$raw_sql.= "`basket_id`='".addslashes($this->basket_id)."', `type`='".addslashes($this->type)."', `item_id`='".addslashes($this->item_id)."'";
-		}else{
-			$raw_sql.= "`basket_id`='$this->basket_id', `type`='$this->type', `item_id`='$this->item_id'";
-		}//IF
-		
+		$raw_sql.= "`basket_id`='".$this->database->escape($this->basket_id)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";
@@ -179,18 +168,15 @@ class basket_item_template
 	/**
 	* @return bool
 	* @param string $fieldname		-	The exact name of the field in the table / object property
-	* @param int $addslashes		-	If True, addslashes to the field before updating
 	* @desc Sets individual fields in the record, allowing special cases to be executed (eg. sess_expires), and leaving others unchanged.
  	*/
-	function set($fieldname, $addslashes=0) {
+	function set($fieldname) {
 		
 		//define the SQL to use to UPDATE the field...
 		if ($this->_field_descs[$fieldname]['gen_type'] == 'int' || $this->$fieldname == "NULL" || $this->$fieldname == "NOW()")
 			$sql = "UPDATE basket_items SET $fieldname = ".$this->$fieldname;
-		elseif ($addslashes)
-			$sql = "UPDATE basket_items SET $fieldname = '".addslashes($this->$fieldname)."'";
 		else
-			$sql = "UPDATE basket_items SET $fieldname = '".$this->$fieldname."'";
+			$sql = "UPDATE basket_items SET $fieldname = '".$this->database->escape($this->$fieldname)."'";
 		
 		
 		//Now add the WHERE clause
@@ -210,13 +196,12 @@ class basket_item_template
 	* @return bool
 	* @param string $fieldname		-	The exact name of the field in the table / object property
 	* @param string $value		-	The value of the field in the table / object property
-	* @param int $addslashes		-	If True, addslashes to the field before updating
 	* @desc Wrapper that calls setProperties for the supplied pair and calls set()
  	*/
-	function setField($field,$value,$addslashes=0)
+	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field,$addslasses));
+		return($this->set($field));
 	}
 	
 	
@@ -266,7 +251,7 @@ class basket_item_template
 	 * @return unknown
 	 * @desc This generic method gets the next result from the last database query and loads the values into the properties of the object
 	 */
-	function getNext($addslashes = "")
+	function getNext()
 	{
 		$tmp = $this->database->getNextRow();
 		
@@ -278,14 +263,7 @@ class basket_item_template
 			// TODO - rewrite this bit to work with meta tables, e.g
 			// class::get{field}CB
 			
-			//hack to allow people calling addslashes to call it without affecting (my) overriden methods that dont support it - oops! rs 10/04
-			if ($addslashes)
-				$this->setProperties($tmp, $addslashes);
-			else
-				$this->setProperties($tmp);
-			
-//			$this = set_properties($this, $tmp, $addslashes,"get");
-			$this->_data_format='db';
+			$this->setProperties($tmp);
 			
 			//convert from DB properties
 			$this->convertDBProperties('from');		//needs to be changed to 'php' when legacy stuff is removed
@@ -311,10 +289,9 @@ class basket_item_template
 	 * @return unknown
 	 * @param int $id		-	primary key of record
 
-	 * @param unknown $addslashes = ""
 	 * @desc Extracts the requested record from the database and puts it into the properties of the object
 	 */
-	function get($id, $addslashes = "")
+	function get($id)
 	{ 
 		
 		$sql = "WHERE 1
@@ -329,7 +306,7 @@ class basket_item_template
 			return false;
 			
 		}else{
-			if ($this->getNext($addslashes))
+			if ($this->getNext())
 				return true;
 			else
 				return false;
@@ -358,7 +335,7 @@ class basket_item_template
 				$sql.= " AND $fieldname = '$value' ";*/
 			//^cant trust that supplied data is numeric for INT fields, so....
 			
-			$sql.= " AND $fieldname = '".addslashes($value)."'";
+			$sql.= " AND $fieldname = '".$this->database->escape($value)."'";
 		}//FOREACH
 		
 		//retrieve all fields from the table and map to user object
@@ -423,15 +400,10 @@ class basket_item_template
 							}
 						}
 						// provided by PHPOF
-						if(class_exists("XString")) {
+						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						if (($addSlashes)&&($this->_field_descs[$key]['type'] != "blob")) {
-							$this->$key = addslashes($value);
-						}
-						else {
-							$this->$key = $value;
-						}
+						$this->$key = $value;
 					}//IF key matched
 				}
 			}//FOREACH element
