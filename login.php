@@ -6,6 +6,10 @@ if(isset($_POST['username'])) {
 	if(!$user->login($_POST['username'],$_POST['password'])) {
 		$login_failed = true;
 	}
+	elseif(isset($_REQUEST['url'])) {
+		header("Location: " . $_REQUEST['url']);
+		exit();
+	}
 }
 include("header.inc.php");
 if(($login_failed)||(!$user->id)) {
