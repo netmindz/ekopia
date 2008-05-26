@@ -80,12 +80,14 @@ class album extends album_template {
                 Album: <a href="<?= album_link($this->id,$this->name) ?>"><?= $this->name ?></a><br/>
                 Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
                 Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
-                <?php if($this->price) { ?>
+                <?php if(($this->price)&&($this->stock_count > 0)) { ?>
                 <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
                 <input type="hidden" name="album_id" value="<?= $this->id ?>" />
                 &pound; <?= $this->price ?> <input type="submit" value="Add to basket" class="inputbox" />
                 </form>
+                <?php } elseif($this->stock_count <= 0) { ?>
+		Out of stock. Please come back soon
                 <?php } else { ?>
                 Coming soon to buy here
                 <?php } ?>

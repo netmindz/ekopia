@@ -90,13 +90,15 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	</tr>
 	</table>
 	</form>
-		<?php if($album->price) { ?>
+		<?php if(($album->price)&&($album->stock_count > 0)) { ?>
 		<form action="<?= $CONF['url'] ?>/basket.php" method="post">
 		<input type="hidden" name="action" value="add"/>
 		<input type="hidden" name="album_id" value="<?= $album->id ?>"/>
 		&pound; <?= $album->price ?>
 		<input type="submit" value="Add CD basket" class="inputbox"/>
 		</form>
+		<?php } elseif($album->stock_count <= 0) { ?>
+		Out of stock
 		<?php } else { ?>
 		Coming soon to buy here
 		<?php } ?>
