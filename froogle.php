@@ -17,7 +17,7 @@ function get_rss($rate,$country) {
 <link>'.$CONF['url'].'</link>
 ';
 	$album = new album();
-	$album->getList("where price >0");
+	$album->getList("where price > 0 and stock_count > 0");
 	while($album->getNext()) {
 		$description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$album->summary)));
 		$artist = new artist();
