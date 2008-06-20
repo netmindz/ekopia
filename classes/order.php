@@ -33,7 +33,7 @@ class order extends order_template {
 			if(ereg('^(address)_(.+)',$k,$matches)) {
 				$paypal[$matches[1]][$matches[2]] = $v;
 			}
-			if(ereg('^(item)_(.+)([0-9]+)',$k,$matches)) {
+			if(ereg('^(item)_([a-z]+)([0-9]+)',$k,$matches)) {
 				$paypal[$matches[1]][$matches[3]][$matches[2]] = $v;
 			}
 		}
