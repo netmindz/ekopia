@@ -15,6 +15,7 @@ include("header.inc.php");
 if(($login_failed)||(!$user->id)) {
 ?>
 <? if($user->lastError) { ?><p class="error"><?= $user->lastError ?></p><? } ?>
+<p>If you are artist or label and wish to be able to update your profile, please email shop@inspiralled.net to have an account created for you</p>
 <form action="<?= $CONF['url'] ?>/login.php" method="post">
 <input type="hidden" name="url" value="<?= $_REQUEST['url'] ?>"/>
 <table>
