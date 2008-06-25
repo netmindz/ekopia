@@ -23,13 +23,15 @@ function mpd_now_playing()
 			fputs($fp,"playlistinfo " . $data['song'] . "\n");
 			$data['title'] = "";
 			while(($line = trim(fgets($fp,255)))&&($sanity < 1000)) {
+					#print "line=$line<br/>\n";
 					$sanity++;
 					if($line=="OK") break;
 			 		if(ereg('^([^ ]+): (.+)$',$line,$matches)) {
 						$key = strtolower($matches[1]);
-		   	         	if(!isset($data[$key])) $data[$key] = $matches[2];
+		   	         		$data[$key] = $matches[2];
 					}
 			}
+			#print_r($data);
 			return($data);
 		}
 	}
