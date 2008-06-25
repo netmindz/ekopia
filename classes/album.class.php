@@ -62,7 +62,7 @@ class album extends album_template {
 	}
 		
 
-	function displayThumb($showBuyNow=false)
+	function displayThumb($showBuyNow=true)
 	{
 		global $CONF;
 		$label = new label();
