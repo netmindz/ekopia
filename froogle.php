@@ -24,7 +24,7 @@ function get_rss($rate,$country) {
 		$artist->get($album->artist_id);
 		$rss .= '<item>
 <title>'.htmlspecialchars($album->name).' CD Album by '.htmlspecialchars($artist->name).'</title>
-<g:expiration_date>'.date("Y-m-d",strtotime("next month")).'</g:expiration_date>
+<g:expiration_date>'.date("Y-m-d",strtotime("+25 days")).'</g:expiration_date>
 <g:brand>'.htmlspecialchars($artist->name).'</g:brand>
 <g:condition>new</g:condition>
 <description>'.$description.'</description>

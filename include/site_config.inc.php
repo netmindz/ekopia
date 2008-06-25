@@ -1,6 +1,6 @@
 <?php
 
-if(ereg('~',$_SERVER['PHP_SELF'])||(!isset($_SERVER['PHP_SELF']))) {
+if(ereg('~',$_SERVER['PHP_SELF'])||(!isset($_SERVER['HTTP_HOST']))) {
 	$docroot="/home/will/public_html/id";
 	$CONF['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/~will/id";
 	$CONF['paypal_address'] = 'seller_1197046991_biz@netmindz.net';
