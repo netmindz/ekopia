@@ -590,7 +590,7 @@ class user_artist_template
 		$child_class = $child_details['child_class'];
 		$suffix = $child_details['suffix'];
 		
-		@include_once("$child_class.php");
+		@include_once("$child_class.class.php");
 		$child = new $child_class();
 		$child->getList();
 		while($child->getNext()) {
