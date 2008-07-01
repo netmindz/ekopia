@@ -13,7 +13,7 @@ function get_rss($rate,$country) {
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
 <channel>
 <title>Shop Listings</title>
-<description>Album listing for the shop</description>
+<description>Product listing for the inSpiral shop</description>
 <link>'.$CONF['url'].'</link>
 ';
 	$album = new album();
@@ -44,6 +44,37 @@ function get_rss($rate,$country) {
 <g:pickup>true</g:pickup>
 </item>';
 	}
+
+	$track = new track();
+	$track->getList("where price > 0");
+	while($track->getNext()) {
+		$album = new album();
+		$album->get($track->album_id);
+		$description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$album->summary)));
+		$artist = new artist();
+		$artist->get($track->artist_id);
+		$rss .= '<item>
+<title>'.htmlspecialchars($track->name).' by ' .htmlspecialchars($artist->name).' digital MP3 / Ogg / Flac / Wav download</title>
+<g:expiration_date>'.date("Y-m-d",strtotime("+25 days")).'</g:expiration_date>
+<g:brand>'.htmlspecialchars($artist->name).'</g:brand>
+<g:condition>new</g:condition>
+<description>'.$description.'</description>
+<guid>'.$country.'t'.$track->id.'</guid>
+<g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
+<link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
+<g:price>'.round(($track->price * $rate),2).'</g:price>
+<g:product_type>MP3/Ogg/Flac/Wav</g:product_type>
+<g:artist>'.htmlspecialchars($artist->name).'</g:artist>
+<g:edition>'.$album->release_year.'</g:edition>
+<g:year>'.$album->release_year.'</g:year>
+<g:format>Download</g:format>
+<g:payment_accepted>Visa</g:payment_accepted>
+<g:payment_accepted>MasterCard</g:payment_accepted>
+<g:pickup>false</g:pickup>
+</item>';
+	}
+
+
 	$rss .= '</channel>\n</rss>\n';
 
 	return($rss);
