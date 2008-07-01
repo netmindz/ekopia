@@ -100,7 +100,7 @@ class album extends album_template {
 
 	function getNew($count)
 	{
-		return($this->getList("where price > 0 and stock_count > 0","order by added desc","limit 0,$count"));
+		return($this->getList("where price > 0 and stock_count > 0","order by added desc,rand()","limit 0,$count"));
 	}
 
 	function getDownloads($count)
