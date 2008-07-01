@@ -3,6 +3,7 @@ header("Content-Type: text/xml");
 
 print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n
 <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
+print "<url><loc>".$CONF['url']."/froogle.php?download</loc></url>\n";
 
 require("include/common.php");
 	$album = new album();
