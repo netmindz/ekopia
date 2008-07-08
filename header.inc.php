@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow" />
 	<link rel="shortcut icon" href="http://www.inspiralled.net/images/favicon.ico" />
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<?php if(isset($page_meta)) ?><meta name="description" content="<?= $page_meta ?>" /><?php } ?>
+<?php if(isset($page_meta)) { ?><meta name="description" content="<?= $page_meta ?>" /><?php } ?>
 <meta name="keywords" content="inSpiral, chillout, psychill, downbeat, <?php if(isset($page_keywords)) print $page_keywords ?>" />
 <link href="http://www.inspiralled.net/templates/sp_slim3/css/template_css.css" rel="stylesheet" type="text/css" />
 <link href="<?= $CONF['url'] ?>/default.css" rel="stylesheet" type="text/css" />
