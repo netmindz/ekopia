@@ -84,6 +84,18 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
 								<tr align="left"><td><a href="<?= $CONF['url'] ?>/tags.php" class="mainlevel" >Styles</a></td></tr>
 							</table>		
 				</div>
+              		<div class="moduletable">
+							<h3>Products</h3>
+							<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<?php
+							$type = new type();
+							$type->getList("where type_id=0");
+							while($type->getNext()) {
+								?>
+								<tr align="left"><td><a href="type.php?id=<?= $type->id ?>" class="mainlevel" ><?= $type->DN ?>s</a></td></tr>
+							<?php } ?>
+							</table>
+				</div>
  				<div class="moduletable">
 					<h3>Search</h3>
 					<table class="contentpaneopen">
