@@ -98,7 +98,7 @@ function get_rss($rate,$country) {
 
 
 
-	$rss .= '</channel>\n</rss>\n';
+	$rss .= "</channel>\n</rss>\n";
 
 	return($rss);
 }
