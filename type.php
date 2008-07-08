@@ -13,6 +13,7 @@ if(isset($_REQUEST['id'])) {
 		$product->displayThumb();
 	}
 	?>
+	<br clear="all"/>
 	<p><a href="type.php">Back to Products</a></p>
 	<?
 }
@@ -20,11 +21,16 @@ else {
 	$type->getList();
 	?>
 	<h1>Products</h1>
+	<ul>
 	<?
 	while($type->getNext()) { ?>
-	<a href="type.php?id=<?= $type->id ?>"><?= $type->name ?></a>
+		<li><a href="type.php?id=<?= $type->id ?>"><?= $type->name ?></li>
 	<?
 	}
+	?>
+	</ul>
+	<?php
+	
 }
 ?>
 <?php include("footer.inc.php"); ?>

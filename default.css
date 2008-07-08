@@ -30,6 +30,25 @@ div#track_thumb {
 	padding: 15px 15px 15px 15px;
 }
 
+div.product_thumb {
+	float: left;
+	padding: 15px 15px 15px 15px;
+/*	border: medium solid rgb(0,255,50); */
+	width: 240px;
+	height: 120px;
+}
+
+div.product_thumb_image {
+	float: left;
+	padding: 0px 15px 0px 0px;
+	width: 110px;
+	height: 110px;
+}
+
+div.product_thumb img {
+	border: none;
+}
+
 div#signature {
 	clear: both;
 	font-size: 9px;
