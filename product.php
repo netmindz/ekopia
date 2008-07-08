@@ -7,8 +7,9 @@ $product->get($_REQUEST['id']);
 $type = new type();
 $type->get($product->type_id);
 
-$page_title = $product->name;
+$page_title = "inSpiral - $product->name";
 $page_keywords = implode(", ",array($product->name,$type->name));
+$page_meta = $product->intro;
 ?>
 <?php include("header.inc.php"); ?>
 <h1><?= $product->name ?></h1>
