@@ -15,7 +15,7 @@ class product extends product_template {
                 ?></a>
                 </div>
                 <a href="<?= $CONF['url'] ?>/product.php?id=<?= $this->id ?>"><?= $this->name ?></a><br/>
-		<?= $this->intro ?>
+		<?= substr($this->intro,0,60) ?>
                 <?php if($this->price) { ?>
                 <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
