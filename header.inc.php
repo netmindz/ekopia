@@ -92,7 +92,7 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
 							$type->getList("where type_id=0");
 							while($type->getNext()) {
 								?>
-								<tr align="left"><td><a href="type.php?id=<?= $type->id ?>" class="mainlevel" ><?= $type->DN ?>s</a></td></tr>
+								<tr align="left"><td><a href="<?= $CONF['url'] ?>/type.php?id=<?= $type->id ?>" class="mainlevel" ><?= $type->DN ?>s</a></td></tr>
 							<?php } ?>
 							</table>
 				</div>
