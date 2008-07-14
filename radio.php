@@ -1,6 +1,8 @@
 <html>
 <head>
-<title>Ekopia Radio</title>
+<title>inSpiral Radio</title>
+<link href="http://www.inspiralled.net/templates/sp_slim3/css/template_css.css" rel="stylesheet" type="text/css" />
+<link href="http://www.inspiralled.net/css/content.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <applet code="jcraft.player.JOrbisPlayer.class"

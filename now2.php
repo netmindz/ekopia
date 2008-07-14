@@ -71,6 +71,7 @@ if($data = mpd_now_playing()) {
 				</tr>
 			</tbody>
 </table>
+	<div align="center"><a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">Listen Now</a></div>
 	<?php
 }
 else { ?>
