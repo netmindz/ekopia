@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://shop.inspiralled.net" href="radio.jnlp">
+    <information>
+        <title>inSpiral Radio</title>
+        <vendor>will</vendor>
+        <homepage href="http://shop.inspiralled.net"/>
+        <description>inSpiral Radio Player</description>
+        <description kind="short">inSpiral Radio</description>
+    </information>
+    <security>
+        <all-permissions/>
+    </security>
+    <resources>
+        <j2se version="1.5+"/>
+        <jar href="jorbis.jar" main="true" download="eager"/>
+        <jar href="swing-layout-1.0.3.jar" download="eager"/>
+    </resources>
+    <application-desc main-class="jcraft.player.JOrbisPlayer">
+    </application-desc>
+</jnlp>

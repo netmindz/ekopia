@@ -8,5 +8,6 @@
         width="384" height="144" align="baseline">
         <PARAM NAME="jorbis.player.playonstartup" VALUE="yes">
 </applet>
+<p><a href="radio.jnlp">Install inSpiral Radio Player</a></p>
 </body>
 </html>

@@ -5,7 +5,7 @@ $album = new album();
 if($album->getByOther(array('name'=>$_REQUEST['album']))) {
 	print "album_link#" . browse_link("album",$album->id,$album->name)."\n";
 	if($album->image_id) {
-		print "image#http://shop.inspiralled.net/showimage.php?id=$album->image_id&width=120&height=120\n";
+		print "image#http://shop.inspiralled.net/showimage.php?id=$album->image_id&width=120&height=120&nocache=true\n";
 	}
 }
 $artist = new artist();
