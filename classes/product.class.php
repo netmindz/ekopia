@@ -23,7 +23,7 @@ class product extends product_template {
                 &pound; <?= $this->price ?> <input type="submit" value="Add to basket" class="inputbox" />
                 </form>
                 <?php } else { ?>
-                Coming soon to buy here
+                <!-- Coming soon to buy here -->
                 <?php } ?>
                 </div>
                 <?

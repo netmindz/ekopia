@@ -32,7 +32,7 @@ while($variation->getNext()) {
 	<form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
                 <input type="hidden" name="product_variation_id" value="<?= $variation->id ?>" />
-                &pound; <?= $variation->price ?> <input type="submit" value="Add to basket" class="inputbox" />
+                <?= $variation->name ?>  - &pound; <?= $variation->price ?> <input type="submit" value="Add to basket" class="inputbox" />
                 </form>
 
 	<?php	
