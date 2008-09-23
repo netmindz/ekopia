@@ -96,6 +96,29 @@ function get_rss($rate,$country) {
 </item>';
 	}
 
+	$variation = new product_variation();
+        $variation->getList("where price > 0");
+        while($variation->getNext()) {
+		$product = new product();
+		$product->get($variation->product_id);
+                $type = new type();
+                $type->get($product->type_id);
+                $description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$product->description)));
+                $rss .= '<item>
+<title>'.htmlspecialchars($variation->DN).'</title>
+<g:expiration_date>'.date("Y-m-d",strtotime("+10 days")).'</g:expiration_date>
+<g:condition>new</g:condition>
+<description>'.$description.'</description>
+<guid>'.$country.'p'.$product->id.'</guid>
+<g:image_link>'.$CONF['url'].'/showimage.php?id='.$product->image_id.'</g:image_link>
+<link>'.$CONF['url'] . '/product.php?id='.$product->id.'</link>
+<g:price>'.round(($variation->price * $rate),2).'</g:price>
+<g:product_type>'.$type->DN.'</g:product_type>
+<g:payment_accepted>Visa</g:payment_accepted>
+<g:payment_accepted>MasterCard</g:payment_accepted>
+<g:pickup>true</g:pickup>
+</item>';
+        }
 
 
 	$rss .= "</channel>\n</rss>\n";
