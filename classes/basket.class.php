@@ -45,14 +45,25 @@ class basket extends basket_template {
 			else {
 				$list[$item->id]['shipping'] = 0;
 			}
-			$list[$item->id]['name'] = ucwords($item->type) . ": " . $detail->DN;
+			if(ereg("product",$item->type)) {
+				$name = $detail->DN;
+				if($item->type == "product_variation") {
+					$product = new product();
+					$product->get($detail->id);
+					if($product->image_id) $list[$item->id]['image_id'] = $product->image_id;
+				}
+			}
+			else {
+				$name = ucwords($item->type) . ": " . $detail->DN;
+			}
+			$list[$item->id]['name'] = $name;
 			$list[$item->id]['value'] = $detail->price;
 			if($type == "track") {
 				$list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
 				$list[$item->id]['value'] += $format_prices[$_SESSION['format']];	
 			}
 			else {
-				if($detail->image_id) $list[$item->id]['image_id'] = $detail->image_id;
+				if(property_exists($detail,"image_id")&&($detail->image_id)) $list[$item->id]['image_id'] = $detail->image_id;
 			}
 		}
 		return($list);

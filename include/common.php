@@ -24,6 +24,7 @@ require("track_tag.class.php");
 require("product.class.php");
 require("type.class.php");
 require("user.class.php");
+require("product_variation.class.php");
 
 
 $user = new user();

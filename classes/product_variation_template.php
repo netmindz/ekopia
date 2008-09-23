@@ -1,7 +1,7 @@
 <?
-class label_template
+class product_variation_template
 {
-	var $id, $name, $website, $summary, $image_id, $user_FKL;
+	var $id, $product_id, $title, $price;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -15,7 +15,7 @@ class label_template
 	 * @return void
 	 * @desc This is the PHP4 constructor. It calles the PHP5 constructor __construct()
 	 */
-	function label_template()
+	function product_variation_template()
 	{
 		$this->__construct();
 	}//PHP4 constructor
@@ -31,16 +31,14 @@ class label_template
 	{
 		$this->id = 0;
 
-		$this->name = "";
-		$this->website = "";
-		$this->summary = "";
-		$this->image_id = "";
-		$this->user_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
+		$this->product_id = "";
+		$this->title = "";
+		$this->price = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
 		$this->_PKs = array('id');
-		$this->_table = 'labels';
+		$this->_table = 'product_variations';
 		$this->_data_format = 'php';
 		$this->_labels = array(); 
 		$this->_form_label_ids = array();
@@ -67,11 +65,9 @@ class label_template
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
-		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
-		$this->_field_descs['website'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
-		$this->_field_descs['summary'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
-		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
-		$this->_field_descs['user_FKL'] = array ("fk" => "user_label", "gen_type" => "many2many", "fkl" => "1");
+		$this->_field_descs['product_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "product", "gen_type" => "int");
+		$this->_field_descs['title'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 
 	}//__constructor
 	
@@ -86,21 +82,21 @@ class label_template
 	function add() {
 		
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for label->id",E_USER_WARNING);
+			trigger_error("wrong type for product_variation->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
-		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
-			trigger_error("wrong type for label->image_id",E_USER_WARNING);
-			settype($this->image_id,"int");
+		if($this->product_id != (int)$this->product_id && $this->product_id!='NOW()' && $this->product_id!='NULL'){
+			trigger_error("wrong type for product_variation->product_id",E_USER_WARNING);
+			settype($this->product_id,"int");
 		}//IF
 
 
 		
-		$raw_sql  = "INSERT INTO labels (`name`, `website`, `summary`, `image_id`)";
+		$raw_sql  = "INSERT INTO product_variations (`product_id`, `title`, `price`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->website)."', '".$this->database->escape($this->summary)."', '".$this->database->escape($this->image_id)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->product_id)."', '".$this->database->escape($this->title)."', '".$this->database->escape($this->price)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -126,19 +122,19 @@ class label_template
 	{
 	
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for label->id",E_USER_WARNING);
+			trigger_error("wrong type for product_variation->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
-		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
-			trigger_error("wrong type for label->image_id",E_USER_WARNING);
-			settype($this->image_id,"int");
+		if($this->product_id != (int)$this->product_id && $this->product_id!='NOW()' && $this->product_id!='NULL'){
+			trigger_error("wrong type for product_variation->product_id",E_USER_WARNING);
+			settype($this->product_id,"int");
 		}//IF
 
 
-		$raw_sql  = "UPDATE labels SET ";
-		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `website`='".$this->database->escape($this->website)."', `summary`='".$this->database->escape($this->summary)."', `image_id`='".$this->database->escape($this->image_id)."'";
+		$raw_sql  = "UPDATE product_variations SET ";
+		$raw_sql.= "`product_id`='".$this->database->escape($this->product_id)."', `title`='".$this->database->escape($this->title)."', `price`='".$this->database->escape($this->price)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";
@@ -167,9 +163,9 @@ class label_template
 		
 		//define the SQL to use to UPDATE the field...
 		if ($this->_field_descs[$fieldname]['gen_type'] == 'int' || $this->$fieldname == "NULL" || $this->$fieldname == "NOW()")
-			$sql = "UPDATE labels SET $fieldname = ".$this->$fieldname;
+			$sql = "UPDATE product_variations SET $fieldname = ".$this->$fieldname;
 		else
-			$sql = "UPDATE labels SET $fieldname = '".$this->database->escape($this->$fieldname)."'";
+			$sql = "UPDATE product_variations SET $fieldname = '".$this->database->escape($this->$fieldname)."'";
 		
 		
 		//Now add the WHERE clause
@@ -207,7 +203,7 @@ class label_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM labels WHERE 1
+		$sql = "DELETE FROM product_variations WHERE 1
 
 		AND id = '$id' ";
 		
@@ -229,8 +225,8 @@ class label_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "order by name";
-		$select = "SELECT labels.* FROM labels ";
+		if(!$order) $order = "";
+		$select = "SELECT product_variations.* FROM product_variations ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
 		}else{
@@ -261,11 +257,8 @@ class label_template
 			//convert from DB properties
 			$this->convertDBProperties('from');		//needs to be changed to 'php' when legacy stuff is removed
 
-			if (isset($this->name) && ($this->name))
-				$this->DN = $this->name;
-			elseif (isset($this->title) && ($this->title))
-				$this->DN = $this->title;
-			else
+			$product = new product(); $product->get($this->product_id); $this->DN = $product->name . " - " . $this->title;
+			if(!trim($this->DN))	//if above returns empty value
 				$this->DN = "$this->id";
 			return true;
 			
@@ -379,7 +372,7 @@ class label_template
 					$child = new $child_class();
 					if($this->_field_descs[$key]['gen_type'] == "many2many") {
 					
-	                        $child->_setPropertiesLinkages("label", $this->id, array_keys($value));
+	                        $child->_setPropertiesLinkages("product_variation", $this->id, array_keys($value));
                         
 					}
 					else {
@@ -639,7 +632,7 @@ class label_template
 				$fk = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
 				
-						$html .= $fk->createMatrix($input_name,"label",$this->id);
+						$html .= $fk->createMatrix($input_name,"product_variation",$this->id);
 						
 				}
 				elseif($fk_class == "image") {
@@ -673,7 +666,7 @@ class label_template
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
 				if ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
-						(isset($CONF['label'][$property]['max']) && $CONF['label'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
+						(isset($CONF['product_variation'][$property]['max']) && $CONF['product_variation'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
 					$html.= "<input type=\"radio\" name=\"$input_name\" value=\"1\" id=\"$html_id\"";
 					if($property_value)	//allow any possible value for True
 						$html.= " checked";
@@ -686,12 +679,12 @@ class label_template
 					
 					break;	//escape SWITCH statement
 					
-				}elseif (isset($CONF['label'][$property]['max']) && $CONF['label'][$property]['max']){
-					$min = ($CONF['label'][$property]['min'])? $CONF['label'][$property]['min'] : 0;
-					$step = ($CONF['label'][$property]['step'])? $CONF['label'][$property]['step'] : 1;
+				}elseif (isset($CONF['product_variation'][$property]['max']) && $CONF['product_variation'][$property]['max']){
+					$min = ($CONF['product_variation'][$property]['min'])? $CONF['product_variation'][$property]['min'] : 0;
+					$step = ($CONF['product_variation'][$property]['step'])? $CONF['product_variation'][$property]['step'] : 1;
 					if ($empty=='-None-')
 						$empty = '--';
-					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['label'][$property]['max'], $step, $empty);
+					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['product_variation'][$property]['max'], $step, $empty);
 					break;	//escape SWITCH statement
 				}//IF integer is a Boolean
 				
@@ -704,8 +697,8 @@ class label_template
 				else
 					$maxlength = $matches[1];
 				
-				if (isset($CONF['label'][$property]['size']))
-					$size = $CONF['label'][$property]['size'];
+				if (isset($CONF['product_variation'][$property]['size']))
+					$size = $CONF['product_variation'][$property]['size'];
 				elseif($maxlength <= 30)
 					$size = $maxlength+1;
 				elseif ($maxlength <= 50)
@@ -803,11 +796,11 @@ class label_template
 						$future = 5;
 					}//IF date of birth field
 					
-					if (isset($CONF['label'][$property]['past']))
-						$past = $CONF['label'][$property]['past'];
+					if (isset($CONF['product_variation'][$property]['past']))
+						$past = $CONF['product_variation'][$property]['past'];
 					
-					if (isset($CONF['label'][$property]['future']))
-						$future = $CONF['label'][$property]['future'];
+					if (isset($CONF['product_variation'][$property]['future']))
+						$future = $CONF['product_variation'][$property]['future'];
 					
 					$html.= createDateSelect($input_name, $property_value, $past, $future);
 					$separator = " @ ";

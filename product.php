@@ -24,6 +24,20 @@ $page_meta = $product->intro;
                 &pound; <?= $product->price ?> <input type="submit" value="Add to basket" class="inputbox" />
                 </form>
 <? } ?>
+<?php
+$variation = new product_variation();
+$variation->getListForProduct($product->id);
+while($variation->getNext()) {
+	?>
+	<form action="<?= $CONF['url'] ?>/basket.php" method="post">
+                <input type="hidden" name="action" value="add" />
+                <input type="hidden" name="product_variation_id" value="<?= $variation->id ?>" />
+                &pound; <?= $variation->price ?> <input type="submit" value="Add to basket" class="inputbox" />
+                </form>
+
+	<?php	
+}
+?>
 
 <p><a href="type.php?id=<?= $type->id ?>">Back to <?= $type->name ?>s</a></p>
 

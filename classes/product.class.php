@@ -11,7 +11,7 @@ class product extends product_template {
                 <div class="product_thumb_image">
                 <a href="<?= $CONF['url'] ?>/product.php?id=<?= $this->id ?>"><?php
                 $image = new image();
-                $image->show($this->image_id,100,100,"alt=\"$this->name\" title=\"Click to view $this->name\"");
+                $image->show($this->image_id,100,0,"alt=\"$this->name\" title=\"Click to view $this->name\"");
                 ?></a>
                 </div>
                 <a href="<?= $CONF['url'] ?>/product.php?id=<?= $this->id ?>"><?= $this->name ?></a><br/>
