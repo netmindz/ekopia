@@ -88,11 +88,11 @@ href="http://www.inspiralled.net/templates/sp_main3/css/ie.css" />
 							<h3>Products</h3>
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
 							<?php
-							$type = new type();
-							$type->getList("where type_id=0");
-							while($type->getNext()) {
+							$nav_type = new type();
+							$nav_type->getList("where type_id=0");
+							while($nav_type->getNext()) {
 								?>
-								<tr align="left"><td><a href="<?= $CONF['url'] ?>/type.php?id=<?= $type->id ?>" class="mainlevel" ><?= $type->DN ?>s</a></td></tr>
+								<tr align="left"><td><a href="<?= $CONF['url'] ?>/type.php?id=<?= $nav_type->id ?>" class="mainlevel" ><?= $nav_type->DN ?>s</a></td></tr>
 							<?php } ?>
 							</table>
 				</div>
