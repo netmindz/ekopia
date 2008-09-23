@@ -1,8 +1,4 @@
 <?php include("include/common.php"); ?>
-<?php
-$basket = new basket();
-$basket->clear();
-?>
 <?php include("header.inc.php"); ?>
 <h1>Thankyou</h1>
 Thankyou for your order from the shop. You should get an email shortly confirming your order
@@ -25,7 +21,7 @@ $line_item = new line_item();
 $labels = array("-1");
 $artists = array("-1");
 $albums = array("-1");
-$line_item->getList("where order_id=" . $order->id);
+$line_item->getList("where order_id=" . $order->id . " and type != ''");
 while($line_item->getNext()) {
 	$item = new $line_item->type();
 	$item->get($line_item->item_id);
@@ -66,6 +62,10 @@ if($see_also_count) {
 	</div>
 	<?
 }
+?>
+<?php
+$basket = new basket();
+$basket->clear();
 ?>
 <?php include("footer.inc.php"); ?>
 

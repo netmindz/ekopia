@@ -1,7 +1,7 @@
 <?
 class product_variation_template
 {
-	var $id, $product_id, $title, $price;
+	var $id, $product_id, $name, $price;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -32,7 +32,7 @@ class product_variation_template
 		$this->id = 0;
 
 		$this->product_id = "";
-		$this->title = "";
+		$this->name = "";
 		$this->price = "";
 		
 		$this->database = new database();
@@ -66,7 +66,7 @@ class product_variation_template
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['product_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "product", "gen_type" => "int");
-		$this->_field_descs['title'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 
 	}//__constructor
@@ -94,9 +94,9 @@ class product_variation_template
 
 
 		
-		$raw_sql  = "INSERT INTO product_variations (`product_id`, `title`, `price`)";
+		$raw_sql  = "INSERT INTO product_variations (`product_id`, `name`, `price`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->product_id)."', '".$this->database->escape($this->title)."', '".$this->database->escape($this->price)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->product_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->price)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -134,7 +134,7 @@ class product_variation_template
 
 
 		$raw_sql  = "UPDATE product_variations SET ";
-		$raw_sql.= "`product_id`='".$this->database->escape($this->product_id)."', `title`='".$this->database->escape($this->title)."', `price`='".$this->database->escape($this->price)."'";
+		$raw_sql.= "`product_id`='".$this->database->escape($this->product_id)."', `name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";
@@ -257,7 +257,7 @@ class product_variation_template
 			//convert from DB properties
 			$this->convertDBProperties('from');		//needs to be changed to 'php' when legacy stuff is removed
 
-			$product = new product(); $product->get($this->product_id); $this->DN = $product->name . " - " . $this->title;
+			$product = new product(); $product->get($this->product_id); $this->DN = $product->name . " - " . $this->name;
 			if(!trim($this->DN))	//if above returns empty value
 				$this->DN = "$this->id";
 			return true;
