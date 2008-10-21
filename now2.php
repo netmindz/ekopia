@@ -1,5 +1,6 @@
 <?php require("include/common.php"); ?>
 <?php require("include/mpd.php"); ?>
+<?php require("include/icecast.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html><head><title>now playing</title>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -7,7 +8,19 @@
 <meta http-equiv="refresh" content="30">
 </head><body>
 <?php
-if($data = mpd_now_playing()) {
+if($data = icecast_get_live()) {
+	?>
+<br/>
+<br/>
+<br/>
+<br/>
+<h1>We are LIVE !</h1>
+<p><a href="http://www.inspiralled.net:8000/ekopia.ogg.m3u">Listen do live broadcast direct from the lounge</a></p>
+<h1>Listen NOW</h1>
+<p>Requires <a href="http://download.nullsoft.com/winamp/client/winamp5541_full_emusic-7plus_en-us.exe">winamp</a></p>
+	<?php
+}
+elseif($data = mpd_now_playing()) {
 	$album = new album();
 ?>
 		<table border="0" width="141" >
