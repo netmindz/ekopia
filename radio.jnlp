@@ -2,7 +2,7 @@
 <jnlp spec="1.0+" codebase="http://shop.inspiralled.net" href="radio.jnlp">
     <information>
         <title>inSpiral Radio</title>
-        <vendor>will</vendor>
+        <vendor>netmindz's the usertrust network id</vendor>
         <homepage href="http://shop.inspiralled.net"/>
         <description>inSpiral Radio Player</description>
         <description kind="short">inSpiral Radio</description>
