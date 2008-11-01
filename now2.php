@@ -17,7 +17,7 @@ if($data = icecast_get_live()) {
 <h1>We are LIVE !</h1>
 <p><a href="http://www.inspiralled.net:8000/ekopia.ogg.m3u">Listen to live broadcast direct from the lounge</a></p>
 <h1>Listen NOW</h1>
-<p>Requires <a href="http://download.nullsoft.com/winamp/client/winamp5541_full_emusic-7plus_en-us.exe">winamp</a></p>
+<p>Requires <a href="http://download.nullsoft.com/winamp/client/winamp5541_full_emusic-7plus_en-us.exe">winamp</a> or <a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">inSpiral Radio player</a></p>
 	<?php
 }
 elseif($data = mpd_now_playing()) {
