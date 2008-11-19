@@ -4,7 +4,7 @@ require("../include/site_config.inc.php");
 require("/home/www/codebase/database.php");
 require("../include/common.php");
 
-$actions = array("nametracks"=>"Guess track names");
+$actions = array("nametracks"=>"Guess track names","deleteorphans"=>"DO NOT USE");
 
 function nametracks() {
 	$track = new track();
@@ -33,6 +33,19 @@ function nametracks() {
 		print "\n";
 	}
 	print "\nDONE";
+}
+
+function deleteorphans()
+{
+	$artist = new artist();
+	$artist->getList();
+	while($artist->getNext()) {
+		$album = new album();
+		$track = new track();
+		$acount = $album->getByType('artist'=>$artist->id);
+		$tcount = $track->getByType('artist'=>$artist->id);
+		print $artist->name . " $acount $tcount\n";
+	}
 }
 ?>
 <html>
