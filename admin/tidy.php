@@ -23,6 +23,14 @@ function nametracks() {
 				$track_new->artist_id = $artist_new->id;
 				$track_new->update();
 			}
+			elseif($artist_new->getByOther(array('name'=>$matches[2]))) {
+				print "FOUND";
+				$track_new = new track();
+				$track_new->get($track->id);
+				$track_new->name = $matches[1];
+				$track_new->artist_id = $artist_new->id;
+				$track_new->update();
+			}
 			else {
 				print "NOT FOUND";
 			}
