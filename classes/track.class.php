@@ -152,6 +152,12 @@ class track extends track_template {
 		<?php
 	}
 
+        function getListByType($type,$id)
+        {
+                return($this->getList("where ${type}_id='".$id."'"));
+        }
+
+
 	function _getRaw()
 	{
 		$file = "../raw/$this->album_id/$this->track_number.flac";
