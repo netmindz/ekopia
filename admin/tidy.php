@@ -49,7 +49,7 @@ function deleteorphans()
 			$artist_new = new artist();
 			$artist_new->get($artist->id);
 			print $artist_new->name . "\n";
-			$artist->delete();
+			$artist_new->delete($artist_new->id);
 		}
 	}
 	print "\nDONE";
