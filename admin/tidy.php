@@ -46,7 +46,7 @@ function deleteorphans()
 		$tcount = $track->getListByType('artist',$artist->id);
 		$count = $acount + $tcount;
 		if(!$count) {
-			$artist_new = artist();
+			$artist_new = new artist();
 			$artist_new->get($artist->id);
 			print $artist_new->name . "\n";
 			$artist->delete();
