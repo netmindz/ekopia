@@ -9,5 +9,6 @@
 [ <a href="index.php?table=products&subtable=product_variations">products</a> ] 
 [ <a href="index.php?table=users">users</a> ] 
 [ <a href="stock.php">Stock Control</a> ] 
+[ <a href="tidy.php">Tidy Albums</a> ] 
 [ <a href="reports.php">reports</a> ] 
 </p>
