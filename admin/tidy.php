@@ -42,10 +42,12 @@ function nametracks() {
 		print "\n";
 	}
 	print "\nDONE";
+	deleteorphans();
 }
 
 function deleteorphans()
 {
+	print "\nDELETE ORPHANS\n\n";
 	$artist = new artist();
 	$artist->getList();
 	while($artist->getNext()) {
