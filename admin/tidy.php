@@ -13,16 +13,16 @@ function nametracks() {
 		$artist = new artist();
 		$artist->get($track->artist_id);
 		if(ereg('(.+) - (.+)',$artist->name,$matches)) {
-			print "looks like " . $artist->name . " could be artist " . $matches[1] . " - ";
+			print "looks like [" . $artist->name . "] could be artist [" . $matches[1] . "] - ";
 			$artist_new = new artist();
 			if($artist_new->getByOther(array('name'=>$matches[1]))) {
-				print "TRUE";
+				print "FOUND";
 				$track->name = $matches[2];
 				$track->artist_id = $artist_new->id;
 				$track->update();
 			}
 			else {
-				print "FALSE";
+				print "NOT FOUND";
 			}
 		}
 		else {
@@ -30,6 +30,7 @@ function nametracks() {
 		}
 		print "\n";
 	}
+	print "\nDONE";
 }
 ?>
 <html>
