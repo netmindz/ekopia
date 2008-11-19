@@ -1,6 +1,7 @@
 <?php
 require("../include/site_config.inc.php");
 require("/home/www/codebase/database.php");
+require("../include/common.php");
 
 $actions = array("nametracks"=>"Guess track names");
 
