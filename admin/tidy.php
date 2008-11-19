@@ -17,9 +17,11 @@ function nametracks() {
 			$artist_new = new artist();
 			if($artist_new->getByOther(array('name'=>$matches[1]))) {
 				print "FOUND";
-				$track->name = $matches[2];
-				$track->artist_id = $artist_new->id;
-				$track->update();
+				$track_new = new track();
+				$track_new->get($track->id);
+				$track_new->name = $matches[2];
+				$track_new->artist_id = $artist_new->id;
+				$track_new->update();
 			}
 			else {
 				print "NOT FOUND";
