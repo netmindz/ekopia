@@ -12,8 +12,9 @@ function nametracks() {
 	while($track->getNext()) {
 		$artist = new artist();
 		$artist->get($track->artist_id);
-		if(ereg('(.+) - (.+)',$artist->name,$matches)) {
-			print "looks like [" . $artist->name . "] could be artist [" . $matches[1] . "] - ";
+		$name = ereg_replace('^[0-9]+ - ','',$artist->name);
+		if(ereg('(.+) - (.+)',$name,$matches)) {
+			print "looks like [" . $name . "] could be artist [" . $matches[1] . "] - ";
 			$artist_new = new artist();
 			if($artist_new->getByOther(array('name'=>$matches[1]))) {
 				print "FOUND";
@@ -24,7 +25,7 @@ function nametracks() {
 				$track_new->update();
 			}
 			elseif($artist_new->getByOther(array('name'=>$matches[2]))) {
-				print "FOUND";
+				print "FOUND2";
 				$track_new = new track();
 				$track_new->get($track->id);
 				$track_new->name = $matches[1];
@@ -36,7 +37,7 @@ function nametracks() {
 			}
 		}
 		else {
-			print "Could not guess track name from artist name " . $artist->name;
+			print "Could not guess track name from artist name " . $name;
 		}
 		print "\n";
 	}
