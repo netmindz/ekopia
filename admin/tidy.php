@@ -16,15 +16,16 @@ function nametracks() {
 			print "looks like " . $artist->name . " could be artist " . $matches[1] . " - ";
 			$artist_new = new artist();
 			if($artist_new->getByOther(array('name'=>$matches[1]))) {
-				print "TRUE\n";
+				print "TRUE";
 				$track->name = $matches[2];
-				$track->artist_id = $atist_new->id;
+				$track->artist_id = $artist_new->id;
 				$track->update();
 			}
 			else {
 				print "FALSE";
 			}
 		}
+		print "\n";
 	}
 }
 ?>
