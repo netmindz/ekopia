@@ -42,8 +42,8 @@ function deleteorphans()
 	while($artist->getNext()) {
 		$album = new album();
 		$track = new track();
-		$acount = $album->getByType('artist'=>$artist->id);
-		$tcount = $track->getByType('artist'=>$artist->id);
+		$acount = $album->getByType('artist',$artist->id);
+		$tcount = $track->getByType('artist',$artist->id);
 		print $artist->name . " $acount $tcount\n";
 	}
 }
