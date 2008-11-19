@@ -25,6 +25,9 @@ function nametracks() {
 				print "FALSE";
 			}
 		}
+		else {
+			print "Could not guess track name from artist name " . $artist->name;
+		}
 		print "\n";
 	}
 }
