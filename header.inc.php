@@ -1,3 +1,13 @@
+<?
+if(ereg($_SERVER['HTTP_HOST'],$CONF['media_url'])) {
+	print "eak";
+	ob_start();
+	print_r($_SERVER);
+	$tmp = ob_get_contents();
+	ob_end_clean();
+	mail("will@netmindz.net","shop eak",$message);
+}
+?>
 <?php print "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

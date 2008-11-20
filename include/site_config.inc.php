@@ -1,5 +1,7 @@
 <?php
 
+$CONF['media_url'] = "http://media.inspiralled.net";
+
 if(ereg('~',$_SERVER['PHP_SELF'])||(!isset($_SERVER['HTTP_HOST']))) {
 	$docroot="/home/will/public_html/id";
 	$CONF['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/~will/id";
