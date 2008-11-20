@@ -1,11 +1,10 @@
 <?
 if(ereg($_SERVER['HTTP_HOST'],$CONF['media_url'])) {
-	print "eak";
 	ob_start();
 	print_r($_SERVER);
 	$tmp = ob_get_contents();
 	ob_end_clean();
-	mail("will@netmindz.net","shop eak",$message);
+	mail("will@netmindz.net","shop eak",$tmp);
 }
 ?>
 <?php print "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; ?>
