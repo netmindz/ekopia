@@ -1,7 +1,7 @@
 <?
 class line_item_template
 {
-	var $id, $order_id, $item, $price, $type, $item_id;
+	var $id, $order_id, $item, $price, $type, $item_id, $delivery;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -36,6 +36,7 @@ class line_item_template
 		$this->price = "";
 		$this->type = "";
 		$this->item_id = "";
+		$this->delivery = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -72,6 +73,7 @@ class line_item_template
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['type'] = array ("type" => "varchar(50)", "length" => "50", "gen_type" => "string");
 		$this->_field_descs['item_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['delivery'] = array ("type" => "varchar(15)", "length" => "15", "gen_type" => "string");
 
 	}//__constructor
 	
@@ -104,9 +106,9 @@ class line_item_template
 
 
 		
-		$raw_sql  = "INSERT INTO line_items (`order_id`, `item`, `price`, `type`, `item_id`)";
+		$raw_sql  = "INSERT INTO line_items (`order_id`, `item`, `price`, `type`, `item_id`, `delivery`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->order_id)."', '".$this->database->escape($this->item)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->order_id)."', '".$this->database->escape($this->item)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."', '".$this->database->escape($this->delivery)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -150,7 +152,7 @@ class line_item_template
 
 
 		$raw_sql  = "UPDATE line_items SET ";
-		$raw_sql.= "`order_id`='".$this->database->escape($this->order_id)."', `item`='".$this->database->escape($this->item)."', `price`='".$this->database->escape($this->price)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."'";
+		$raw_sql.= "`order_id`='".$this->database->escape($this->order_id)."', `item`='".$this->database->escape($this->item)."', `price`='".$this->database->escape($this->price)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."', `delivery`='".$this->database->escape($this->delivery)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";

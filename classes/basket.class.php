@@ -11,16 +11,16 @@ class basket extends basket_template {
 		}
 		else {
 			$this->basket_ref = time();
-			session_start();
+			@session_start();
 			$_SESSION['basket_ref'] = $this->basket_ref;
 		}
 		if(!$this->getByOther(array('basket_ref'=>$this->basket_ref))) $this->add();
 	}		
 
-	function addItem($type,$id)
+	function addItem($type,$id,$delivery)
 	{
 		$item = new basket_item();
-		$item->setproperties(array('basket_id'=>$this->id,'type'=>$type,'item_id'=>$id));
+		$item->setproperties(array('basket_id'=>$this->id,'type'=>$type,'item_id'=>$id,'delivery'=>$delivery));
 		$item->add();
 	}
 
@@ -64,6 +64,9 @@ class basket extends basket_template {
 			}
 			else {
 				if(property_exists($detail,"image_id")&&($detail->image_id)) $list[$item->id]['image_id'] = $detail->image_id;
+				if($item->delivery) {
+					$list[$item->id]['name'] .= " (" . $item->delivery . ")";
+				}
 			}
 		}
 		return($list);

@@ -5,17 +5,17 @@ require("include/common.php");
 $basket = new basket();
 if(isset($_POST['album_id'])) {
 #	print "add album";
-	$basket->addItem("album",$_POST['album_id']);
+	$basket->addItem("album",$_POST['album_id'],$_POST['delivery']);
 }
 if(isset($_POST['product_id'])) {
-	$basket->addItem("product",$_POST['product_id']);
+	$basket->addItem("product",$_POST['product_id'],"");
 }
 if(isset($_POST['product_variation_id'])) {
-	$basket->addItem("product_variation",$_POST['product_variation_id']);
+	$basket->addItem("product_variation",$_POST['product_variation_id'],"");
 }
 if(isset($_POST['tracks'])) {
 	foreach($_POST['tracks'] as $track_id=>$null){
-		$basket->addItem("track",$track_id);
+		$basket->addItem("track",$track_id,"download");
 	}
 }
 

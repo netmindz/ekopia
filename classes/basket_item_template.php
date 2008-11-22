@@ -1,7 +1,7 @@
 <?
 class basket_item_template
 {
-	var $id, $basket_id, $type, $item_id;
+	var $id, $basket_id, $type, $item_id, $delivery;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -34,6 +34,7 @@ class basket_item_template
 		$this->basket_id = "";
 		$this->type = "";
 		$this->item_id = "";
+		$this->delivery = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -68,6 +69,7 @@ class basket_item_template
 		$this->_field_descs['basket_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "basket", "gen_type" => "int");
 		$this->_field_descs['type'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['item_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['delivery'] = array ("type" => "varchar(15)", "length" => "15", "gen_type" => "string");
 
 	}//__constructor
 	
@@ -100,9 +102,9 @@ class basket_item_template
 
 
 		
-		$raw_sql  = "INSERT INTO basket_items (`basket_id`, `type`, `item_id`)";
+		$raw_sql  = "INSERT INTO basket_items (`basket_id`, `type`, `item_id`, `delivery`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->basket_id)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->basket_id)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."', '".$this->database->escape($this->delivery)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -146,7 +148,7 @@ class basket_item_template
 
 
 		$raw_sql  = "UPDATE basket_items SET ";
-		$raw_sql.= "`basket_id`='".$this->database->escape($this->basket_id)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."'";
+		$raw_sql.= "`basket_id`='".$this->database->escape($this->basket_id)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."', `delivery`='".$this->database->escape($this->delivery)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";
