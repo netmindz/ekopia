@@ -11,6 +11,7 @@ $type = new type();
 if(isset($_REQUEST['id'])) {
 	$type->get($_REQUEST['id']);
 	$page_title =  $type->name . " Products";
+	$keywords[] = $type->name;
 	?>
 	<h1><?= $type->name ?> Products</h1>
 	<?
