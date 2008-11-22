@@ -81,17 +81,28 @@ class album extends album_template {
                 Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
                 Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
 		<?php if($showBuyNow) { ?>
+			<?php if($album->download_price) { ?>
+	                <form action="<?= $CONF['url'] ?>/basket.php" method="post">
+        	        <input type="hidden" name="action" value="add"/>
+	                <input type="hidden" name="delivery" value="download"/>
+	                <input type="hidden" name="album_id" value="<?= $album->id ?>"/>
+	                &pound; <?= $album->price ?>
+	                <input type="submit" value=" Add Album Download to basket " class="inputbox"/>
+	                </form>
+	                <?php } ?>
+
 	                <?php if(($this->price)&&($this->stock_count > 0)) { ?>
         	        <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 	<input type="hidden" name="action" value="add" />
 	                <input type="hidden" name="album_id" value="<?= $this->id ?>" />
-        	        &pound; <?= $this->price ?> <input type="submit" value="Add to basket" class="inputbox" />
+			<input type="hidden" name="delivery" value="cd"/>
+        	        &pound; <?= $this->price ?> <input type="submit" value="Add CD to basket" class="inputbox" />
 	                </form>
-        	        <?php } elseif($this->stock_count <= 0) { ?>
-			Out of stock. Please come back soon
-           	    	 <?php } else { ?>
-                	Coming soon to buy here
-              	 	 <?php } ?>
+			<?php } elseif($album->stock_count <= 0) { ?>
+	                CD Out of stock
+	                <?php } elseif(!$album->download_price) { ?>
+	                Coming soon to buy here
+              	 	<?php } ?>
 		<?php } ?>
                 </div>
 		<?
