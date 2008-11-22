@@ -86,7 +86,7 @@ class album extends album_template {
 	                <input type="hidden" name="delivery" value="download"/>
 	                <input type="hidden" name="album_id" value="<?= $this->id ?>"/>
 	                &pound; <?= $album->price ?>
-	                <input type="submit" value=" Add Album Download to basket " class="inputbox"/>
+	                <input type="submit" value="Download" class="inputbox"/>
 	                </form>
 	        <?php } ?>
 
@@ -96,7 +96,7 @@ class album extends album_template {
                 	<input type="hidden" name="action" value="add" />
 	                <input type="hidden" name="album_id" value="<?= $this->id ?>" />
 			<input type="hidden" name="delivery" value="cd"/>
-        	        &pound; <?= $this->price ?> <input type="submit" value="Add CD to basket" class="inputbox" />
+        	        &pound; <?= $this->price ?> <input type="submit" value="Buy CD" class="inputbox" />
 	                </form>
 			<?php } elseif($this->stock_count <= 0) { ?>
 	                CD Out of stock
