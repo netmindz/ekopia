@@ -62,7 +62,7 @@ class album extends album_template {
 	}
 		
 
-	function displayThumb($showBuyNow=true)
+	function displayThumb($showBuyCD=true)
 	{
 		global $CONF;
 		$label = new label();
@@ -80,17 +80,17 @@ class album extends album_template {
                 Album: <a href="<?= album_link($this->id,$this->name) ?>"><?= $this->name ?></a><br/>
                 Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
                 Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
-		<?php if($showBuyNow) { ?>
-			<?php if($album->download_price) { ?>
-	                <form action="<?= $CONF['url'] ?>/basket.php" method="post">
+		<?php if($album->download_price) { ?>
+	       		<form action="<?= $CONF['url'] ?>/basket.php" method="post">
         	        <input type="hidden" name="action" value="add"/>
 	                <input type="hidden" name="delivery" value="download"/>
 	                <input type="hidden" name="album_id" value="<?= $album->id ?>"/>
 	                &pound; <?= $album->price ?>
 	                <input type="submit" value=" Add Album Download to basket " class="inputbox"/>
 	                </form>
-	                <?php } ?>
+	        <?php } ?>
 
+		<?php if($showBuyCD) { ?>
 	                <?php if(($this->price)&&($this->stock_count > 0)) { ?>
         	        <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 	<input type="hidden" name="action" value="add" />
