@@ -27,11 +27,14 @@ if(isset($_REQUEST['id'])) {
 }
 else {
 	$type->getList();
+	$page_title = "Products"
 	?>
 	<h1>Products</h1>
 	<ul>
 	<?
-	while($type->getNext()) { ?>
+	while($type->getNext()) {
+		$keywords[] = $type->name;
+		?>
 		<li><a href="type.php?id=<?= $type->id ?>"><?= $type->name ?></li>
 	<?
 	}
