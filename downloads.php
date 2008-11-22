@@ -4,7 +4,7 @@
 <div id="album_list">
 <?php
 $album = new album();
-$album->getDownloads(20);
+$album->getDownloads(200);
 while($album->getNext()) { 
 	$album->displayThumb(false);
 } 
