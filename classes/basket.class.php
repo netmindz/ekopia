@@ -26,7 +26,7 @@ class basket extends basket_template {
 
 	function getItems()
 	{
-		$format_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'0.2','wav'=>'0.5');
+		$format_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'0.50','wav'=>'0.6');
 		$country_costs = array('uk'=>array('start'=>1.5,'inc'=>0.5),'eu'=>array('start'=>2,'inc'=>0.5),'row'=>array('start'=>2.5,'inc'=>0.5));
 		$list = array();
 		$item = new basket_item();
