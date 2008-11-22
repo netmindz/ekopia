@@ -1,15 +1,23 @@
 <?php require("include/common.php"); ?>
+<?php
+$page_title="@page_title@";
+$page_keywords="@page_keywords@";
+$keywords = array();
+ob_start();
+?>
 <?php include("header.inc.php"); ?>
 <?php
 $type = new type();
 if(isset($_REQUEST['id'])) {
 	$type->get($_REQUEST['id']);
+	$page_title =  $type->name . " Products";
 	?>
 	<h1><?= $type->name ?> Products</h1>
 	<?
 	$product = new product();
 	$product->getList("where type_id=$type->id");
 	while($product->getNext()) {
+		$keywords[] = $product->DN;
 		$product->displayThumb();
 	}
 	?>
@@ -32,5 +40,14 @@ else {
 	<?php
 	
 }
+?>
+<?php
+
+$page = ob_get_contents();
+ob_end_clean();
+$page = str_replace("@page_title@",$page_title,$page);
+$page = str_replace("@page_keywords@",implode(", ",$keywords),$page);
+print $page;
+
 ?>
 <?php include("footer.inc.php"); ?>
