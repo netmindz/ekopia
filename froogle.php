@@ -45,6 +45,36 @@ function get_rss($rate,$country) {
 </item>';
 	}
 
+	$album = new album();
+	$album->getList("where download_price > 0");
+	while($album->getNext()) {
+		$description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$album->summary)));
+		$artist = new artist();
+		$artist->get($album->artist_id);
+		$rss .= '<item>
+<title>'.htmlspecialchars($album->name).' MP3/Ogg Vorbis/Flac Download Album by '.htmlspecialchars($artist->name).'</title>
+<g:expiration_date>'.date("Y-m-d",strtotime("+25 days")).'</g:expiration_date>
+<g:brand>'.htmlspecialchars($artist->name).'</g:brand>
+<g:condition>new</g:condition>
+<description>'.$description.'</description>
+<guid>'.$country.$album->id.'</guid>
+<g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
+<link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
+<g:price>'.round(($album->price * $rate),2).'</g:price>
+<g:product_type>Download (MP3/Ogg Vorbis/Flac)</g:product_type>
+<g:artist>'.htmlspecialchars($artist->name).'</g:artist>
+<g:edition>'.$album->release_year.'</g:edition>
+<g:year>'.$album->release_year.'</g:year>
+<g:format>Download (MP3/Ogg Vorbis/Flac)</g:format>
+<g:payment_accepted>Cash</g:payment_accepted>
+<g:payment_accepted>Visa</g:payment_accepted>
+<g:payment_accepted>MasterCard</g:payment_accepted>
+<g:payment_notes>Cash only for pickup from store</g:payment_notes>
+<g:pickup>false</g:pickup>
+</item>';
+	}
+
+
 	$track = new track();
 	$track->getList("where price > 0");
 	while($track->getNext()) {
