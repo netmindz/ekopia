@@ -80,7 +80,7 @@ class album extends album_template {
                 Album: <a href="<?= album_link($this->id,$this->name) ?>"><?= $this->name ?></a><br/>
                 Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN); ?>"><?= $artist->DN ?></a><br/>
                 Label: <a href="<?= browse_link("label",$label->id,$label->DN) ?>"><?= $label->DN ?></a><br/>
-		<?php if($this->download_price) { ?>
+		<?php if($this->download_price > 0) { ?>
 	       		<form action="<?= $CONF['url'] ?>/basket.php" method="post">
         	        <input type="hidden" name="action" value="add"/>
 	                <input type="hidden" name="delivery" value="download"/>

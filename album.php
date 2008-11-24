@@ -98,7 +98,7 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 	</table>
 	</form>
 	<h3>Album purchase</h3>
-		<?php if($album->download_price) { ?>
+		<?php if($album->download_price > 0) { ?>
 		<form action="<?= $CONF['url'] ?>/basket.php" method="post">
 		<input type="hidden" name="action" value="add"/>
 		<input type="hidden" name="delivery" value="download"/>
