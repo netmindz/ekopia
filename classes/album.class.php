@@ -26,7 +26,7 @@ class album extends album_template {
 			return($this->id);
 		}
 		else {
-			$this->setProperties(array('name'=>addslashes($name),'artist_id'=>$artist_id,
+			$this->setProperties(array('name'=>$name,'artist_id'=>$artist_id,
 			'release_year'=>$release_year,'label_reference'=>$label_reference,'label_id'=>$label_id,'added'=>'NOW()'));
 			return($this->add());
 		}
