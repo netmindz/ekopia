@@ -103,7 +103,7 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 		<input type="hidden" name="action" value="add"/>
 		<input type="hidden" name="delivery" value="download"/>
 		<input type="hidden" name="album_id" value="<?= $album->id ?>"/>
-		&pound; <?= $album->price ?>
+		&pound; <?= $album->download_price ?>
 		<input type="submit" value=" Add Album Download to basket " class="inputbox"/>
 		</form>
 		<?php } ?>
