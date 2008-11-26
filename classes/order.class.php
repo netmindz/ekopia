@@ -55,25 +55,27 @@ class order extends order_template {
 		ob_end_clean();
 
 		$item_list = "";
-		foreach($paypal['item'] as $key=>$item) {
-				$item_list .= $item['name'] . "\n";
-				if($new_order) {
-					$bi = new basket_item();
-					$li = new line_item();
-					if($bi->get($item['number'])) {
-						if($bi->type == "album") {
-							$album = new album();
-							$album->get($bi->item_id);
-							$album->setField("stock_count",($album->stock_count - 1));
+		if(isset($paypal['item'])) {
+			foreach($paypal['item'] as $key=>$item) {
+					$item_list .= $item['name'] . "\n";
+					if($new_order) {
+						$bi = new basket_item();
+						$li = new line_item();
+						if($bi->get($item['number'])) {
+							if($bi->type == "album") {
+								$album = new album();
+								$album->get($bi->item_id);
+								$album->setField("stock_count",($album->stock_count - 1));
+							}
+							//$li->create($this->id,$bi->type.":".$bi->item_id,$item['price']);
+							$li->create($this->id,$item['name'],$item['price'],$bi->type,$bi->item_id,$bi->delivery);
+							// $bi->delete($bi->id);
 						}
-						//$li->create($this->id,$bi->type.":".$bi->item_id,$item['price']);
-						$li->create($this->id,$item['name'],$item['price'],$bi->type,$bi->item_id,$bi->delivery);
-						// $bi->delete($bi->id);
+						else {
+							$li->create($this->id,$item['name'] . "[#".$item['number']."]",$item['price'],"unknown",0,"unknown");
+						}
 					}
-					else {
-						$li->create($this->id,$item['name'] . "[#".$item['number']."]",$item['price'],"unknown",0,"unknown");
-					}
-				}
+			}
 		}
 		$address = $paypal['address']['name']."\n".$paypal['address']['street']."\n".$paypal['address']['city']."\n".$paypal['address']['state']."\n".$paypal['address']['zip']."\n".$paypal['address']['country'];
 
