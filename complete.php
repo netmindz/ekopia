@@ -6,7 +6,7 @@ Thankyou for your order from the shop. You should get an email shortly confirmin
 $order = new order();
 if(isset($_REQUEST['order_id'])) {
 	$order->get($_REQUEST['order_id']);
-	if($order->customer_email != $_REQUEST['email']) exit("Order Load failed");
+	if(($order->customer_email)&&($order->customer_email != $_REQUEST['email'])) exit("Order Load failed");
 }
 else {
 	$order->paypalIPN();

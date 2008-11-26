@@ -30,10 +30,13 @@ class order extends order_template {
 				$new_order = true;
 			}
 		}
-		if($this->payment_status != $_REQUEST['payment_status']) $payment_updated = true;
+
+		if(isset($_REQUEST['payment_status']) && ($this->payment_status != $_REQUEST['payment_status'])) $payment_updated = true;
 		
-		$this->customer_email = $_REQUEST['payer_email'];
-		$this->payment_status = $_REQUEST['payment_status'];
+		if(isset($_REQUEST['payer_email'])) $this->customer_email = $_REQUEST['payer_email'];
+		if(isset($_REQUEST['payment_status']))	$this->payment_status = $_REQUEST['payment_status'];
+
+
 		$this->update();
 
 		$paypal = array();
