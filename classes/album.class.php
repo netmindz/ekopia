@@ -114,7 +114,7 @@ class album extends album_template {
 	function countDownloads()
 	{
 		$track = new track();
-		return($track->getDownloadTrackListings($this-id));
+		return($track->getDownloadTrackListings($this->id));
 	}
 
 	function getNew($count)
