@@ -9,6 +9,11 @@ class track extends track_template {
 		return($this->getList("where album_id='$album_id'"));
 	}
 
+	function getDownloadTrackListings($album_id)
+	{
+		return($this->getList("where album_id='$album_id' and price > 0"));
+	}
+
 	function addTrack($info)
 	{
 		if($this->getByOther(array('track_number'=>$info['track_number'],'album_id'=>$info['album_id']))) {

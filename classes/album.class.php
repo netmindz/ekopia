@@ -88,6 +88,8 @@ class album extends album_template {
 	                &pound; <?= $this->download_price ?>
 	                <input type="submit" value="Download" class="inputbox"/>
 	                </form>
+	        <?php } elseif($this->countDownloads()) { ?>
+			Downloads Avalible
 	        <?php } ?>
 
 		<?php if($showBuyCD) { ?>
@@ -108,6 +110,12 @@ class album extends album_template {
 		<?
 	}
 		
+
+	function countDownloads()
+	{
+		$track = new track();
+		return($track->getDownloadTrackListings($this-id));
+	}
 
 	function getNew($count)
 	{
