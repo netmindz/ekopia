@@ -52,7 +52,7 @@ function get_rss($rate,$country) {
 		$artist = new artist();
 		$artist->get($album->artist_id);
 		$rss .= '<item>
-<title>'.htmlspecialchars($album->name).' MP3/Ogg Vorbis/Flac Download Album by '.htmlspecialchars($artist->name).'</title>
+<title>'.htmlspecialchars($album->name).' by '.htmlspecialchars($artist->name).' MP3, Ogg, Flav, Wav</title>
 <g:expiration_date>'.date("Y-m-d",strtotime("+25 days")).'</g:expiration_date>
 <g:brand>'.htmlspecialchars($artist->name).'</g:brand>
 <g:condition>new</g:condition>
@@ -84,7 +84,7 @@ function get_rss($rate,$country) {
 		$artist = new artist();
 		$artist->get($track->artist_id);
 		$rss .= '<item>
-<title>'.htmlspecialchars($track->name).' by ' .htmlspecialchars($artist->name).' digital MP3 / Ogg / Flac / Wav download</title>
+<title>'.htmlspecialchars($track->name).' by ' .htmlspecialchars($artist->name).' MP3, Ogg, Flac, Wav download</title>
 <g:expiration_date>'.date("Y-m-d",strtotime("+25 days")).'</g:expiration_date>
 <g:brand>'.htmlspecialchars($artist->name).'</g:brand>
 <g:condition>new</g:condition>
@@ -97,7 +97,7 @@ function get_rss($rate,$country) {
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
 <g:edition>'.$album->release_year.'</g:edition>
 <g:year>'.$album->release_year.'</g:year>
-<g:format>Download</g:format>
+<g:format>MP3, Ogg Vorbis, Flac, Wav Download</g:format>
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:pickup>false</g:pickup>
