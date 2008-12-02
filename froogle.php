@@ -65,7 +65,7 @@ function get_rss($rate,$country) {
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
 <g:edition>'.$album->release_year.'</g:edition>
 <g:year>'.$album->release_year.'</g:year>
-<g:format>Download (MP3/Ogg Vorbis/Flac)</g:format>
+<g:format>Download (MP3,Ogg Vorbis,Flac,Wav)</g:format>
 <g:payment_accepted>Cash</g:payment_accepted>
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
@@ -93,7 +93,7 @@ function get_rss($rate,$country) {
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
 <link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
 <g:price>'.round(($track->price * $rate),2).'</g:price>
-<g:product_type>MP3/Ogg/Flac/Wav</g:product_type>
+<g:format>Download (MP3,Ogg Vorbis,Flac,Wav)</g:format>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
 <g:edition>'.$album->release_year.'</g:edition>
 <g:year>'.$album->release_year.'</g:year>
