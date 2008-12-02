@@ -84,7 +84,7 @@ function get_rss($rate,$country) {
 		$artist = new artist();
 		$artist->get($track->artist_id);
 		$rss .= '<item>
-<title>'.htmlspecialchars($track->name).' by ' .htmlspecialchars($artist->name).' MP3, Ogg, Flac, Wav download</title>
+<title>'.htmlspecialchars($track->name).' by ' .htmlspecialchars($artist->name).' MP3, Ogg, Flac, Wav</title>
 <g:expiration_date>'.date("Y-m-d",strtotime("+25 days")).'</g:expiration_date>
 <g:brand>'.htmlspecialchars($artist->name).'</g:brand>
 <g:condition>new</g:condition>
