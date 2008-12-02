@@ -70,5 +70,6 @@
 _uacct = "UA-4868734-1";
 urchinTracker();
 </script>
+<a href="froogle.php?download">RSS</a>
 </body>
 </html><!-- 1206456645 -->
