@@ -54,6 +54,7 @@
 
 <div id="signature">
 &copy; <a href="http://www.netmindz.net/?shop">WJT 2008</a>
+|| <a href="froogle.php?download">RSS</a>
 </div>
 
       	  </div>
@@ -70,6 +71,5 @@
 _uacct = "UA-4868734-1";
 urchinTracker();
 </script>
-<a href="froogle.php?download">RSS</a>
 </body>
 </html><!-- 1206456645 -->
