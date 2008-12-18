@@ -1,7 +1,7 @@
 <?
 class type_template
 {
-	var $id, $type_id, $name;
+	var $id, $type_id, $name, $description;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -33,6 +33,7 @@ class type_template
 
 		$this->type_id = "";
 		$this->name = "";
+		$this->description = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -66,6 +67,7 @@ class type_template
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['type_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(50)", "length" => "50", "gen_type" => "string");
+		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
 
 	}//__constructor
 	
@@ -92,9 +94,9 @@ class type_template
 
 
 		
-		$raw_sql  = "INSERT INTO types (`type_id`, `name`)";
+		$raw_sql  = "INSERT INTO types (`type_id`, `name`, `description`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->description)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -132,7 +134,7 @@ class type_template
 
 
 		$raw_sql  = "UPDATE types SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `description`='".$this->database->escape($this->description)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";

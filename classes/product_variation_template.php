@@ -1,7 +1,7 @@
 <?
 class product_variation_template
 {
-	var $id, $product_id, $name, $price;
+	var $id, $product_id, $name, $price, $weight;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -34,6 +34,7 @@ class product_variation_template
 		$this->product_id = "";
 		$this->name = "";
 		$this->price = "";
+		$this->weight = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -68,6 +69,7 @@ class product_variation_template
 		$this->_field_descs['product_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "product", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
+		$this->_field_descs['weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -93,10 +95,16 @@ class product_variation_template
 		}//IF
 
 
+		if($this->weight != (int)$this->weight && $this->weight!='NOW()' && $this->weight!='NULL'){
+			trigger_error("wrong type for product_variation->weight",E_USER_WARNING);
+			settype($this->weight,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO product_variations (`product_id`, `name`, `price`)";
+		$raw_sql  = "INSERT INTO product_variations (`product_id`, `name`, `price`, `weight`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->product_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->price)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->product_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->weight)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -133,8 +141,14 @@ class product_variation_template
 		}//IF
 
 
+		if($this->weight != (int)$this->weight && $this->weight!='NOW()' && $this->weight!='NULL'){
+			trigger_error("wrong type for product_variation->weight",E_USER_WARNING);
+			settype($this->weight,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE product_variations SET ";
-		$raw_sql.= "`product_id`='".$this->database->escape($this->product_id)."', `name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."'";
+		$raw_sql.= "`product_id`='".$this->database->escape($this->product_id)."', `name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."', `weight`='".$this->database->escape($this->weight)."'";
 		$raw_sql.= " WHERE 1
 
 		AND id = '$this->id' ";
