@@ -78,7 +78,7 @@ class album_template
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
-		$this->_field_descs['download_price'] = array ("type" => "double(2,2)", "gen_type" => "number");
+		$this->_field_descs['download_price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['summary'] = array ("type" => "longtext", "gen_type" => "text", "extra_type" => "richtext");
 		$this->_field_descs['artist_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "artist", "gen_type" => "int");
 		$this->_field_descs['label_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "label", "gen_type" => "int");
