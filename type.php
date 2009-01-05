@@ -14,6 +14,7 @@ if(isset($_REQUEST['id'])) {
 	$keywords[] = $type->name;
 	?>
 	<h1><?= $type->name ?> Products</h1>
+	<?= $type->description ?>
 	<?
 	$product = new product();
 	$product->getList("where type_id=$type->id");
