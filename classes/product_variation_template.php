@@ -679,8 +679,8 @@ class product_variation_template
 			  case 'int' :
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
-				if ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
-						(isset($CONF['product_variation'][$property]['max']) && $CONF['product_variation'][$property]['max']==1) ){		//or setting the max value to 1 presumes a boolean
+				if (isset($matches[1]) && ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
+						(isset($CONF['product_variation'][$property]['max']) && $CONF['product_variation'][$property]['max']==1)) ){		//or setting the max value to 1 presumes a boolean
 					$html.= "<input type=\"radio\" name=\"$input_name\" value=\"1\" id=\"$html_id\"";
 					if($property_value)	//allow any possible value for True
 						$html.= " checked";
@@ -708,8 +708,10 @@ class product_variation_template
 				preg_match ("/\((\d+),?(\d+)?\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
 				if (preg_match ("/decimal/", $this->_field_descs[$property]['type']) )		//decimal
 					$maxlength = $matches[1] + $matches[2] + 1;	//need to add space for decimalpoint!
-				else
+				elseif(isset($matches[1]))
 					$maxlength = $matches[1];
+				else
+					$maxlength = 11;
 				
 				if (isset($CONF['product_variation'][$property]['size']))
 					$size = $CONF['product_variation'][$property]['size'];
