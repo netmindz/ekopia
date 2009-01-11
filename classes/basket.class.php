@@ -52,7 +52,7 @@ class basket extends basket_template {
 					$varient = new product_variation();
 					$varient->get($detail->id);
 					$product = new product();
-					$product->get($vairent->product_id);
+					$product->get($varient->product_id);
 					if($product->image_id) $list[$item->id]['image_id'] = $product->image_id;
 					if($varient->weight) {
 						$total_weight += $varient->weight;
