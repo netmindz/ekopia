@@ -100,10 +100,10 @@ class album extends album_template {
 			<input type="hidden" name="delivery" value="cd"/>
         	        &pound; <?= $this->price ?> <input type="submit" value="Buy CD" class="inputbox" />
 	                </form>
+	                <?php } elseif(($this->download_price <=0)&&($this->price <=0)) { ?>
+	                Coming soon to buy here
 			<?php } elseif($this->stock_count <= 0) { ?>
 	                CD Out of stock
-	                <?php } elseif(!$this->download_price) { ?>
-	                Coming soon to buy here
               	 	<?php } ?>
 		<?php } ?>
                 </div>
