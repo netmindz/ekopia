@@ -56,16 +56,21 @@ if(count($items)) { ?>
 	$total = 0;
 	$basket_has_downloads = false;
 	foreach($items as $id=>$details) {
-		$total += $details['value'];
-		$shipping += $details['shipping'];
-		if($details['type'] == "track") $basket_has_downloads = true;
-		?>
-		<tr valign="middle">
-			<td><? if(isset($details['image_id'])) { $image = new image(); $image->show($details['image_id'],50,50,"align=\"left\""); } ?><?= $details['name'] ?></td>
-			<td>&pound;<?= $details['value'] ?></td>
-			<td><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
-		</tr>
-		<?php
+		if($id != "shipping") {
+			$total += $details['value'];
+			$shipping += $details['shipping'];
+			if($details['type'] == "track") $basket_has_downloads = true;
+			?>
+			<tr valign="middle">
+				<td><? if(isset($details['image_id'])) { $image = new image(); $image->show($details['image_id'],50,50,"align=\"left\""); } ?><?= $details['name'] ?></td>
+				<td>&pound;<?= $details['value'] ?></td>
+				<td><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
+			</tr>
+			<?php
+		}
+		else {
+			$shipping += $details['shipping'];
+		}
 	}
 	?>
 <tr>
