@@ -40,8 +40,13 @@ class basket extends basket_template {
 
 			$list[$item->id]['type'] = $item->type;
 			if($type == "album") {
-				$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
-				$shipping_type = "inc";
+				if($item->delivery == "download") {
+					$list[$item->id]['value'] = $detail->download_price;
+				}
+				else {	
+					$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
+					$shipping_type = "inc";
+				}
 			}
 			else {
 				$list[$item->id]['shipping'] = 0;
@@ -70,7 +75,9 @@ class basket extends basket_template {
 				$name = ucwords($item->type) . ": " . $detail->DN;
 			}
 			$list[$item->id]['name'] = $name;
-			$list[$item->id]['value'] = $detail->price;
+			if(!isset($list[$item->id]['value'])) {
+				$list[$item->id]['value'] = $detail->price;
+			}
 			if($type == "track") {
 				$list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
 				$list[$item->id]['value'] += $format_prices[$_SESSION['format']];	
