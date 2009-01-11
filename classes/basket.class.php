@@ -49,18 +49,20 @@ class basket extends basket_template {
 			if(ereg("product",$item->type)) {
 				$name = $detail->DN;
 				if($item->type == "product_variation") {
+					$varient = new product_variation():
+					$varient->get($detail->id);
 					$product = new product();
-					$product->get($detail->id);
+					$product->get($vairent->product_id);
 					if($product->image_id) $list[$item->id]['image_id'] = $product->image_id;
-					if($product->weight) {
-						$total_weight += $product->weight;
+					if($varient->weight) {
+						$total_weight += $varient->weight;
 					}
 					else {
-						#$total_weight += $product->shipping_weight;
+						$total_weight += $product->shipping_weight;
 					}
 				}
 				else {
-				#	if($item->shipping_weight) $total_weight += $item->shipping_weight;
+					if($detail->shipping_weight) $total_weight += $detail->shipping_weight;
 				}
 
 			}
