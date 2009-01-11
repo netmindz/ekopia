@@ -100,17 +100,20 @@ class basket extends basket_template {
 		);
 		foreach($bands[$region] as $weight=>$price) {
 			if($total_weight <= $weight) {
+				print "$weight ";
 				$shipping_price = $price;
 			}
 			else {
 				#break;
 			}
 		}
+		/*
 		if($total_weight >= $weight) {
 			if($region == "uk") {
 				$shipping_price += (ceil(($total_weight - $weight)/2000) * 2.8); // add £2.80 for each additional 2kg or part thereof 
 			}
 		}
+		*/
 		print "weight=$total_weight price=$shipping_price<br>\n";	
 		return($shipping_price);
 	}
