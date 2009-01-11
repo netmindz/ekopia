@@ -103,7 +103,7 @@ class basket extends basket_template {
 				$shipping_price = $price;
 			}
 			else {
-				break;
+				#break;
 			}
 		}
 		if($total_weight >= $weight) {
