@@ -42,6 +42,7 @@ class basket extends basket_template {
 			if($type == "album") {
 				if($item->delivery == "download") {
 					$list[$item->id]['value'] = $detail->download_price;
+					$list[$item->id]['shipping'] = 0;
 				}
 				else {	
 					$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
