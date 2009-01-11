@@ -49,7 +49,7 @@ class basket extends basket_template {
 			if(ereg("product",$item->type)) {
 				$name = $detail->DN;
 				if($item->type == "product_variation") {
-					$varient = new product_variation():
+					$varient = new product_variation();
 					$varient->get($detail->id);
 					$product = new product();
 					$product->get($vairent->product_id);
