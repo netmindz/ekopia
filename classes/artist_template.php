@@ -285,7 +285,8 @@ class artist_template
 	 * @desc Extracts the requested record from the database and puts it into the properties of the object
 	 */
 	function get($id)
-	{ 
+	{
+		settype($id,"int"); 
 		
 		$sql = "WHERE 1
 		AND id = '$id'";

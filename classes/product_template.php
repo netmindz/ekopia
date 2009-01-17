@@ -257,7 +257,7 @@ class product_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "order by name";
+		if(!$order) $order = "";
 		$select = "SELECT products.* FROM products ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
@@ -313,7 +313,8 @@ class product_template
 	 * @desc Extracts the requested record from the database and puts it into the properties of the object
 	 */
 	function get($id)
-	{ 
+	{
+		settype($id,"int"); 
 		
 		$sql = "WHERE 1
 		AND id = '$id'";
