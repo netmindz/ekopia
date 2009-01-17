@@ -180,7 +180,7 @@ class track_template
 		$raw_sql  = "UPDATE tracks SET ";
 		$raw_sql.= "`album_id`='".$this->database->escape($this->album_id)."', `track_number`='".$this->database->escape($this->track_number)."', `name`='".$this->database->escape($this->name)."', `artist_id`='".$this->database->escape($this->artist_id)."', `duration`='".$this->database->escape($this->duration)."', `price`='".$this->database->escape($this->price)."'";
 		$raw_sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -214,7 +214,7 @@ class track_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		if ($this->database->query($sql))
 			return true;

@@ -122,7 +122,7 @@ class page_template
 		$raw_sql  = "UPDATE pages SET ";
 		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `content`='".$this->database->escape($this->content)."'";
 		$raw_sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -156,7 +156,7 @@ class page_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		if ($this->database->query($sql))
 			return true;

@@ -166,7 +166,7 @@ class image_template
 		$raw_sql  = "UPDATE images SET ";
 		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `width`='".$this->database->escape($this->width)."', `height`='".$this->database->escape($this->height)."', `size`='".$this->database->escape($this->size)."', `type`='".$this->database->escape($this->type)."', `data`='".$this->database->escape($this->data)."'";
 		$raw_sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -200,7 +200,7 @@ class image_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		if ($this->database->query($sql))
 			return true;

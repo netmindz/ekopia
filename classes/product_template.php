@@ -168,7 +168,7 @@ class product_template
 		$raw_sql  = "UPDATE products SET ";
 		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."'";
 		$raw_sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -202,7 +202,7 @@ class product_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		if ($this->database->query($sql))
 			return true;

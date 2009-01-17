@@ -128,7 +128,7 @@ class order_template
 		$raw_sql  = "UPDATE orders SET ";
 		$raw_sql.= "`order_ref`='".$this->database->escape($this->order_ref)."', `paypal_txn_id`='".$this->database->escape($this->paypal_txn_id)."', `payment_status`='".$this->database->escape($this->payment_status)."', `customer_email`='".$this->database->escape($this->customer_email)."'";
 		$raw_sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -162,7 +162,7 @@ class order_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		if ($this->database->query($sql))
 			return true;

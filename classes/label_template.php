@@ -140,7 +140,7 @@ class label_template
 		$raw_sql  = "UPDATE labels SET ";
 		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `website`='".$this->database->escape($this->website)."', `summary`='".$this->database->escape($this->summary)."', `image_id`='".$this->database->escape($this->image_id)."'";
 		$raw_sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -174,7 +174,7 @@ class label_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		AND id = '$this->id' ";
+		id = '$this->id' ";
 		
 		if ($this->database->query($sql))
 			return true;
