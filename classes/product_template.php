@@ -167,8 +167,7 @@ class product_template
 
 		$raw_sql  = "UPDATE products SET ";
 		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."'";
-		$raw_sql.= " WHERE 1
-
+		$raw_sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -191,6 +190,7 @@ class product_template
 	* @param string $fieldname		-	The exact name of the field in the table / object property
 	* @desc Sets individual fields in the record, allowing special cases to be executed (eg. sess_expires), and leaving others unchanged.
  	*/
+	/*
 	function set($fieldname) {
 		
 		//define the SQL to use to UPDATE the field...
@@ -201,8 +201,7 @@ class product_template
 		
 		
 		//Now add the WHERE clause
-		$sql.= " WHERE 1
-
+		$sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		if ($this->database->query($sql))
@@ -211,7 +210,7 @@ class product_template
 			return false;
 		
 	}//set
-	
+	*/
 	
 	/**
 	* @return bool
@@ -235,9 +234,7 @@ class product_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM products WHERE 1
-
-		AND id = '$id' ";
+		$sql = "DELETE FROM products WHERE id = '".$this->database->escape($id)."' ";
 		
 		if ($this->database->query($sql))
 			return true;
@@ -314,10 +311,9 @@ class product_template
 	 */
 	function get($id)
 	{
-		settype($id,"int"); 
+		settype($id,"int");
 		
-		$sql = "WHERE 1
-		AND id = '$id'";
+		$sql = "WHERE id = '".$this->database->escape($id)."'";
 		
 		$count = $this->getList($sql);
 		

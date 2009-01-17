@@ -205,8 +205,7 @@ class album_template
 
 		$raw_sql  = "UPDATE albums SET ";
 		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."', `download_price`='".$this->database->escape($this->download_price)."', `summary`='".$this->database->escape($this->summary)."', `artist_id`='".$this->database->escape($this->artist_id)."', `label_id`='".$this->database->escape($this->label_id)."', `release_year`='".$this->database->escape($this->release_year)."', `location`='".$this->database->escape($this->location)."', `label_reference`='".$this->database->escape($this->label_reference)."', `image_id`='".$this->database->escape($this->image_id)."', `amazon_asin`='".$this->database->escape($this->amazon_asin)."', `stock_count`='".$this->database->escape($this->stock_count)."', `added`='".$this->database->escape($this->added)."'";
-		$raw_sql.= " WHERE 1
-
+		$raw_sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -229,6 +228,7 @@ class album_template
 	* @param string $fieldname		-	The exact name of the field in the table / object property
 	* @desc Sets individual fields in the record, allowing special cases to be executed (eg. sess_expires), and leaving others unchanged.
  	*/
+	/*
 	function set($fieldname) {
 		
 		//define the SQL to use to UPDATE the field...
@@ -239,8 +239,7 @@ class album_template
 		
 		
 		//Now add the WHERE clause
-		$sql.= " WHERE 1
-
+		$sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		if ($this->database->query($sql))
@@ -249,7 +248,7 @@ class album_template
 			return false;
 		
 	}//set
-	
+	*/
 	
 	/**
 	* @return bool
@@ -273,9 +272,7 @@ class album_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM albums WHERE 1
-
-		AND id = '$id' ";
+		$sql = "DELETE FROM albums WHERE id = '".$this->database->escape($id)."' ";
 		
 		if ($this->database->query($sql))
 			return true;
@@ -349,10 +346,9 @@ class album_template
 	 */
 	function get($id)
 	{
-		settype($id,"int"); 
+		settype($id,"int");
 		
-		$sql = "WHERE 1
-		AND id = '$id'";
+		$sql = "WHERE id = '".$this->database->escape($id)."'";
 		
 		$count = $this->getList($sql);
 		

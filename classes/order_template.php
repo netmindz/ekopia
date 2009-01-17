@@ -127,8 +127,7 @@ class order_template
 
 		$raw_sql  = "UPDATE orders SET ";
 		$raw_sql.= "`order_ref`='".$this->database->escape($this->order_ref)."', `paypal_txn_id`='".$this->database->escape($this->paypal_txn_id)."', `payment_status`='".$this->database->escape($this->payment_status)."', `customer_email`='".$this->database->escape($this->customer_email)."'";
-		$raw_sql.= " WHERE 1
-
+		$raw_sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -151,6 +150,7 @@ class order_template
 	* @param string $fieldname		-	The exact name of the field in the table / object property
 	* @desc Sets individual fields in the record, allowing special cases to be executed (eg. sess_expires), and leaving others unchanged.
  	*/
+	/*
 	function set($fieldname) {
 		
 		//define the SQL to use to UPDATE the field...
@@ -161,8 +161,7 @@ class order_template
 		
 		
 		//Now add the WHERE clause
-		$sql.= " WHERE 1
-
+		$sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		if ($this->database->query($sql))
@@ -171,7 +170,7 @@ class order_template
 			return false;
 		
 	}//set
-	
+	*/
 	
 	/**
 	* @return bool
@@ -195,9 +194,7 @@ class order_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM orders WHERE 1
-
-		AND id = '$id' ";
+		$sql = "DELETE FROM orders WHERE id = '".$this->database->escape($id)."' ";
 		
 		if ($this->database->query($sql))
 			return true;
@@ -274,10 +271,9 @@ class order_template
 	 */
 	function get($id)
 	{
-		settype($id,"int"); 
+		settype($id,"int");
 		
-		$sql = "WHERE 1
-		AND id = '$id'";
+		$sql = "WHERE id = '".$this->database->escape($id)."'";
 		
 		$count = $this->getList($sql);
 		

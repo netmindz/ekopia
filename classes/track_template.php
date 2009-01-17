@@ -179,8 +179,7 @@ class track_template
 
 		$raw_sql  = "UPDATE tracks SET ";
 		$raw_sql.= "`album_id`='".$this->database->escape($this->album_id)."', `track_number`='".$this->database->escape($this->track_number)."', `name`='".$this->database->escape($this->name)."', `artist_id`='".$this->database->escape($this->artist_id)."', `duration`='".$this->database->escape($this->duration)."', `price`='".$this->database->escape($this->price)."'";
-		$raw_sql.= " WHERE 1
-
+		$raw_sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -203,6 +202,7 @@ class track_template
 	* @param string $fieldname		-	The exact name of the field in the table / object property
 	* @desc Sets individual fields in the record, allowing special cases to be executed (eg. sess_expires), and leaving others unchanged.
  	*/
+	/*
 	function set($fieldname) {
 		
 		//define the SQL to use to UPDATE the field...
@@ -213,8 +213,7 @@ class track_template
 		
 		
 		//Now add the WHERE clause
-		$sql.= " WHERE 1
-
+		$sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		if ($this->database->query($sql))
@@ -223,7 +222,7 @@ class track_template
 			return false;
 		
 	}//set
-	
+	*/
 	
 	/**
 	* @return bool
@@ -247,9 +246,7 @@ class track_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM tracks WHERE 1
-
-		AND id = '$id' ";
+		$sql = "DELETE FROM tracks WHERE id = '".$this->database->escape($id)."' ";
 		
 		if ($this->database->query($sql))
 			return true;
@@ -323,10 +320,9 @@ class track_template
 	 */
 	function get($id)
 	{
-		settype($id,"int"); 
+		settype($id,"int");
 		
-		$sql = "WHERE 1
-		AND id = '$id'";
+		$sql = "WHERE id = '".$this->database->escape($id)."'";
 		
 		$count = $this->getList($sql);
 		

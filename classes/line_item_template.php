@@ -153,8 +153,7 @@ class line_item_template
 
 		$raw_sql  = "UPDATE line_items SET ";
 		$raw_sql.= "`order_id`='".$this->database->escape($this->order_id)."', `item`='".$this->database->escape($this->item)."', `price`='".$this->database->escape($this->price)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."', `delivery`='".$this->database->escape($this->delivery)."'";
-		$raw_sql.= " WHERE 1
-
+		$raw_sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
@@ -177,6 +176,7 @@ class line_item_template
 	* @param string $fieldname		-	The exact name of the field in the table / object property
 	* @desc Sets individual fields in the record, allowing special cases to be executed (eg. sess_expires), and leaving others unchanged.
  	*/
+	/*
 	function set($fieldname) {
 		
 		//define the SQL to use to UPDATE the field...
@@ -187,8 +187,7 @@ class line_item_template
 		
 		
 		//Now add the WHERE clause
-		$sql.= " WHERE 1
-
+		$sql.= " WHERE 
 		AND id = '$this->id' ";
 		
 		if ($this->database->query($sql))
@@ -197,7 +196,7 @@ class line_item_template
 			return false;
 		
 	}//set
-	
+	*/
 	
 	/**
 	* @return bool
@@ -221,9 +220,7 @@ class line_item_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM line_items WHERE 1
-
-		AND id = '$id' ";
+		$sql = "DELETE FROM line_items WHERE id = '".$this->database->escape($id)."' ";
 		
 		if ($this->database->query($sql))
 			return true;
@@ -300,10 +297,9 @@ class line_item_template
 	 */
 	function get($id)
 	{
-		settype($id,"int"); 
+		settype($id,"int");
 		
-		$sql = "WHERE 1
-		AND id = '$id'";
+		$sql = "WHERE id = '".$this->database->escape($id)."'";
 		
 		$count = $this->getList($sql);
 		
