@@ -136,7 +136,7 @@ class tag_template
 		$raw_sql  = "UPDATE tags SET ";
 		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `public`='".$this->database->escape($this->public)."'";
 		$raw_sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -170,7 +170,7 @@ class tag_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		if ($this->database->query($sql))
 			return true;

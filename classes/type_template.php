@@ -136,7 +136,7 @@ class type_template
 		$raw_sql  = "UPDATE types SET ";
 		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `description`='".$this->database->escape($this->description)."'";
 		$raw_sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -170,7 +170,7 @@ class type_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		if ($this->database->query($sql))
 			return true;

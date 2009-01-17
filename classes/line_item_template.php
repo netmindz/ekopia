@@ -154,7 +154,7 @@ class line_item_template
 		$raw_sql  = "UPDATE line_items SET ";
 		$raw_sql.= "`order_id`='".$this->database->escape($this->order_id)."', `item`='".$this->database->escape($this->item)."', `price`='".$this->database->escape($this->price)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."', `delivery`='".$this->database->escape($this->delivery)."'";
 		$raw_sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -188,7 +188,7 @@ class line_item_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		if ($this->database->query($sql))
 			return true;

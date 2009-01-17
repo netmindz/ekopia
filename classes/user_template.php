@@ -128,7 +128,7 @@ class user_template
 		$raw_sql  = "UPDATE users SET ";
 		$raw_sql.= "`username`='".$this->database->escape($this->username)."', `password`='".$this->database->escape($this->password)."', `email`='".$this->database->escape($this->email)."'";
 		$raw_sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -162,7 +162,7 @@ class user_template
 		
 		//Now add the WHERE clause
 		$sql.= " WHERE 
-		id = '$this->id' ";
+		id = '".$this->database->escape($this->id)."'";
 		
 		if ($this->database->query($sql))
 			return true;
