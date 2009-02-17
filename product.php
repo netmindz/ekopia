@@ -7,7 +7,7 @@ $product->get($_REQUEST['id']);
 $type = new type();
 $type->get($product->type_id);
 
-$page_title = "inSpiral - $product->name";
+$page_title = "inSpiral - $type->name -  $product->name";
 $page_keywords = implode(", ",array($product->name,$type->name));
 $page_meta = $product->intro;
 ?>
