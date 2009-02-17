@@ -111,7 +111,7 @@ function get_rss($rate,$country) {
 		$type->get($product->type_id);
 		$description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$product->description)));
 		$rss .= '<item>
-<title>'.htmlspecialchars($product->name).'</title>
+<title>'.htmlspecialchars($product->name . " " . $type->name).'</title>
 <g:expiration_date>'.date("Y-m-d",strtotime("+10 days")).'</g:expiration_date>
 <g:condition>new</g:condition>
 <description>'.$description.'</description>
@@ -135,7 +135,7 @@ function get_rss($rate,$country) {
                 $type->get($product->type_id);
                 $description = htmlspecialchars(strip_tags(ereg_replace("[^ -~]"," ",$product->description)));
                 $rss .= '<item>
-<title>'.htmlspecialchars($variation->DN).'</title>
+<title>'.htmlspecialchars($variation->DN . " " . $type->name).'</title>
 <g:expiration_date>'.date("Y-m-d",strtotime("+10 days")).'</g:expiration_date>
 <g:condition>new</g:condition>
 <description>'.$description.'</description>
