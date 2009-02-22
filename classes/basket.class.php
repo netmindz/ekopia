@@ -91,7 +91,7 @@ class basket extends basket_template {
 			}
 		}
 		if($total_weight) {
-			$list['shipping']['name'] = "Postage and Packaging";
+			$list['shipping']['name'] = "Packaging";
 			$list['shipping']['value'] = 1;
 			$list['shipping']['shipping'] = $this->calculatePostage($total_weight,$_SESSION['country']);
 		}
