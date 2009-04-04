@@ -26,19 +26,22 @@ $page_meta = $product->intro;
 <? } ?>
 <?php
 $variation = new product_variation();
-$variation->getListForProduct($product->id);
-while($variation->getNext()) {
-	?>
+if($variation->getListForProduct($product->id)) { ?>
 	<form action="<?= $CONF['url'] ?>/basket.php" method="post">
-                <input type="hidden" name="action" value="add" />
-                <input type="hidden" name="product_variation_id" value="<?= $variation->id ?>" />
-                <?= $variation->name ?>  - &pound; <?= $variation->price ?> <input type="submit" value="Add to basket" class="inputbox" />
-                </form>
+	<input type="hidden" name="action" value="add" />
+	<select name="product_variation_id">
+	<option value="">--select--</option>
+	<?php
+	while($variation->getNext()) {
+		?><option value="<?= $variation->id ?>"><?= $variation->name ?>  - &pound; <?= $variation->price ?></option><?php 
+	}
+	?>
+	<input type="submit" value="Add to basket" class="inputbox" />
+	</form>
+<?php } ?>
 
-	<?php	
-}
-?>
-
+<p>&nbsp;</p>
+<hr/>
 <p><a href="type.php?id=<?= $type->id ?>">Back to <?= $type->name ?>s</a></p>
 
 <?php include("footer.inc.php"); ?>
