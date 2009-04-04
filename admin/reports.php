@@ -9,6 +9,7 @@ $reports['unamed'] =  array("title"=>"Unnamed Tracks","sql"=>"select albums.id,a
 $reports['orpahan_tracks'] =  array("title"=>"Orphan Tracks","sql"=>"select tracks.id,tracks.name from tracks left join albums on album_id=albums.id where albums.name is null");
 $reports['lonely_artists'] =  array("title"=>"Empty Artists","sql"=>"select artists.id,artists.name,count(tracks.artist_id) as track_count, count(albums.artist_id) as album_count from artists left join albums on artists.id=albums.artist_id left join tracks on artists.id=tracks.artist_id group by artists.id having album_count = 0 and track_count = 0");
 $reports['untagged_albums'] = array('title'=>'Untagged Albums','sql'=>'select albums.id,albums.name,count(album_tags.id) as tag_count from albums left join album_tags on albums.id=album_FK  group by albums.id having tag_count=0 order by albums.name');
+$reports['sale_summary'] = array('title'=>'Sales Summary','sql'=>"SELECT date_format(created,'%Y-%m') as date,type,count(*) num,sum(li.price) value,if(products.id is not null,products.name,if(pv.id is not null,concat(pvp.name),li.type)) as item from line_items li inner join orders on (order_id=orders.id) left join products on (item_id=products.id and type='product') left join product_variations pv on (item_id=pv.id and type='product_variation') left join products pvp on (pv.product_id=pvp.id) where payment_status='Completed' and type != 'unknown' and type != '' group by type,date order by date,type,item");
 
 if(isset($_POST['report'])) {
 	$report = $_POST['report'];
