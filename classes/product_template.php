@@ -1,7 +1,7 @@
 <?
 class product_template
 {
-	var $id, $type_id, $name, $intro, $description, $image_id, $price, $shipping_weight;
+	var $id, $type_id, $name, $intro, $description, $big_image_id, $image_id, $price, $shipping_weight, $published;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -35,9 +35,11 @@ class product_template
 		$this->name = "";
 		$this->intro = "";
 		$this->description = "";
+		$this->big_image_id = "";
 		$this->image_id = "";
 		$this->price = "";
 		$this->shipping_weight = "";
+		$this->published = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -73,9 +75,11 @@ class product_template
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['intro'] = array ("type" => "tinytext", "gen_type" => "text");
 		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
+		$this->_field_descs['big_image_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['published'] = array ("type" => "enum('yes','no')", "default" => "yes", "values" => array('yes','no',), "gen_type" => "enum");
 
 	}//__constructor
 	
@@ -101,6 +105,12 @@ class product_template
 		}//IF
 
 
+		if($this->big_image_id != (int)$this->big_image_id && $this->big_image_id!='NOW()' && $this->big_image_id!='NULL'){
+			trigger_error("wrong type for product->big_image_id",E_USER_WARNING);
+			settype($this->big_image_id,"int");
+		}//IF
+
+
 		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
 			trigger_error("wrong type for product->image_id",E_USER_WARNING);
 			settype($this->image_id,"int");
@@ -113,10 +123,15 @@ class product_template
 		}//IF
 
 
+		if(!in_array($this->published,$this->_field_descs['published']['values']) && $this->published!='NULL') {
+			if($this->published!='') trigger_error("Invalid enum value ".$this->published." for product->published, using default",E_USER_WARNING);
+			$this->published = $this->_field_descs['published']['default'];
+		}//IF
+
 		
-		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `image_id`, `price`, `shipping_weight`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `big_image_id`, `image_id`, `price`, `shipping_weight`, `published`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->big_image_id)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -153,6 +168,12 @@ class product_template
 		}//IF
 
 
+		if($this->big_image_id != (int)$this->big_image_id && $this->big_image_id!='NOW()' && $this->big_image_id!='NULL'){
+			trigger_error("wrong type for product->big_image_id",E_USER_WARNING);
+			settype($this->big_image_id,"int");
+		}//IF
+
+
 		if($this->image_id != (int)$this->image_id && $this->image_id!='NOW()' && $this->image_id!='NULL'){
 			trigger_error("wrong type for product->image_id",E_USER_WARNING);
 			settype($this->image_id,"int");
@@ -165,8 +186,13 @@ class product_template
 		}//IF
 
 
+		if(!in_array($this->published,$this->_field_descs['published']['values']) && $this->published!='NULL') {
+			if($this->published!='') trigger_error("Invalid enum value ".$this->published." for product->published, using default",E_USER_WARNING);
+			$this->published = $this->_field_descs['published']['default'];
+		}//IF
+
 		$raw_sql  = "UPDATE products SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `big_image_id`='".$this->database->escape($this->big_image_id)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -221,7 +247,7 @@ class product_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -262,6 +288,32 @@ class product_template
 			return false;
 		}//IF
 	}//getList
+
+
+	function getTypeList(type $type) {
+		return($this->getList("where type_id=$type->id"));
+	}
+	
+	function getType()
+	{
+		$type = new type();
+		$type->get($this->type_id);
+		return($type);
+	}
+	
+
+	function getImageList(image $image) {
+		return($this->getList("where image_id=$image->id"));
+	}
+	
+	function getImage()
+	{
+		$image = new image();
+		$image->get($this->image_id);
+		return($image);
+	}
+	
+
 		
 	
 	
@@ -415,7 +467,6 @@ class product_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -434,7 +485,14 @@ class product_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

@@ -89,7 +89,7 @@ class album extends album_template {
 	                <input type="submit" value="Download" class="inputbox"/>
 	                </form>
 	        <?php } elseif($this->countDownloads()) { ?>
-			<a href="<?= album_link($this->id,$this->name) ?>"><img src="download.gif" width="15"></a>&nbsp;Downloads Avalible
+			<a href="<?= album_link($this->id,$this->name) ?>"><img src="/download.gif" width="15"></a>&nbsp;Downloads Avalible<br/>
 	        <?php } ?>
 
 		<?php if($showBuyCD) { ?>

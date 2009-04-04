@@ -203,7 +203,7 @@ class product_variation_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -244,6 +244,20 @@ class product_variation_template
 			return false;
 		}//IF
 	}//getList
+
+
+	function getProductList(product $product) {
+		return($this->getList("where product_id=$product->id"));
+	}
+	
+	function getProduct()
+	{
+		$product = new product();
+		$product->get($this->product_id);
+		return($product);
+	}
+	
+
 		
 	
 	
@@ -394,7 +408,6 @@ class product_variation_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -413,7 +426,14 @@ class product_variation_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

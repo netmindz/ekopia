@@ -175,7 +175,7 @@ class page_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -216,6 +216,8 @@ class page_template
 			return false;
 		}//IF
 	}//getList
+
+
 		
 	
 	
@@ -369,7 +371,6 @@ class page_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -388,7 +389,14 @@ class page_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

@@ -181,7 +181,7 @@ class user_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -222,6 +222,32 @@ class user_template
 			return false;
 		}//IF
 	}//getList
+
+
+	function getUser_artistList(user_artist $user_artist) {
+		return($this->getList("where user_artist_id=$user_artist->id"));
+	}
+	
+	function getUser_artist()
+	{
+		$user_artist = new user_artist();
+		$user_artist->get($this->artist_FKL);
+		return($user_artist);
+	}
+	
+
+	function getUser_labelList(user_label $user_label) {
+		return($this->getList("where user_label_id=$user_label->id"));
+	}
+	
+	function getUser_label()
+	{
+		$user_label = new user_label();
+		$user_label->get($this->label_FKL);
+		return($user_label);
+	}
+	
+
 		
 	
 	
@@ -372,7 +398,6 @@ class user_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -391,7 +416,14 @@ class user_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

@@ -259,7 +259,7 @@ class album_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -300,6 +300,56 @@ class album_template
 			return false;
 		}//IF
 	}//getList
+
+
+	function getArtistList(artist $artist) {
+		return($this->getList("where artist_id=$artist->id"));
+	}
+	
+	function getArtist()
+	{
+		$artist = new artist();
+		$artist->get($this->artist_id);
+		return($artist);
+	}
+	
+
+	function getLabelList(label $label) {
+		return($this->getList("where label_id=$label->id"));
+	}
+	
+	function getLabel()
+	{
+		$label = new label();
+		$label->get($this->label_id);
+		return($label);
+	}
+	
+
+	function getImageList(image $image) {
+		return($this->getList("where image_id=$image->id"));
+	}
+	
+	function getImage()
+	{
+		$image = new image();
+		$image->get($this->image_id);
+		return($image);
+	}
+	
+
+	function getAlbum_tagList(album_tag $album_tag) {
+		return($this->getList("where album_tag_id=$album_tag->id"));
+	}
+	
+	function getAlbum_tag()
+	{
+		$album_tag = new album_tag();
+		$album_tag->get($this->tag_FKL);
+		return($album_tag);
+	}
+	
+
 		
 	
 	
@@ -450,7 +500,6 @@ class album_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -469,7 +518,14 @@ class album_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

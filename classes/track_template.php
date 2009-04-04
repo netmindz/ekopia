@@ -233,7 +233,7 @@ class track_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -274,6 +274,44 @@ class track_template
 			return false;
 		}//IF
 	}//getList
+
+
+	function getAlbumList(album $album) {
+		return($this->getList("where album_id=$album->id"));
+	}
+	
+	function getAlbum()
+	{
+		$album = new album();
+		$album->get($this->album_id);
+		return($album);
+	}
+	
+
+	function getArtistList(artist $artist) {
+		return($this->getList("where artist_id=$artist->id"));
+	}
+	
+	function getArtist()
+	{
+		$artist = new artist();
+		$artist->get($this->artist_id);
+		return($artist);
+	}
+	
+
+	function getTrack_tagList(track_tag $track_tag) {
+		return($this->getList("where track_tag_id=$track_tag->id"));
+	}
+	
+	function getTrack_tag()
+	{
+		$track_tag = new track_tag();
+		$track_tag->get($this->tag_FKL);
+		return($track_tag);
+	}
+	
+
 		
 	
 	
@@ -424,7 +462,6 @@ class track_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -443,7 +480,14 @@ class track_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element

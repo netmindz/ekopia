@@ -193,7 +193,7 @@ class label_template
 	function setField($field,$value)
 	{
 		$this->setProperties(array($field=>$value));
-		return($this->set($field));
+		return($this->update());
 	}
 	
 	
@@ -234,6 +234,32 @@ class label_template
 			return false;
 		}//IF
 	}//getList
+
+
+	function getImageList(image $image) {
+		return($this->getList("where image_id=$image->id"));
+	}
+	
+	function getImage()
+	{
+		$image = new image();
+		$image->get($this->image_id);
+		return($image);
+	}
+	
+
+	function getUser_labelList(user_label $user_label) {
+		return($this->getList("where user_label_id=$user_label->id"));
+	}
+	
+	function getUser_label()
+	{
+		$user_label = new user_label();
+		$user_label->get($this->user_FKL);
+		return($user_label);
+	}
+	
+
 		
 	
 	
@@ -387,7 +413,6 @@ class label_template
 							$this->$key = $child->upload($_FILES[$key]["tmp_name"],$_FILES[$key]["name"]);
 						}
 						else {
-							// use old value
 							$this->$key = $value;
 						}
 					}
@@ -406,7 +431,14 @@ class label_template
 						if(($this->_field_descs[$key]['gen_type'] == "string")&&(class_exists("XString"))) {
 		                                        $value = XString::FilterMS_ASCII($value);
                                			}
-						$this->$key = $value;
+
+						$setter_name = "set".ucwords($key);
+						if(method_exists($this,$setter_name)) {
+							$this->$setter_name($value);
+						}
+						else {
+							$this->$key = $value;
+						}
 					}//IF key matched
 				}
 			}//FOREACH element
