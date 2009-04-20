@@ -174,5 +174,11 @@ class track extends track_template {
 			return("flac -dc $file");
 		}
 	}
+
+	function getUnTaggedList($offset)
+	{
+		$this->database->query("select tracks.* from tracks left join track_tags on (tracks.id = track_FK) where track_FK is null limit $offset,100");
+		return($this->database->RowCount);
+	}
 }
 ?>
