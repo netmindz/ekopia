@@ -95,15 +95,15 @@ class track extends track_template {
 		}
 	}
 
-	function getPreview($fade)
+	function getPreview($use_fade)
 	{
-		if($fade) {
+		if($use_fade) {
 			$preview = "previews/$this->album_id/$this->track_number.mp3";
 		}
 		else {
 			$preview = "previews/$this->album_id/$this->track_number.nofade.mp3";
 		}
-		$filename = "$this->id.mp3"; 
+		$filename = basename($preview);
 		$mime = "audio/mpeg";
 
 		$error = "";
@@ -116,12 +116,14 @@ class track extends track_template {
 			$fade = 10;
 			$total_length = ($preview_length + ($fade * 2));
 			if($raw = $this->_getRaw()) {
-				if($fade) { 
+				if($use_fade) { 
 					$fade_cmd = " | sox -t wav - -t wav - fade t $fade ".($total_length - $fade)." $fade ";
 				}
 				else {
+					$total_length = $preview_length * 2;
 					$fade_cmd = "";
 				}
+
 				$cmd = $this->_getRaw() . " | sox -t wav - -t wav - trim 60 $total_length $fade_cmd | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
 				exec($cmd,$results,$return);
 				if($return) $error = "$cmd = " . implode("\n",$results);
