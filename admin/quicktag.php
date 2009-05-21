@@ -10,7 +10,7 @@ require("../include/common.php");
 <body>
 <? include("nav.inc"); ?>
 <?
-if(isset($_POST['tags'])) {
+if(isset($_POST['track_id'])) {
 	$track = new track();
 	$track->get($_POST['track_id']);
 	$track->setProperties(array('tag_FKL'=>$_POST['tags']));
