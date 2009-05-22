@@ -45,7 +45,7 @@ if(isset($_REQUEST['clear'])) {
 $items = $basket->getItems();
 if(count($items)) { ?>
 <h2>Basket</h2>
-<table width="90%" border="0">
+<table width="100%" border="0">
 <tr>
 	<th>Item</th>
 	<th>Price</th>
