@@ -612,7 +612,7 @@ class user_artist_template
 		if(!$parent_pk) {
 			return($html);
 		}
-		$parent->get($parent_pk) or die("failed to load parent $parent_class($parent_pk)");
+		$parent->get($parent_pk) or trigger_error("failed to load parent $parent_class($parent_pk)",E_USER_FATAL);
 	
 		$child_details = $this->_getLinkTableChildClassDetails($parent_class);
 		
@@ -717,8 +717,9 @@ class user_artist_template
 			}else{
 				if(!class_exists($fk_class)) {
 					# Todo - Write so this can be done without @
-					@include "$fk_class.php";		//attempt to load class file, but suppress errors if not found
-					@include "$fk_class.class.php";		//attempt to load class file, but suppress errors if not found
+					# @include "$fk_class.php";		//attempt to load class file, but suppress errors if not found
+					# @include "$fk_class.class.php";		//attempt to load class file, but suppress errors if not found
+					return("Can't create tickboxes as $fk_class is missing");
 				}
 				$fk = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
