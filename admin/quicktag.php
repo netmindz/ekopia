@@ -33,7 +33,7 @@ $track->getNext();
 <PARAM NAME="wmode" VALUE="transparent"> <param name="allowScriptAccess" value="sameDomain" /><param name="movie" value="<?= $CONF['media_url'] ?>/mp3player.swf?playlist=<?= $CONF['media_url'] ?>/playlist.php?track_id=<?= $track->id ?>" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="<?= $CONF['media_url'] ?>/mp3player.swf?playlist=<?= $CONF['media_url'] ?>/playlist.php?track_id=<?= $track->id ?>" quality="high" bgcolor="#ffffff" width="280" height="280" name="player" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" /></object>
 <form method="post">
 <input type="hidden" name="track_id" value="<?= $track->id ?>"/>
-<input type="hidden" name="offset" value="<?= $offset ?>" />
+<input type="text" name="offset" value="<?= $offset ?>" />
 <table>
 <tr>
 	<th><?= $track->DN ?></th>
