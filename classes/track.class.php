@@ -97,7 +97,7 @@ class track extends track_template {
 
 	function getPreview($use_fade)
 	{
-	        if((!$use_fade)&&(isset($_SERVER['HTTP_REFERER']))&&(ereg("/admin/",$_SERVER['HTTP_REFERER']))) {
+	        if(!$use_fade) {
 	                $full = 1;
 			$preview = "previews/$this->album_id/$this->track_number.full.mp3";
         	}
