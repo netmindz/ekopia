@@ -107,7 +107,12 @@ class track extends track_template {
 		$mime = "audio/mpeg";
 
 		$error = "";
-
+	        if((!$use_fade)&&(isset($_SERVER['PHP_AUTH_USER']))&&($_SERVER['PHP_AUTH_USER'] == "music")) {
+	                $full = 1;
+        	}
+		else {
+			$full = 0;
+		}
 		if((!is_file($preview))||(filesize($preview) < 1024)) {
 			if(!is_dir(dirname($preview))) {
 					exec("mkdir -p " . dirname($preview));
@@ -116,18 +121,25 @@ class track extends track_template {
 			$fade = 10;
 			$total_length = ($preview_length + ($fade * 2));
 			if($raw = $this->_getRaw()) {
-				if($use_fade) { 
-					$fade_cmd = " | sox -t wav - -t wav - fade t $fade ".($total_length - $fade)." $fade ";
+				if($full) {
+					$cmd = $this->_getRaw() . " | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
+					exec($cmd,$results,$return);
+	                                if($return) $error = "$cmd = " . implode("\n",$results);
 				}
 				else {
-					$total_length = $preview_length * 2;
-					$fade_cmd = "";
-				}
+					if($use_fade) { 
+						$fade_cmd = " | sox -t wav - -t wav - fade t $fade ".($total_length - $fade)." $fade ";
+					}
+					else {
+						$total_length = $preview_length * 2;
+						$fade_cmd = "";
+					}
 
-				$cmd = $this->_getRaw() . " | sox -t wav - -t wav - trim 60 $total_length $fade_cmd | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
-				exec($cmd,$results,$return);
-				if($return) $error = "$cmd = " . implode("\n",$results);
-			}
+					$cmd = $this->_getRaw() . " | sox -t wav - -t wav - trim 60 $total_length $fade_cmd | lame -a -m m -b 64 -f --brief -c --noreplaygain - $preview 2>&1";
+					exec($cmd,$results,$return);
+					if($return) $error = "$cmd = " . implode("\n",$results);
+				}
+			}		
 			else {
 				$error = "failed to find raw";
 			}
