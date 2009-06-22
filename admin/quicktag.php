@@ -44,7 +44,8 @@ $track->getNext();
 </table>
 <input type="submit" value=" Update Track ">
 </form>
-<form  method="post">
+<form  method="post" name="skip">
 <input type="hidden" name="offset" value="<?= ($offset+1) ?>" />
+<input type="text" name="skip" value="1" onChange="document.forms.skip.offset.value=document.forms.skip.skip.value+<?= $offset ?>"/>
 <input type="submit" value=" Skip ">
 </form>
