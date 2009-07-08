@@ -142,6 +142,9 @@ class album extends album_template {
 			}
     		$zip->close();
 		}
+		else {
+			trigger_error("Failed to open zip");
+		}
 		/*
 		header("Content-Type: application/zip");
 		header("Content-Length: " . filesize($zipname));
