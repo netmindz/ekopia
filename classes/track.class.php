@@ -80,19 +80,37 @@ class track extends track_template {
 			if((!is_file($download))||(!filesize($download))) {
 				$error = "failed to find download in the $type format (" . $error . ")";
 			}
+
 			if(!$error)  {
-				header("Content-Type: $mime");
-				header("Content-Length: " . filesize($download));
-				header("Content-Disposition: attachment;filename=" . urlencode(str_replace(" ","_",$filename)));
-				$fh = fopen($download,'r') or die("failed to open file");
-				while(!feof($fh)) {
-					print fgets($fh,255);
-				}
+				return($download);
 			}
 			else {
-				return($error);
+				trigger_error($error);
 			}
 		}
+	}
+
+	function downloadTrack($type)
+	{
+		$download = getDownload($type);
+
+		if($type == "mp3") {
+                       $mime = "audio/mpeg";
+		}elseif($type == "ogg") {
+			$mime = "application/ogg";
+		}
+		else {
+			$mime = "application/octet-stream";
+		}
+		
+                header("Content-Type: $mime");
+                header("Content-Length: " . filesize($download));
+                header("Content-Disposition: attachment;filename=" . urlencode(str_replace(" ","_",$filename)));
+                $fh = fopen($download,'r') or die("failed to open file");
+                while(!feof($fh)) {
+			print fgets($fh,255);
+		}
+
 	}
 
 	function getPreview($use_fade)

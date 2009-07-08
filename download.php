@@ -19,20 +19,42 @@ else {
 	exit("type unknown");
 }
 
-$track = new track();
-$track->get($li->item_id);
-$error = $track->getDownload($type);
-if($error) {
-	?>
-	<h2>ERROR</h2>
-	<p><?= $error ?></p>
-	<?php
+if($li->type == "track") {
+
+	$track = new track();
+	$track->get($li->item_id);
+	$error = $track->downloadTrack($type);
+	if($error) {
+		?>
+		<h2>Track ERROR</h2>
+		<p><?= $error ?></p>
+		<?php
+	}
+	else {
+		ob_start();
+		print_r($_SERVER);
+		$message .= "\n\n" . ob_get_contents();
+		ob_end_clean();
+		mail($CONF['shop_email'],"Order $order->id - Track Download - $track->DN",$message);
+	}
 }
-else {
-	ob_start();
-	print_r($_SERVER);
-	$message .= "\n\n" . ob_get_contents();
-	ob_end_clean();
-	mail($CONF['shop_email'],"Order $order->id - Track Download - $track->DN",$message);
+elseif($li->type == "album") {
+	$album = new album();
+	$album->get($li->item_id);
+	$error = $album->downloadAlbum($type);
+	if($error) {
+		?>
+		<h2>Album ERROR</h2>
+		<p><?= $error ?></p>
+		<?php
+	}
+	else {
+		ob_start();
+		print_r($_SERVER);
+		$message .= "\n\n" . ob_get_contents();
+		ob_end_clean();
+		mail($CONF['shop_email'],"Order $order->id - Album Download - $album->DN",$message);
+	}
+	
 }
 ?>

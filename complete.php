@@ -30,12 +30,17 @@ while($line_item->getNext()) {
 	<?
 	if($line_item->type == "track") {
 		$albums[] = $item->album_id;
+		$artists[] = $item->artist_id;
+		$labels[] = $item->label_id;
 		?><a href="<?= $CONF['media_url'] ?>/download.php?order_id=<?= $order->id ?>&amp;item_id=<?= $line_item->id ?>&amp;email=<?= urlencode($order->customer_email) ?>">Download</a><?php
 	}
 	elseif($line_item->type == "album") {
 		$albums[] = $item->id;
 		$artists[] = $item->artist_id;
 		$labels[] = $item->label_id;
+		if($line_item->delivery == "download") {
+			?><a href="<?= $CONF['media_url'] ?>/download.php?order_id=<?= $order->id ?>&amp;item_id=<?= $line_item->id ?>&amp;email=<?= urlencode($order->customer_email) ?>">Download</a><?php
+		}
 	}
 	?>
 	</li>

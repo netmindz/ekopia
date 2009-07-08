@@ -126,5 +126,16 @@ class album extends album_template {
 	{
 		return($this->getList("where id in (select distinct album_id from tracks where price > 0)","order by added desc","limit 0,$count"));
 	}
+	
+	function downloadAlbum($type)
+	{
+		$track = new track();
+		$track->getAlbumList($this);
+		$files = array();
+		while($track->getNext()) {
+			$files[] = $track->getDownload($type);
+		}
+		print_r($files);
+	}
 }
 ?>
