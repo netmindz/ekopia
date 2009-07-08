@@ -134,23 +134,22 @@ class album extends album_template {
 		$files = array();
 		$zip = new ZipArchive;
 		$zipname = '/tmp/album-'.$this->id.".zip";
-		if($zip->open($zipname,ZipArchive::CREATE) === TRUE) {
-			while($track->getNext()) {
-				$file = $track->getDownload($type);
-				print "file=$file\n";
-			    $zip->addFile($file, basename($file));
+		if(!is_file($zipname)) {
+			if($zip->open($zipname,ZipArchive::CREATE) === TRUE) {
+				while($track->getNext()) {
+					$file = $track->getDownload($type);
+					$zip->addFile($file, basename($file));
+				}
+				$zip->close();
 			}
-    		$zip->close();
+			else {
+				trigger_error("Failed to open zip");
+			}
 		}
-		else {
-			trigger_error("Failed to open zip");
-		}
-		/*
 		header("Content-Type: application/zip");
 		header("Content-Length: " . filesize($zipname));
 		header("Content-Disposition: attachment;filename=" . urlencode(basename($zipname)));
 		fpassthur(fopen($zipname,'r'));
-		*/
 	}
 }
 ?>
