@@ -41,7 +41,7 @@ if($li->type == "track") {
 elseif($li->type == "album") {
 	$album = new album();
 	$album->get($li->item_id);
-	$error = $album->downloadAlbum($type);
+	$error = $album->downloadAlbum("mp3");
 	if($error) {
 		?>
 		<h2>Album ERROR</h2>

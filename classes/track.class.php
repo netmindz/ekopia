@@ -75,7 +75,7 @@ class track extends track_template {
 			}
 			if(!is_file($download)) {
 				exec($exec,$results,$return);
-                                if($return) $error = implode("\n",$results);
+                if($return) $error = implode("\n",$results);
 			}
 			if((!is_file($download))||(!filesize($download))) {
 				$error = "failed to find download in the $type format (" . $error . ")";
