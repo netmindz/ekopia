@@ -137,14 +137,17 @@ class album extends album_template {
 		if($zip->open($zipname) === TRUE) {
 			while($track->getNext()) {
 				$file = $track->getDownload($type);
+				print "file=$file\n";
 			    $zip->addFile($file, basename($file));
 			}
     		$zip->close();
 		}
+		/*
 		header("Content-Type: application/zip");
 		header("Content-Length: " . filesize($zipname));
 		header("Content-Disposition: attachment;filename=" . urlencode(basename($zipname)));
 		fpassthur(fopen($zipname,'r'));
+		*/
 	}
 }
 ?>
