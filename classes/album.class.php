@@ -138,7 +138,7 @@ class album extends album_template {
 			if($zip->open($zipname,ZipArchive::CREATE) === TRUE) {
 				while($track->getNext()) {
 					$file = $track->getDownload($type);
-					$zip->addFile($file, $album->name . "/". $track->name . "." . $type);
+					$zip->addFile($file, $this->name . "/". $track->name . "." . $type);
 				}
 				$zip->close();
 			}
@@ -149,7 +149,7 @@ class album extends album_template {
 		header("Content-Type: application/zip");
 		header("Content-Length: " . filesize($zipname));
 		header("Content-Disposition: attachment;filename=album-$this->id.zip");
-		fpassthur(fopen($zipname,'r'));
+		fpassthru(fopen($zipname,'r'));
 	}
 }
 ?>
