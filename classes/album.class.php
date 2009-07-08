@@ -134,7 +134,7 @@ class album extends album_template {
 		$files = array();
 		$zip = new ZipArchive;
 		$zipname = '/tmp/album-'.$this->id.".zip";
-		if($zip->open($zipname) === TRUE) {
+		if($zip->open($zipname)) {
 			while($track->getNext()) {
 				$file = $track->getDownload($type);
 				print "file=$file\n";
