@@ -141,7 +141,10 @@ class album extends album_template {
 			}
     		$zip->close();
 		}
-		
+		header("Content-Type: application/zip");
+		header("Content-Length: " . filesize($zipname));
+		header("Content-Disposition: attachment;filename=" . urlencode(basename($zipname)));
+		fpassthur(fopen($zipname,'r'));
 	}
 }
 ?>
