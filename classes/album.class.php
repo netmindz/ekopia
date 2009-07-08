@@ -138,7 +138,7 @@ class album extends album_template {
 			if($zip->open($zipname,ZipArchive::CREATE) === TRUE) {
 				while($track->getNext()) {
 					$file = $track->getDownload($type);
-					$zip->addFile($file, basename($file));
+					$zip->addFile($file, $album->name . "/". $track->name . "." . $type);
 				}
 				$zip->close();
 			}
