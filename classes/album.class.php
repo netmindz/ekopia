@@ -132,10 +132,16 @@ class album extends album_template {
 		$track = new track();
 		$track->getAlbumList($this);
 		$files = array();
-		while($track->getNext()) {
-			$files[] = $track->getDownload($type);
+		$zip = new ZipArchive;
+		$zipname = '/tmp/cd'.$this->id.".zip";
+		if($zip->open() === TRUE) {
+			while($track->getNext()) {
+				$file = $track->getDownload($type);
+			    $zip->addFile($file, basename($file));
+			}
+    		$zip->close();
 		}
-		print_r($files);
+		
 	}
 }
 ?>
