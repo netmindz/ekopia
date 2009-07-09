@@ -22,7 +22,7 @@ class album extends album_template {
 		else {
 			$label_id = 0;
 		}
-		if($this->getByOther(array('name'=>$name))) {
+		if($this->getByOther(array('name'=>$name,'release_year'=>$release_year))) {
 			return($this->id);
 		}
 		else {
