@@ -95,7 +95,9 @@ import_dir("../to_import");
 $album = new album();
 $album->getList("where image_id=0");
 while($album->getNext()) {
-	$albums[] = $album->id;
+	$artist = $album->getArtist();
+	$albums[$album->id]['name'] = $album->name;
+	$albums[$album->id]['artists'][$album->artist_id] = $artist->name;
 }
 
 print "<h1>Amazon lookups</h1>\n";
@@ -105,7 +107,7 @@ foreach($albums as $album_id=>$a) {
 	$album->get($album_id);
 	if(!$album->image_id) {
 		$details = amazon_getAlbum($a['artists'],$a['name'],"");
-		#print_r($details);
+		print_r($details);
 
 		$image_url = "";
 		if($details->ImageUrlLarge) {
