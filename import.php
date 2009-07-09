@@ -93,7 +93,7 @@ foreach($tmp as $t) {
 import_dir("../to_import");
 
 $album = new album();
-$album->getList("where image_id=0");
+$album->getList("where image_id=0","order by rand()","limit 10");
 while($album->getNext()) {
 	$artist = $album->getArtist();
 	$albums[$album->id]['name'] = $album->name;
@@ -109,19 +109,21 @@ foreach($albums as $album_id=>$a) {
 		$details = amazon_getAlbum($a['artists'],$a['name'],"");
 		print_r($details);
 
-		$image_url = "";
-		if($details->ImageUrlLarge) {
-			$image_url = $details->ImageUrlLarge;
-		}
-		elseif($details->ImageUrlMedium) {
-			$image_url = $details->ImageUrlMedium;
-		}
-		if($image_url) {
-			print "Grabbing image for $album->DN\n";
-			$file = tempnam("/tmp/","cover");
-			file_put_contents($file,file_get_contents($image_url));
-			$image = new image();
-			$album->setField("image_id",$image->upload($file,ereg_replace("[^a-zA-Z]","",$album->DN).".jpg"));
+		if($details) {
+			$image_url = "";
+			if($details->ImageUrlLarge) {
+				$image_url = $details->ImageUrlLarge;
+			}
+			elseif($details->ImageUrlMedium) {
+				$image_url = $details->ImageUrlMedium;
+			}
+			if($image_url) {
+				print "Grabbing image for $album->DN\n";
+				$file = tempnam("/tmp/","cover");
+				file_put_contents($file,file_get_contents($image_url));
+				$image = new image();
+				$album->setField("image_id",$image->upload($file,ereg_replace("[^a-zA-Z]","",$album->DN).".jpg"));
+			}
 		}
 	}
 }
