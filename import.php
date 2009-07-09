@@ -111,10 +111,10 @@ foreach($albums as $album_id=>$a) {
 
 		if($details) {
 			$image_url = "";
-			if($details->ImageUrlLarge) {
+			if((isset($details->ImageUrlLarge))&&($details->ImageUrlLarge)) {
 				$image_url = $details->ImageUrlLarge;
 			}
-			elseif($details->ImageUrlMedium) {
+			elseif((isset($details->ImageUrlMedium)&&($details->ImageUrlMedium))) {
 				$image_url = $details->ImageUrlMedium;
 			}
 			if($image_url) {
