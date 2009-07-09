@@ -44,6 +44,7 @@ function amazon_getAlbum($artists,$album,$asin)
 	if(!isset($result->Items->Item)) return(false);
 
 	$items = $result->Items->Item;
+	if(is_object($items)) $items = array($item);
 	$details = array();
 	foreach($items as $item) {
 		if($item->ASIN == $asin) {
