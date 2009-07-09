@@ -12,8 +12,9 @@ function import_dir($src)
 		if(is_file("$src/$name")&&ereg('\.flac$',$name)) {
 			$key = str_replace("../","","$src/$name");
 			if(!in_array($key,$files)) {
-				import_file("$src/$name");
-				$files[] = $key;
+				if(import_file("$src/$name")) {
+					$files[] = $key;
+				}
 			}
 			else {
 				print "skipping $name\n";
@@ -35,7 +36,7 @@ function import_file($src)
 	exec("metaflac --list \"$src\"",$results);
 	#print_r($results);
 	foreach($results as $line) {
-		if(ereg("([A-Z]+)=(.+)",$line,$matches)) {
+		if(eregi("([A-Z]+)=(.+)",$line,$matches)) {
 			$raw[strtolower($matches[1])] = $matches[2];
 		}
 	}
@@ -43,6 +44,11 @@ function import_file($src)
 	$info = array();
 	foreach($info_map as $key=>$value) {
 		$info[$value] = $raw[$key];
+	}
+
+	if(!isset($info['artist'])||(!isset($info['album']))) {
+		print "WARNING: essential data missing for $src\n";
+		return false;
 	}
 	
 	$artist = new artist();
@@ -75,6 +81,7 @@ function import_file($src)
 	set_time_limit(10);
 	flush();
 	print "<hr/>\n";
+	return true;
 }
 $albums = array();
 $files = array();
