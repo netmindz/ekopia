@@ -92,6 +92,12 @@ foreach($tmp as $t) {
 }
 import_dir("../to_import");
 
+$album = new album();
+$album->getList("where image_id=0");
+while($album->getNext()) {
+	$albums[] = $album->id;
+}
+
 print "<h1>Amazon lookups</h1>\n";
 
 foreach($albums as $album_id=>$a) {
