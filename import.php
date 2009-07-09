@@ -107,15 +107,19 @@ foreach($albums as $album_id=>$a) {
 	$album->get($album_id);
 	if(!$album->image_id) {
 		$details = amazon_getAlbum($a['artists'],$a['name'],"");
-		print_r($details);
 
-		if($details) {
+		if(($details)&&(count($details))) {
+			print_r($details);
+			$album->get($album_id); // fetch again as we might now have an asin
 			$image_url = "";
 			if((isset($details->ImageUrlLarge))&&($details->ImageUrlLarge)) {
 				$image_url = $details->ImageUrlLarge;
 			}
 			elseif((isset($details->ImageUrlMedium)&&($details->ImageUrlMedium))) {
 				$image_url = $details->ImageUrlMedium;
+			}
+			elseif($album->amazon_asin) {
+				$image_url = "http://images.amazon.com/images/P/".$album->amazon_asin.".01._SCMZZZZZZZ_.jpg";
 			}
 			if($image_url) {
 				print "Grabbing image for $album->DN\n";

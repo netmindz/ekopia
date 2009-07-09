@@ -13,7 +13,6 @@ function amazon_getAlbum($artists,$album,$asin)
 	
 	$album = eregi_replace(" - CD ?[0-9]","",$album);
 
-	#$soapclient = new soapclient("http://soap-eu.amazon.com/schemas3/AmazonWebServices.wsdl?locale=uk");
 	$soapclient = new soapclient("http://ecs.amazonaws.com/AWSECommerceService/2008-04-07/UK/AWSECommerceService.wsdl");
 	
 	#print_r_html($soapclient->__getFunctions());
@@ -44,12 +43,15 @@ function amazon_getAlbum($artists,$album,$asin)
 	if(!isset($result->Items->Item)) return(false);
 
 	$items = $result->Items->Item;
-	if(is_object($items)) $items = array($item);
+	if(is_object($items)) $items = array($items);
 	$details = array();
-	foreach($items as $item) {
-		if($item->ASIN == $asin) {
-                	$details = $item;
-                        break;
+	
+	if($asin) {
+		foreach($items as $item) {
+			if($item->ASIN == $asin) {
+	                	$details = $item;
+	                        break;
+			}
 		}
 	}
 	if(!$details) {
@@ -65,17 +67,17 @@ function amazon_getAlbum($artists,$album,$asin)
 			}
 			if(eregi("^$album",$item['Title'])) {
 
-#				print "found album $album, trying to verify artist<br>\n";
+				print "found album $album, trying to verify artist from [".implode("],[",$artists) ."]<br>\n";
 
 				foreach($item['Artist'] as $artist) {
 					$artist = strtolower($artist);
 					if(in_array($artist,$artists)) {
-						print "Found match in amazon<br>\n";
+						print "\tFound match in amazon for $album<br>\n";
 						$details = $item;
 						$albumObj = new album();
 						$albumObj->getByName($album);
 						$albumObj->amazon_asin = $node->ASIN;
-						$albumObj->set("amazon_asin");
+						$albumObj->setField("amazon_asin",$node->ASIN);
 						break;
 					}
 				}
