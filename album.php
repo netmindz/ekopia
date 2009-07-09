@@ -115,9 +115,9 @@ $page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_yea
 		&pound; <?= $album->price ?>
 		<input type="submit" value=" Add CD basket " class="inputbox"/>
 		</form>
-		<?php } elseif($album->stock_count <= 0) { ?>
+		<?php } elseif($album->price > 0 && $album->stock_count <= 0) { ?>
 		CD Out of stock
-		<?php } elseif(!$album->download_price) { ?>
+		<?php } elseif(($album->download_price <= 0)&&($album->price <= 0)) { ?>
 		Coming soon to buy here
 		<?php } else { ?>
 		Download only
