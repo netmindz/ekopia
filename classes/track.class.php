@@ -92,7 +92,7 @@ class track extends track_template {
 
 	function downloadTrack($type)
 	{
-		$download = getDownload($type);
+		$download = $this->getDownload($type);
 
 		if($type == "mp3") {
                        $mime = "audio/mpeg";
