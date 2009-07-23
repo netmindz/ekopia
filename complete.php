@@ -26,7 +26,7 @@ while($line_item->getNext()) {
 	$item = new $line_item->type();
 	$item->get($line_item->item_id);
 	?>
-	<li><?= ucwords($line_item->type) ?> - <?= $item->name ?>
+	<li><?= ucwords($line_item->type) ?> - <?= $item->DN ?>
 	<?
 	if($line_item->type == "track") {
 		$albums[] = $item->album_id;
