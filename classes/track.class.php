@@ -102,6 +102,7 @@ class track extends track_template {
 		else {
 			$mime = "application/octet-stream";
 		}
+		$filename = "$this->track_number - $this->name.$type"; 
 		
                 header("Content-Type: $mime");
                 header("Content-Length: " . filesize($download));
