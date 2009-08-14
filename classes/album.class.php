@@ -138,7 +138,7 @@ class album extends album_template {
 			if($zip->open($zipname,ZipArchive::CREATE) === TRUE) {
 				while($track->getNext()) {
 					$file = $track->getDownload($type);
-					$zip->addFile($file, $this->name . "/". $track->name . "." . $type);
+					$zip->addFile($file, $this->name . "/". eregi_replace('[^a-z0-9 -]','',$track->name) . "." . $type);
 				}
 				$zip->close();
 			}
