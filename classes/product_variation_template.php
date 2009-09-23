@@ -658,8 +658,8 @@ class product_variation_template
 				if(!class_exists($fk_class)) {
 					# Todo - Write so this can be done without @
 					# @include "$fk_class.php";		//attempt to load class file, but suppress errors if not found
-					# @include "$fk_class.class.php";		//attempt to load class file, but suppress errors if not found
-					return("Can't create tickboxes as $fk_class is missing");
+					@include "$fk_class.class.php";		//attempt to load class file, but suppress errors if not found
+					#return("Can't create tickboxes as $fk_class is missing");
 				}
 				$fk = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
