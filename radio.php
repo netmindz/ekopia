@@ -5,7 +5,6 @@
 <link href="http://www.inspiralled.net/css/content.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1>inSpiral Radio</h1>
 <applet code="jcraft.player.JOrbisPlayer.class"
         archive="jorbis.jar,swing-layout-1.0.3.jar"
         width="384" height="144" align="baseline">
