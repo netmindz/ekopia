@@ -14,7 +14,7 @@ if($_REQUEST['keyword']) {
 	}
 	else 	{
 		?>
-		<p>No Albums matches your search</p>
+		<p>No Album matches your search</p>
 		<?php
 	}
 	?>
@@ -36,7 +36,7 @@ if($_REQUEST['keyword']) {
 	}
 	else 	{
 		?>
-		<p>No Artists matches your search</p>
+		<p>No Artist matches your search</p>
 		<?php
 	}
 
@@ -55,7 +55,7 @@ if($_REQUEST['keyword']) {
 	}
 	else 	{
 		?>
-		<p>No Labels matches your search</p>
+		<p>No Label matches your search</p>
 		<?php
 	}
 
@@ -70,9 +70,30 @@ if($_REQUEST['keyword']) {
 	}
 	else 	{
 		?>
-		<p>No Tracks matches your search</p>
+		<p>No Track matches your search</p>
 		<?php
 	}
+	?>
+	<br clear="left"/> 
+	<?php
+	$product = new product();
+	if($product->search($_REQUEST['keyword'],array('name'))) {
+		?>
+		<h2>Products</h2>
+		<?php
+		while($product->getNext()) {
+			if($product->published == "yes") {
+				$product->displayThumb();
+			}
+		}
+	}
+	else 	{
+		?>
+		<p>No product matches your search</p>
+		<?php
+	}
+
+
 
 }
 else {
