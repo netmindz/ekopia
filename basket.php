@@ -107,6 +107,7 @@ if($basket_has_downloads) { ?>
 <input type="submit" value=" Change Format " class="inputbox">
 </form>
 <? } ?>
+<?php if($shipping) { ?>
 <form method="POST" name="country">
 <select name="country" onChange="document.forms.country.submit()">
 <option value="uk" <? if($_SESSION['country'] == "uk") print "selected"; ?>>UK</option>
@@ -115,6 +116,7 @@ if($basket_has_downloads) { ?>
 </select>
 <input type="submit" value=" Change Shipping " class="inputbox">
 </form>
+<?php } ?>
 <br/>
 <h2>Checkout</h2>
 <form name="_xclick" action="https://<?= $CONF['paypal_host'] ?>/uk/cgi-bin/webscr" method="post">
@@ -137,7 +139,9 @@ if($basket_has_downloads) { ?>
 	<?php
 	}
 ?>
-<input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<div align="center">
+Goto secure paypal checkout : <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+</div>
 </form>
 <br/>
 <br>
