@@ -10,8 +10,12 @@ class product extends product_template {
                 <div class="product_thumb">
                 <div class="product_thumb_image">
                 <a href="<?= $CONF['url'] ?>/product.php?id=<?= $this->id ?>"><?php
+		$image_id = $this->image_id;
                 $image = new image();
-                $image->show($this->image_id,100,0,"alt=\"$this->name\" title=\"Click to view $this->name\"");
+		if($this->image_id_thumb) {
+			$image_id = $this->image_id_thumb;
+		}
+	        $image->show($image_id,100,0,"alt=\"$this->name\" title=\"Click to view $this->name\"");
                 ?></a>
                 </div>
                 <a href="<?= $CONF['url'] ?>/product.php?id=<?= $this->id ?>"><?= $this->name ?></a><br/>

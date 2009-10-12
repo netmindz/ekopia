@@ -1,7 +1,7 @@
 <?
 class product_template
 {
-	var $id, $type_id, $name, $intro, $description, $big_image_id, $image_id, $price, $shipping_weight, $published;
+	var $id, $type_id, $name, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -35,7 +35,7 @@ class product_template
 		$this->name = "";
 		$this->intro = "";
 		$this->description = "";
-		$this->big_image_id = "";
+		$this->image_id_thumb = "";
 		$this->image_id = "";
 		$this->price = "";
 		$this->shipping_weight = "";
@@ -75,7 +75,7 @@ class product_template
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['intro'] = array ("type" => "tinytext", "gen_type" => "text");
 		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
-		$this->_field_descs['big_image_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['image_id_thumb'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -105,9 +105,9 @@ class product_template
 		}//IF
 
 
-		if($this->big_image_id != (int)$this->big_image_id && $this->big_image_id!='NOW()' && $this->big_image_id!='NULL'){
-			trigger_error("wrong type for product->big_image_id",E_USER_WARNING);
-			settype($this->big_image_id,"int");
+		if($this->image_id_thumb != (int)$this->image_id_thumb && $this->image_id_thumb!='NOW()' && $this->image_id_thumb!='NULL'){
+			trigger_error("wrong type for product->image_id_thumb",E_USER_WARNING);
+			settype($this->image_id_thumb,"int");
 		}//IF
 
 
@@ -129,9 +129,9 @@ class product_template
 		}//IF
 
 		
-		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `big_image_id`, `image_id`, `price`, `shipping_weight`, `published`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->big_image_id)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -168,9 +168,9 @@ class product_template
 		}//IF
 
 
-		if($this->big_image_id != (int)$this->big_image_id && $this->big_image_id!='NOW()' && $this->big_image_id!='NULL'){
-			trigger_error("wrong type for product->big_image_id",E_USER_WARNING);
-			settype($this->big_image_id,"int");
+		if($this->image_id_thumb != (int)$this->image_id_thumb && $this->image_id_thumb!='NOW()' && $this->image_id_thumb!='NULL'){
+			trigger_error("wrong type for product->image_id_thumb",E_USER_WARNING);
+			settype($this->image_id_thumb,"int");
 		}//IF
 
 
@@ -192,7 +192,7 @@ class product_template
 		}//IF
 
 		$raw_sql  = "UPDATE products SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `big_image_id`='".$this->database->escape($this->big_image_id)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
