@@ -27,13 +27,13 @@ class track extends track_template {
 
 	function getDownload($type)
 	{
-		$raw = "../raw/$this->album_id/$this->track_number.flac";
+		$flac = "../raw/$this->album_id/$this->track_number.flac";
 		$download = "../encoded/$this->album_id/$this->id.$type";
 		$filename = "$this->track_number - $this->name.$type"; 
 
 		$error = "";
 
-		if(!is_file($raw)) {
+		if(!is_file($flac)) {
 			return("failed to find raw");
 		}
 
@@ -70,15 +70,18 @@ class track extends track_template {
 				$id3 .= "--album \"$album->name\" ";
 				$exec = $this->_getRaw() . " | oggenc -q 7 $id3 --raw - -o $download 2>&1";
 			}
+			elseif($type == "flac") {
+				$download = $flac;
+			}
 			else {
 				$error = "Unsupported type requested";
 			}
 			if(!is_file($download)) {
 				exec($exec,$results,$return);
-                if($return) $error = implode("\n",$results);
+		                if($return) $error = implode("\n",$results);
 			}
 			if((!is_file($download))||(!filesize($download))) {
-				$error = "failed to find download in the $type format (" . $error . ")";
+				$error = "failed to find download in the $type format (" . $error . ") file($download) from $flac";
 			}
 
 			if(!$error)  {
