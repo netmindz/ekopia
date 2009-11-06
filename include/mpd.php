@@ -4,8 +4,9 @@ function mpd_now_playing()
 {
 	flush();
 	$data = array();
-	$fp = @fsockopen("master.inspiralled.net",6600,$errno,$errstr,5);
+	$fp = @stream_socket_client("tcp://master.inspiralled.net:6600",$errno,$errstr,4);
 	if($fp) {
+		stream_set_timeout($fp,4);
 		$banner = fgets($fp,255);
 		if(ereg("OK",$banner)) {
 			fputs($fp,"status\n");

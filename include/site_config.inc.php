@@ -34,6 +34,7 @@ $CONF['label']['richtext'] = array('summary');
 $CONF['artist']['richtext'] = array('summary');
 $CONF['album']['richtext'] = array('summary');
 $CONF['page']['richtext'] = array('content');
+$CONF['product']['order'] = "order by name";
 $CONF['product']['richtext'] = array('description');
 $CONF['type']['richtext'] = array('description');
 $CONF['product_variation']['DN'] = '<?php $product = new product(); $product->get($this->product_id); $this->DN = $product->name . " - " . $this->name; ?>';
