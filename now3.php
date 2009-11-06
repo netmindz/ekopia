@@ -36,6 +36,7 @@ if($data = icecast_get_live()) {
 }
 elseif($data = mpd_now_playing()) {
 	$album = new album();
+	$album->getByOther(array('name'=>$data['album']);
 	?>
 	<DIV ID="TICKER" STYLE="<?= $debug_style ?> <?= $div_pos ?> overflow:hidden;"  onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
 	Artist:
@@ -51,9 +52,9 @@ elseif($data = mpd_now_playing()) {
 	Album:	<?if($album->id) { ?><a href="album.php?album_id=<?= $album->id ?>" target="_new" ><? } ?><?= $data['album'] ?><? if($album->id) { ?></a><? } ?>
 	&nbsp;&nbsp;&nbsp;
 	Track:	<?= $data['title'] ?>
-	&nbsp;&nbsp;&nbsp;<a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">Listen Now</a>
+	&nbsp;&nbsp;&nbsp;<a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">Listen to inSpiral Radio stream</a>
 	</div>
-		<?php if($album->getByOther(array('name'=>$data['album']))&&($album->image_id)) { ?>
+		<?php if($album->image_id) { ?>
 			<div style="position: absolute; left: 885px;">
 			<a href="album.php?album_id=<?= $album->id ?>" target="_new">
 			<?php
