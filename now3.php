@@ -60,7 +60,7 @@ elseif($data = mpd_now_playing()) {
 			<a href="album.php?album_id=<?= $album->id ?>" target="_new">
 			<?php
 				$image = new image();
-				$image->show($album->image_id,75,75);
+				$image->show($album->image_id,78,78);
 			?>
 			</a>
 		<?php } ?>
