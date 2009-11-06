@@ -30,7 +30,7 @@ if($data = icecast_get_live()) {
 .  Requires <a href="http://download.nullsoft.com/winamp/client/winamp5541_full_emusic-7plus_en-us.exe">Winamp</a> or <a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">inSpiral Radio Player</a> (requires java). Note: iTunes will not work, even if you have OggVorbis support
 </div>
 <div style="position: absolute; left: 885px;">
-<h1 style="color: white;">Live<br>Broadcast</h1>
+<h1 style="color: white;">Live<br>Feed</h1>
 </div>
 	<?php
 }
