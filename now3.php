@@ -36,7 +36,7 @@ if($data = icecast_get_live()) {
 }
 elseif($data = mpd_now_playing()) {
 	$album = new album();
-	$album->getByOther(array('name'=>$data['album']);
+	$album->getByOther(array('name'=>$data['album']));
 	?>
 	<DIV ID="TICKER" STYLE="<?= $debug_style ?> <?= $div_pos ?> overflow:hidden;"  onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
 	Artist:
