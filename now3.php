@@ -50,7 +50,8 @@ elseif($data = mpd_now_playing()) {
 	&nbsp;&nbsp;&nbsp;
 	Album:	<?if($album->id) { ?><a href="album.php?album_id=<?= $album->id ?>" target="_new" ><? } ?><?= $data['album'] ?><? if($album->id) { ?></a><? } ?>
 	&nbsp;&nbsp;&nbsp;
-	Track:	<?= $data['title'] ?> - <a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">Listen Now</a>
+	Track:	<?= $data['title'] ?>
+	&nbsp;&nbsp;&nbsp;<a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">Listen Now</a>
 	</div>
 		<?php if($album->getByOther(array('name'=>$data['album']))&&($album->image_id)) { ?>
 			<div style="position: absolute; left: 885px;">
