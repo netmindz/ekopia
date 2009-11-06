@@ -10,6 +10,9 @@ body {
 	font-family:Arial;
 	font-size:12px;
 }
+img {
+	border: 0px;
+}
 </style>
 </body>
 </head>
@@ -57,7 +60,7 @@ elseif($data = mpd_now_playing()) {
 			<a href="album.php?album_id=<?= $album->id ?>" target="_new">
 			<?php
 				$image = new image();
-				$image->show($album->image_id,80,80);
+				$image->show($album->image_id,75,75);
 			?>
 			</a>
 		<?php } ?>
