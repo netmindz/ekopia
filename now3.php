@@ -18,7 +18,7 @@ img {
 </head>
 <body>
 <?php
-$div_pos = "position: absolute; left: 500px; top: 68px; width:340px;";
+$div_pos = "position: absolute; left: 500px; top: 69px; width:340px;";
 #$debug_style = "border: 1px solid; background-color: white;";
 $debug_style = "";
 ?>
