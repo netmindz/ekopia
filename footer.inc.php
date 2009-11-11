@@ -17,14 +17,10 @@
                         </div>
                       </div><!--End Main Column (col1wrap)-->
                       <!--Begin Left Column (col2)-->
-                      <?php
-                      /*
-
                       <div class="col2">
                         <div id="leftcol">
                           <div class="sidecol-tm">
                             <div class="sidecol-tl"></div>
-
                             <div class="sidecol-tr"></div>
                           </div>
 
@@ -33,120 +29,42 @@
                               <div class="sidecol-r">
                                 <div class="">
                                   <div class="moduletable">
+									<!-- side nav here -->
                                     <div class="side-style-h3">
-                                      <h3 class="module-title">Upcoming Events</h3>
+										<h3 class="module-title">Browse</h3>
                                     </div>
+                                    foo
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr align="left"><td><a href="<?= browse_link("album") ?>" class="mainlevel" >Albums</a></td></tr>
+										<tr align="left"><td><a href="<?= browse_link("artist") ?>" class="mainlevel" >Artists</a></td></tr>
+										<tr align="left"><td><a href="<?= browse_link("label") ?>" class="mainlevel" >Labels</a></td></tr>
+										<!-- <tr align="left"><td><a href="browse.php?type=type" class="mainlevel" >Genres</a></td></tr> -->
+									</table>		
+
+<!--
+                                    <div class="side-style-h3">
+										<h3 class="module-title">Search</h3>
+                                    </div>
+									<form action="<?= $CONF['url'] ?>/search.php" method="post">
+									<input type="text" name="keyword" class="inputbox" size="10"/>
+									</form>
+-->
+		
+									<div class="side-style-h3">
+										<h3 class="module-title">Products</h3>
+									</div>
+									foo
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<?php
+									$nav_type = new type();
+									$nav_type->getList("where type_id=0");
+									while($nav_type->getNext()) {
+											?>
+											<tr align="left"><td><a href="<?= $CONF['url'] ?>/type.php?id=<?= $nav_type->id ?>" class="mainlevel" ><?= $nav_type->DN ?>s</a></td></tr>
+									<?php } ?>
+									</table>
 
                                     <div class="module-inner">
-                                      <table width="100%" class="minifp">
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=95%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Fri 13Nov - Digitalesque Delights</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=95%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/images/stories/minifp//gong_august_ad1_thumb.gif" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>Digitalesque Delights 8pm to 2am - free entry Free Peace - Live acoustic hip-hop / latin Liquid Creations - Live PA reaggae / fusion / hip-hop Agent Smith - DJ funk / breaks Delta Connection - &nbsp;[&nbsp;...&nbsp;]</p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=95%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=180%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Thu 19th Nov - Milli Moonstone</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=180%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/images/stories/minifp//milli_388_thumb.jpg" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>Milli is an all time inSpiral regular who&acirc;&euro;&trade;s been melting audiences around the metropolis for many years with her unique style of world-inspired music. She brings together a range of diverse inf&nbsp;[&nbsp;...&nbsp;]</p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=180%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=97%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Fri 20Nov - Mix Master Morris</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=97%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/images/stories/minifp//morris_600-1_thumb.jpg" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>Legendary Chillout DJ Mixmaster Morris returns to inSpiral with a one off Comedy Special, with rare video clips from the 60s to now</p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=97%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=100%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Sat 21Nov - Don Letts and Pathaan</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=100%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/images/stories/minifp//pathaan_don_letts_388_thumb.jpg" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>8pm to 2am - &Acirc;&pound;3 entry Two London legends come together for a night of Global Dance and Old / New Skool Reggae aon teh road less travelled</p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=100%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=101%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Fri 27Nov - Aboriginal Recordings</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=101%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/modules/mod_minifrontpage/images/default_thumb.gif" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>8pm to 2am - FREE entry Aboriginal Recordings present Beat Retreat - Progressive and Psychedelic Beats from <strong>Darmon, Joe Temporal adn John Wenn</strong></p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=101%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=167%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Sat 28Nov - Om Liquid</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=167%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/modules/mod_minifrontpage/images/default_thumb.gif" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>8pm to 2am - Free entry Enjoy a warm drop of liquid techno with progressive vibes featuring residents Liquid Ross and Aliji and special guest Digoa from the exciting new label Microbiotic</p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=167%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" width="100%" class="minifp">
-                                            <span class="minifp-introtitle"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=224%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Sat 5th Dec - Ott (live)</a></span><br class="minifp-seperator" />
-                                            <br class="minifp-seperator" />
-                                            <a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=224%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238"><img src="http://sandbox.ralf.netmindz.net/images/stories/minifp//ott_thumb.jpg" width="64" height="64" align="left" alt="article thumbnail" /></a>
-
-                                            <p>Sonic Pioneer, Ott makes his first appearance at inSpiral lounge with a rocking live set of new material and classics. Back to his roots for this Internationally, high-in-demand artist, who shar&nbsp;[&nbsp;...&nbsp;]</p><br class="minifp-seperator" />
-
-                                            <div class="minifp-full-link-wrp">
-                                              <a class="minifp-full-link" href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=224%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">+ Full Story</a>
-                                            </div>
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td valign="top" colspan="1">
-                                            <span class='minifp-anotherlinks'>Other Articles</span>
-
-                                            <ul class="minifp">
-                                              <li class='minifp'><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=243%3Aevents&amp;catid=44%3Aevents&amp;Itemid=238">Sat 12th Dec - Worldshift meets Bingly Bongly</a></li>
-                                            </ul>
-                                          </td>
-                                        </tr>
-                                      </table>
                                     </div>
                                   </div>
                                 </div>
@@ -161,8 +79,6 @@
                           </div>
                         </div>
                       </div>
-                      */
-                      ?>
                       <!--End Left Column (col2)-->
                       <!--Begin Right Column (col3)-->
 					<?php
@@ -292,9 +208,10 @@
             <div class="">
               <div class="moduletable">
                 <div class="module-padding">
-                  <h3 class="showcase">Disclaimer</h3>
+                  <h3 class="showcase">inSpiral Shop</h3>
+					&copy; <a href="http://www.netmindz.net/?shop">WJT 2009</a> || <a href="froogle.php?download">RSS</a>
 
-                  <p>This site is for <strong>demo</strong> purposes only and uses <strong>sample</strong> content. Images are copyright of their respective owners.</p>
+                  <!-- content bits here -->
                 </div>
               </div>
             </div>

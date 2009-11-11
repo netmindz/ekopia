@@ -39,18 +39,17 @@ $template_root = "http://sandbox.ralf.netmindz.net";
 	#maincontent-block { margin-right:0px;margin-left:0px;}
 	
 	/* WJT */
-	/*
-	.s-c-s .colmid { left:280px;}
-	.s-c-s .colright { margin-left:-510px;}
-	.s-c-s .col1pad { margin-left:510px;}
-	.s-c-s .col2 { left:230px;width:280px;}
-	.s-c-s .col3 { width:230px;}
+	.s-c-s .colmid { left:180px; }
+	.s-c-s .colright { margin-left:-510px; } 
+	.s-c-s .col1pad { margin-left:550px; } 
+	.s-c-s .col2 { left:330px; width:160px;}
+/*	.s-c-s .col3 { width:230px;} */
+	.s-c-s .col3 { width:0px;}
 	
 	.s-c-x .colright { left:280px;}
 	.s-c-x .col1wrap { right:280px;}
-	.s-c-x .col1 { margin-left:280px;}
+	.s-c-x .col1 { margin-left:280px; }
 	.s-c-x .col2 { right:280px;width:280px;}
-	*/
 	
 	.s-c-s .col1pad {
 		overflow-x: auto;
@@ -58,8 +57,8 @@ $template_root = "http://sandbox.ralf.netmindz.net";
 	}
 	/* WJT End */
 	
-	.x-c-s .colright { margin-left:-230px;}
-	.x-c-s .col1 { margin-left:230px;}
+	.x-c-s .colright { margin-left:-230px; }
+	.x-c-s .col1 { margin-left:230px; border: 1px green solid;}
 	.x-c-s .col3 { left:230px;width:230px;}
 	
     -->
@@ -121,22 +120,6 @@ InputsExclusion.push('.content_vote')
           </div><!--end radio-->
         </div>
 
-        <div id="top-right-surround">
-          <div id="top-right">
-            <div class="moduletable">
-              <ul class="menu-nav">
-                <li class="item28"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=25&amp;Itemid=28"><span>About Joomla!</span></a></li>
-
-                <li class="item29"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=22&amp;Itemid=29"><span>Features</span></a></li>
-
-                <li class="item18"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_contact&amp;view=contact&amp;id=1&amp;Itemid=75"><span>Contact</span></a></li>
-
-                <li class="item30"><a href="http://sandbox.ralf.netmindz.net/index.php?option=com_content&amp;view=article&amp;id=27&amp;Itemid=30"><span>The Community</span></a></li>
-              </ul>
-            </div>
-          </div><!--Begin Search-->
-          <!--End Search-->
-        </div>
       </div>
     </div>
   </div><!--End Header-->
