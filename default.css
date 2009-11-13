@@ -7,7 +7,7 @@ div#album_thumb {
 	float: left;
 	padding: 15px 15px 15px 15px;
 /*	border: medium solid rgb(0,255,50); */
-	width: 240px;
+	width: 300px;
 	height: 120px;
 }
 
@@ -34,7 +34,7 @@ div.product_thumb {
 	float: left;
 	padding: 15px 15px 15px 15px;
 /*	border: medium solid rgb(0,255,50); */
-	width: 240px;
+	width: 300px;
 	height: 120px;
 }
 
