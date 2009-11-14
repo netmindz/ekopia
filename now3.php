@@ -26,9 +26,8 @@ $debug_style = "";
 if($data = icecast_get_live()) {
 	?>
 <DIV ID="TICKER" STYLE="<?= $debug_style ?> <?= $div_pos ?> overflow:hidden;"  onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
-<a href="http://www.inspiralled.net:8000/ekopia.ogg.m3u">Listen to live broadcast of <?= $data->artist ?> - <?= $data->title ?> direct from the lounge</a>
-.  Requires <a href="http://download.nullsoft.com/winamp/client/winamp5541_full_emusic-7plus_en-us.exe">Winamp</a> or <a href="radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">inSpiral Radio Player</a> (requires java). Note: iTunes will not work, even if you have OggVorbis support
-</div>
+<a href="http://shop.inspiralled.net/radio.php" onClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;">Listen to live broadcast of <?= $data->artist ?> - <?= $data->title ?> live and direct from the lounge</a></div>
+
 <div style="position: absolute; left: 885px;">
 <h1 style="color: white;">Live<br>Feed</h1>
 </div>
