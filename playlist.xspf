@@ -4,6 +4,7 @@
         <track>
         	<location>http://ralf.netmindz.net:8000/ekopia.mp3</location>
         	<annotation>inSpiral Radio</annotation>
+        	<info>http://shop.inspiralled.net/</info>
         </track>
     </trackList>
 </playlist>

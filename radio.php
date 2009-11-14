@@ -29,13 +29,13 @@ if($_SESSION['radio_type'] == "java") {
 	<?
 }
 else { 
-	$params = "playlist_url=playlist.xspf&autoload=true&autoplay=true";
+	$params = "playlist_url=playlist.xspf&autoload=true&autoplay=true&player_title=player";
 	?>
 	<object type="application/x-shockwave-flash" width="384" height="15" data="xspf_player_slim.swf?<?= $params ?>">
 	<param name="movie" value="xspf_player_slim.swf?<?= $params ?>" />
 	<embed src="xspf_player_slim.swf?<?= $params ?>" quality="high" bgcolor="#e6e6e6" width="384" height="15" name="xspf_player" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 	</object>
-	<p>Use <a href="radio.php?type=java">inSpiral Radio Player</a></p>
+	<p>Want more, try the <a href="radio.php?type=java">inSpiral Radio Player</a></p>
 <?
 }
 ?> 
