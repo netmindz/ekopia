@@ -40,6 +40,7 @@ class basket extends basket_template {
 
 			$list[$item->id]['type'] = $item->type;
 			if($type == "album") {
+				$list[$item->id]['delivery'] = $item->delivery;
 				if($item->delivery == "download") {
 					$list[$item->id]['value'] = $detail->download_price;
 					$list[$item->id]['shipping'] = 0;

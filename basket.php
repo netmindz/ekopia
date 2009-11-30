@@ -45,11 +45,11 @@ if(isset($_REQUEST['clear'])) {
 $items = $basket->getItems();
 if(count($items)) { ?>
 <h2>Basket</h2>
-<table width="100%" border="0">
+<table width="100%" border="0" id="basket">
 <tr>
-	<th>Item</th>
+	<th colspan="2">Item</th>
 	<th>Price</th>
-	<th>&nbsp;</th>
+	<td>&nbsp;</td>
 </tr>
 	<?php
 	$shipping = 0;
@@ -60,18 +60,20 @@ if(count($items)) { ?>
 		if($id != "shipping") {
 			$shipping += $details['shipping'];
 			if($details['type'] == "track") $basket_has_downloads = true;
+			if($details['type'] == "album" && $details['delivery'] == "download") $basket_has_downloads = true;
 			?>
 			<tr valign="middle">
-				<td><? if(isset($details['image_id'])) { $image = new image(); $image->show($details['image_id'],50,50,"align=\"left\""); } ?><?= $details['name'] ?></td>
-				<td>&pound;<?= $details['value'] ?></td>
-				<td><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
+				<td><? if(isset($details['image_id'])) { $image = new image(); $image->show($details['image_id'],50,50,"align=\"left\""); } ?></td>
+				<td><?= $details['name'] ?></td>
+				<td align="center">&pound;<?= format_price($details['value']) ?></td>
+				<td align="center"><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
 			</tr>
 			<?php
 		}
 		else { ?>
 			<tr valign="middle">
-                                <td><?= $details['name'] ?></td>
-                                <td>&pound;<?= $details['value'] ?></td>
+                                <td colspan="2"><?= $details['name'] ?></td>
+                                <td align="center">&pound;<?= format_price($details['value']) ?></td>
                                 <td>&nbsp;</td>
                         </tr>
 			<?
@@ -80,22 +82,23 @@ if(count($items)) { ?>
 	}
 	?>
 <tr>
-	<th align="right">Sub Total:</th>
+	<th colspan="2" align="right">Sub Total:</th>
         <th>&pound; <?= $total ?></th>
-        <th rowspan="3"><form method="POST"><input type="hidden" name="clear" value="true"><input type="submit" class="inputbox" value=" Clear Basket "></form></th>
+        <td rowspan="3" align="center"><form method="POST"><input type="hidden" name="clear" value="true"><input type="submit" class="inputbox" value=" Clear Basket "></form></td>
 </tr>
 <tr>
-	<th align="right">Shipping Total:</th>
+	<th colspan="2" align="right">Shipping Total:</th>
         <th>&pound; <?= $shipping ?></th>
 </tr>
 <tr>
-	<th align="right">Total:</th>
+	<th colspan="2" align="right">Total:</th>
         <th>&pound; <?= ($shipping + $total) ?></th>
 </tr>
 </table>
 </form>
 <?php
 if($basket_has_downloads) { ?>
+<h2>Download Format</h2>
 <p>Please select the download format for the tracks</p>
 <form method="POST" name="format">
 <select name="format" onChange="document.forms.format.submit()">
@@ -108,6 +111,7 @@ if($basket_has_downloads) { ?>
 </form>
 <? } ?>
 <?php if($shipping) { ?>
+<h2>Shipping Region</h2>
 <form method="POST" name="country">
 <select name="country" onChange="document.forms.country.submit()">
 <option value="uk" <? if($_SESSION['country'] == "uk") print "selected"; ?>>UK</option>
@@ -139,7 +143,7 @@ if($basket_has_downloads) { ?>
 	<?php
 	}
 ?>
-<div align="center">
+<div align="right" style="margin-right: 20px">
 Goto secure paypal checkout : <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </div>
 </form>
