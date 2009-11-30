@@ -227,6 +227,14 @@ InputsExclusion.push('.content_vote')
 										<h3 class="module-title">Music</h3>
 									</div>
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr><td>&nbsp;</td></tr>
+										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/latest-albums.php">Latest Albums</a></td></tr>
+
+										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
+										<tr><td>&nbsp;</td></tr>
+										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/downloads.php">Latest Downloads</a></td></tr>
+
+										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 
 										<tr><td>&nbsp;</td></tr>
 										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= browse_link("album") ?>">Albums</a></td></tr>
@@ -236,6 +244,10 @@ InputsExclusion.push('.content_vote')
 										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 										<tr><td>&nbsp;</td></tr>
 										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= browse_link("label") ?>">Labels</a></td></tr>
+
+										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
+										<tr><td>&nbsp;</td></tr>
+										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/tags.php">Tags</a></td></tr>
 
 										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 									</table>
@@ -252,8 +264,22 @@ InputsExclusion.push('.content_vote')
 											?>
 											<tr><td>&nbsp;</td></tr>
 											<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/type.php?id=<?= $nav_type->id ?>"><?= $nav_type->DN ?></a></td></tr>
+											<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 									<?php } ?>
 									</table>
+									
+									<?php
+									if($user->id) {
+									?>
+									<div class="side-style-h3">
+                                                                               <h3 class="module-title">Admin</h3>
+									</div>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr><td>&nbsp;</td></tr>
+										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/admin.php">Artist / Label Admin</a></td></tr>
+                                                                                        <tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
+									</table>
+									<?php } ?>
 								
 
                                     <div class="module-inner">
