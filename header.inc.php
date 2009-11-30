@@ -247,7 +247,7 @@ InputsExclusion.push('.content_vote')
 
 										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 										<tr><td>&nbsp;</td></tr>
-										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/tags.php">Tags</a></td></tr>
+										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/tags.php">Browse by Genre</a></td></tr>
 
 										<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 									</table>
