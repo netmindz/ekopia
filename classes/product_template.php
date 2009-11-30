@@ -1,7 +1,7 @@
 <?
 class product_template
 {
-	var $id, $type_id, $name, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published;
+	var $id, $type_id, $name, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published, $sort_id;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -40,6 +40,7 @@ class product_template
 		$this->price = "";
 		$this->shipping_weight = "";
 		$this->published = "";
+		$this->sort_id = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -80,6 +81,7 @@ class product_template
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['published'] = array ("type" => "enum('yes','no')", "default" => "yes", "values" => array('yes','no',), "gen_type" => "enum");
+		$this->_field_descs['sort_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -128,10 +130,16 @@ class product_template
 			$this->published = $this->_field_descs['published']['default'];
 		}//IF
 
+		if($this->sort_id != (int)$this->sort_id && $this->sort_id!='NOW()' && $this->sort_id!='NULL'){
+			trigger_error("wrong type for product->sort_id",E_USER_WARNING);
+			settype($this->sort_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`, `sort_id`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."', '".$this->database->escape($this->sort_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -191,8 +199,14 @@ class product_template
 			$this->published = $this->_field_descs['published']['default'];
 		}//IF
 
+		if($this->sort_id != (int)$this->sort_id && $this->sort_id!='NOW()' && $this->sort_id!='NULL'){
+			trigger_error("wrong type for product->sort_id",E_USER_WARNING);
+			settype($this->sort_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE products SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."', `sort_id`='".$this->database->escape($this->sort_id)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -280,7 +294,7 @@ class product_template
 	 */
 	function getList($where="", $order="", $limit="")
 	{
-		if(!$order) $order = "";
+		if(!$order) $order = "order by name";
 		$select = "SELECT products.* FROM products ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
