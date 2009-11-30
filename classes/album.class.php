@@ -88,8 +88,11 @@ class album extends album_template {
 	                &pound; <?= format_price($this->download_price) ?>
 	                <input type="submit" value="Download" class="inputbox"/>
 	                </form>
+			(MP3 / OggVorbis / FLAC)
 	        <?php } elseif($this->countDownloads()) { ?>
 			<a href="<?= album_link($this->id,$this->name) ?>"><img src="/download.gif" width="15"></a>&nbsp;Downloads Avalible<br/>
+			<br/>
+			(MP3 / OggVorbis / FLAC)
 	        <?php } ?>
 
 		<?php if($showBuyCD) { ?>
