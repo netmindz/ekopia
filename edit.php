@@ -4,7 +4,6 @@ $user->checkLogin();
 $type_name = $_REQUEST['type'];
 $type_perm = "user_" . $type_name;
 ?>
-<?php include("classes/".$type_perm.".php"); ?>
 <?php include("header.inc.php"); ?>
 <?php
 
@@ -12,7 +11,7 @@ $type = new $type_name();
 $type->get($_GET['id']);
 
 $perm = new $type_perm();
-if(!$perm->check($type->id)) {
+if(!$perm->check($type->id, $user)) {
 	?>
 	<p class="error">You do not have permission to edit <?= $type_name ?> <?= $type->name ?>. If you represent the <?= $type->name ?> <?= $type_name ?> then please email <?= $CONF['shop_email'] ?></p>
 	<?

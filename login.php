@@ -36,6 +36,7 @@ if(($login_failed)||(!$user->id)) {
 <? } else { ?>
 	<h2>Welcome</h2>
 	<p>Login sucessful</p>
+	<p><a href="admin.php">Admin Area</a></p>
 <? } ?>
 <?php include("footer.inc.php"); ?>
 

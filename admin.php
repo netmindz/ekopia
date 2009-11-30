@@ -4,18 +4,43 @@ $user->checkLogin();
 ?>
 <?php include("header.inc.php"); ?>
 <h1>Artist/Label Admin Area</h1>
-<h2>Labels</h2>
-<ul>
+<p>This is the admin area from which you can administer any Artists or Labels that are associated to you</p>
 <?php
-$user_label = new user_label();
-$user_label->getUserList($user);
-while($user_label->getNext()) {
-	$label = $user_label->getLabel();
-	?>
-	<li><?= $label->DN ?></li>
-	<?
+foreach(array("label","artist") as $type) {
+	$perm = "user_$type";
+	$typelist = new $perm();
+	if($typelist->getUserList($user)) {
+		?>
+		<h2><?= ucwords($type) ?>s</h2>
+		<ul>
+		<?php
+		while($typelist->getNext()) {
+			$get = "get" . ucwords($type);
+			$typeObj = $typelist->$get();
+			?>
+			<li><a href="<?= $CONF['url'] ?>/edit.php?id=<?= $typeObj->id ?>&type=<?= $type ?>"><?= $typeObj->DN ?></a></li>
+			<ul>
+			<?php
+			$album = new album();
+			$album->getListByType($type,$typeObj->id);
+			while($album->getNext()) {
+				?>
+				<li><?= $album->DN ?></li>
+				<?
+			}
+			?>	
+			</ul>
+			<?
+		}
+		?>
+		</ul>
+		<?php
+	 }
 }
 ?>
+<h2>Reports</h2>
+<ul>
+	<li><a href="admin-report.php">Download Sales</a></li>
 </ul>
 <?php include("footer.inc.php"); ?>
 
