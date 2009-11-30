@@ -72,7 +72,8 @@ if(count($items)) { ?>
 		}
 		else { ?>
 			<tr valign="middle">
-                                <td colspan="2"><?= $details['name'] ?></td>
+				<td>&nbsp;</td>
+                                <td><?= $details['name'] ?></td>
                                 <td align="center">&pound;<?= format_price($details['value']) ?></td>
                                 <td>&nbsp;</td>
                         </tr>
