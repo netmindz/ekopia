@@ -25,7 +25,7 @@ foreach(array("label","artist") as $type) {
 			$album->getListByType($type,$typeObj->id);
 			while($album->getNext()) {
 				?>
-				<li><?= $album->DN ?></li>
+				<li><a href="admin-album.php?id=<?= $album->id ?>"><?= $album->DN ?></a> - <?php if($album->download_price) { ?>&pound; <?= format_price($album->download_price) ?><?php } else { ?>No whole-album Download price<?php } ?></li>
 				<?
 			}
 			?>	
