@@ -24,7 +24,7 @@ class product extends product_template {
                 <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
                 <input type="hidden" name="product_id" value="<?= $this->id ?>" />
-                &pound; <?= $this->price ?> <input type="submit" value="Add to basket" class="inputbox" />
+                &pound; <?= format_price($this->price) ?> <input type="submit" value="Add to basket" class="inputbox" />
                 </form>
                 <?php } else { ?>
                 <!-- Coming soon to buy here -->

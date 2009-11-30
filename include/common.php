@@ -66,4 +66,10 @@ function album_link($album_id,$name)
 		return($CONF['url']."/album.php?album_id=".$album_id);
 	}
 }
+
+function format_price($price)
+{
+	return sprintf("%1.2f",$price);
+}
+
 ?>

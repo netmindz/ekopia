@@ -85,7 +85,7 @@ class album extends album_template {
         	        <input type="hidden" name="action" value="add"/>
 	                <input type="hidden" name="delivery" value="download"/>
 	                <input type="hidden" name="album_id" value="<?= $this->id ?>"/>
-	                &pound; <?= $this->download_price ?>
+	                &pound; <?= format_price($this->download_price) ?>
 	                <input type="submit" value="Download" class="inputbox"/>
 	                </form>
 	        <?php } elseif($this->countDownloads()) { ?>
@@ -98,7 +98,7 @@ class album extends album_template {
                 	<input type="hidden" name="action" value="add" />
 	                <input type="hidden" name="album_id" value="<?= $this->id ?>" />
 			<input type="hidden" name="delivery" value="cd"/>
-        	        &pound; <?= $this->price ?> <input type="submit" value="Buy CD" class="inputbox" />
+        	        &pound; <?= format_price($this->price) ?> <input type="submit" value="Buy CD" class="inputbox" />
 	                </form>
 	                <?php } elseif(($this->download_price <=0)&&($this->price <=0)) { ?>
 	                Coming soon to buy here
