@@ -17,7 +17,7 @@ if(isset($_REQUEST['id'])) {
 	<?= $type->description ?>
 	<?
 	$product = new product();
-	$product->getTypeList($type);
+	$product->getTypeList($type,"order by " . $type->sort);
 	while($product->getNext()) {
 		$keywords[] = $product->DN;
 		$product->displayThumb();
