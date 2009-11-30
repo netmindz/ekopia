@@ -224,7 +224,7 @@ InputsExclusion.push('.content_vote')
                                   <div class="moduletable">
 									<!-- side nav here -->
                                     <div class="side-style-h3">
-										<h3 class="module-title">Browse</h3>
+										<h3 class="module-title">Music</h3>
 									</div>
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
 
@@ -251,7 +251,7 @@ InputsExclusion.push('.content_vote')
 									while($nav_type->getNext()) {
 											?>
 											<tr><td>&nbsp;</td></tr>
-											<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/type.php?id=<?= $nav_type->id ?>"><?= $nav_type->DN ?>s</a></td></tr>
+											<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/type.php?id=<?= $nav_type->id ?>"><?= $nav_type->DN ?></a></td></tr>
 									<?php } ?>
 									</table>
 								

@@ -23,8 +23,8 @@ if(isset($_REQUEST['id'])) {
 		$product->displayThumb();
 	}
 	?>
-	<br clear="all"/>
-	<p><a href="type.php">Back to Products</a></p>
+	<!-- <br clear="all"/>
+	<p><a href="type.php">Back to Products</a></p> -->
 	<?
 }
 else {
