@@ -24,6 +24,8 @@ require("track_tag.class.php");
 require("product.class.php");
 require("type.class.php");
 require("user.class.php");
+require("user_label.class.php");
+require("user_artist.class.php");
 require("product_variation.class.php");
 
 
