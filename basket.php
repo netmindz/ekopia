@@ -129,6 +129,7 @@ if($basket_has_downloads) { ?>
 <input type="hidden" name="upload" value="1">
 <input type="hidden" name="notify_url" value="<?= $CONF['url'] ?>/ipn.php">
 <input type="hidden" name="return" value="<?= $CONF['url'] ?>/complete.php">
+<input type="hidden" name="rm" value="2">
 <input type="hidden" name="cancel_return" value="<?= $CONF['url'] ?>/basket.php">
 <input type="hidden" name="business" value="<?= $CONF['paypal_address'] ?>">
 <input type="hidden" name="currency_code" value="GBP">
