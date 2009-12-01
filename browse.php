@@ -70,6 +70,8 @@ if(isset($_REQUEST['id'])) {
 	}
 	?>
 <!--	<h1>Albums</h1> -->
+	<?php
+	if(($count)||($type != "artist")) { ?>
 	<div id="album_list">
 	<p><?= $count ?> albums</p>
 	<?php if(isset($prefixes)) {
@@ -92,6 +94,7 @@ if(isset($_REQUEST['id'])) {
 	?>
 	</div>
 	<br clear="all">
+	<?php } ?>
 <?php
 if(($type == "artist")&&(isset($id))) {
 	?>
