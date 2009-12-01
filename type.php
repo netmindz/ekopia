@@ -9,7 +9,7 @@ ob_start();
 <?php
 $type = new type();
 if(isset($_REQUEST['id'])) {
-	$type->get($_REQUEST['id']);
+	$type->get($_REQUEST['id']) or die("invalid type");
 	$page_title =  $type->name . " Products";
 	$keywords[] = $type->name;
 	?>

@@ -34,7 +34,7 @@ class product extends product_template {
         }
 		
 
-	function getTypeList(type $type, $order="")
+	function getTypeList(type $type, $order="order by name")
 	{
 		return($this->getList("where type_id=" . $type->id . ' and published="yes"',$order));
 	}
