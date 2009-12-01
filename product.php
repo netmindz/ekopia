@@ -33,7 +33,7 @@ if($variation->getListForProduct($product->id)) { ?>
 	<option value="">--select--</option>
 	<?php
 	while($variation->getNext()) {
-		?><option value="<?= $variation->id ?>"><?= $variation->name ?>  - &pound; <?= $variation->price ?></option><?php 
+		?><option value="<?= $variation->id ?>"><?= $variation->name ?>  - &pound; <?= format_price($variation->price) ?></option><?php 
 	}
 	?>
 	<input type="submit" value="Add to basket" class="inputbox" />
