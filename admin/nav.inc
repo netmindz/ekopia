@@ -12,4 +12,5 @@
 [ <a href="stock.php">Stock Control</a> ] 
 [ <a href="tidy.php">Tidy Albums</a> ] 
 [ <a href="reports.php">reports</a> ] 
+[ <a href="pos-export-products.php">ePOS export</a> ] 
 </p>
