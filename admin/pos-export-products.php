@@ -10,13 +10,13 @@ $fields = array("Brand","Description","VARIETY","SIZE","FIT","POS 20","POS 12","
 function newProduct($desc,$dept,$cat,$group,$subgroup,$supplier,$ordercopde,$price)
 {
 	$p = array();
-	$p['Description'] = $desc;
+	$p['Description'] = substr($desc,0,30);
 	$p['POS 20'] = substr($desc,0,20);
-	$p['DEPT'] = $dept;
-	$p['CATEGORY'] = $cat;
-	$p['GROUP'] = $group;
-	$p['SUBGROUP'] = $subgroup;
-	$p['SUPPLIER'] = $supplier;
+	$p['DEPT'] = substr($dept,0,10);
+	$p['CATEGORY'] = substr($cat,0,10);
+	$p['GROUP'] = substr($group,0,10);
+	$p['SUBGROUP'] = substr($subgroup,0,10);
+	$p['SUPPLIER'] = substr($supplier,0,10);
 	$p['ORDER CODE'] = $ordercopde;
 	$p['PACK/CARTON SIZE'] = 1;
 	$p['MIN ORDER QTY'] = 1;
@@ -35,12 +35,24 @@ $album = new album();
 $album->getList("where price > 0");
 while($album->getNext()) {
 	$label = $album->getLabel();
-	$products[] = newProduct($album->DN . " CD","Shop","Albums","CDs",$label->DN,"Shop","CD" . $album->id,$album->price);
+	if($album->label_reference) {
+		$name = substr($album->label_reference . " - " . $album->DN,0,17) . " CD";
+	}
+	else {
+		$name = substr($album->DN,0,17)  . " CD";
+	}	
+	$products[] = newProduct($name,"Shop","Albums","CDs",$label->DN,"Shop","CD" . $album->id,$album->price);
 }
 $album->getList("where download_price > 0");
 while($album->getNext()) {
 	$label = $album->getLabel();
-	$products[] = newProduct($album->DN . " Download","Shop","Albums","Downloads",$label->DN,"Shop","ALBUM" . $album->id,$album->download_price);
+	if($album->label_reference) {
+		$name = substr($album->label_reference . " - " . $album->DN,0,16) . " MP3";
+	}
+	else {
+		$name = substr($album->DN,0,16)  . " MP3";
+	}	
+	$products[] = newProduct($name,"Shop","Albums","Downloads",$label->DN,"Shop","AMP3" . $album->id,$album->download_price);
 }
 
 $track = new track();
@@ -48,7 +60,7 @@ $track->getList("where price > 0");
 while($track->getNext()) {
 	$album = $track->getAlbum();
 	$label = $album->getLabel();
-	$products[] = newProduct($track->DN . " Download","Shop","Tracks","Downloads",$label->DN,"Shop","TRK" . $track->id,$album->price);
+	$products[] = newProduct($track->DN . " MP3","Shop","Tracks","Downloads",$label->DN,"Shop","TMP3" . $track->id,$album->price);
 }
 
 $product = new product();
