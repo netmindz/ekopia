@@ -26,5 +26,26 @@ class tag extends tag_template {
 		return($list);
 	}		
 
+        /**
+         * @return mixed        -       The number of rows found, or FALSE on query fail
+         * @param string $where = ""            -       The Where clause SQL
+         * @param string $order = ""            -       The Order By SQL
+         * @param string $limit = ""            -       The Limit SQL
+         * @desc This generic method runs a database query with the optional WHERE statement, sorted as defined in the global $CONF array or overridden with a order parameter. There is also an optional limit parameter
+         */
+        function getList($where="", $order="", $limit="")
+        {
+		global $is_admin_area;
+		if((!$where)&&(!$is_admin_area)) $where = "where public = 'yes'";
+                if(!$order) $order = "order by name";
+                $select = "SELECT tags.* FROM tags ";
+                if ($this->database->query("$select $where $order $limit")) {
+                        return($this->database->RowCount);
+                }else{
+                        return false;
+                }//IF
+        }//getList
+
+
 }
 ?>
