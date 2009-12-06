@@ -4,7 +4,7 @@
 <div id="album_list">
 <?php
 $album = new album();
-$album->getList();
+$album->getList("where artist_id in (select id from artists where published = 'yes')");
 while($album->getNext()) { 
 	if(($album->image_id)&&($album->price)) {
 	?>
