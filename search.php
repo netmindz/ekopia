@@ -22,7 +22,7 @@ if($_REQUEST['keyword']) {
 	<?php
 
 	$artist = new artist();
-	if($artist->search($_REQUEST['keyword'],array('name'))) {
+	if($artist->search($_REQUEST['keyword'],array('name'),null,"where published='yes'")) {
 		?>
 		<h2>Artists</h2>
 		<ul>
