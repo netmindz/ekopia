@@ -32,9 +32,15 @@ class album extends album_template {
 		}
 	}		
 
-	function getListByType($type,$id)
+	function getListByType($type,$id,$admin_override=false)
 	{
-		return($this->getList("where ${type}_id='".$id."' and artist_id in (select id from artists where published = 'yes')"));
+		if($admin_override) {
+			$published = "";
+		}
+		else {
+			$published = " and artist_id in (select id from artists where published = 'yes')";
+		}
+		return($this->getList("where ${type}_id='".$id."' $published"));
 	}
 	
 	function getListPrefixes()
