@@ -51,7 +51,13 @@ if(isset($_REQUEST['id'])) {
 		$page_title = "Browse " . ucwords($type) . "s @ inSpiral shop";
 		if($type != "album") {
 			$typeObj = new $type();
-			$count = $typeObj->getList();
+			if($type == "artist") {
+				$where = "where published='yes'";
+			}
+			else {
+				$where = "";
+			}
+			$count = $typeObj->getList($where);
 			?>
 			<h2><?= ucwords($type) ?>s</h2>
 			<p><?= $count ?> found</p>
