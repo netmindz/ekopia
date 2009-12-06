@@ -34,7 +34,11 @@ class album extends album_template {
 
 	function getListByType($type,$id)
 	{
-		return($this->getList("where ${type}_id='".$id."'"));
+		$where = "where ${type}_id='".$id."'";
+		if($type == "artist") {
+			$where .= " and published='yes'";
+		}
+		return($this->getList($where));
 	}
 	
 	function getListPrefixes()
