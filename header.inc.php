@@ -267,6 +267,21 @@ InputsExclusion.push('.content_vote')
 											<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 									<?php } ?>
 									</table>
+
+									<div class="side-style-h3">
+										<h3 class="module-title">Search</h3>
+									</div>
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+											<tr><td>&nbsp;</td></tr>
+											<tr align="left" cellpadding="5" cellspacing="5">
+											<td>
+												<form action="<?= $CONF['url'] ?>/search.php">
+													<input type="text" name="keyword" size="15" />
+													<input type="submit" value="Search"/>
+												</form>
+											</td></tr>
+											<tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
+									</table>
 									
 									<?php
 									if($user->id) {
@@ -277,6 +292,9 @@ InputsExclusion.push('.content_vote')
 									<table width="100%" border="0" cellpadding="0" cellspacing="0">
 										<tr><td>&nbsp;</td></tr>
 										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/admin.php">Artist / Label Admin</a></td></tr>
+                                                                                        <tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
+										<tr><td>&nbsp;</td></tr>
+										<tr align="left" cellpadding="5" cellspacing="5"><td>&nbsp;&nbsp;<img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/menu-button-shop.png">&nbsp;&nbsp;<a href="<?= $CONF['url'] ?>/login.php?logout=1">Logout <?= $user->username ?></a></td></tr>
                                                                                         <tr><td><img src="<?= $template_root ?>/templates/rt_infuse_j15/images/style1/line.png"></td></tr>
 									</table>
 									<?php } ?>
