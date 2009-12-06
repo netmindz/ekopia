@@ -19,6 +19,11 @@ class user extends user_template {
 		$_SESSION['user_id'] = $this->id;
 		return($this->id);
 	}
+	
+	function logout()
+	{
+		unset($_SESSION['user_id']);
+	}
 
 	function checkLogin()
 	{

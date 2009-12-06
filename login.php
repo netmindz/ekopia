@@ -1,18 +1,33 @@
 <?php include("include/common.php"); ?>
 <?
-if(!isset($user)) $user = new user();
-$login_failed = false;
-if(isset($_POST['username'])) { 
-	if(!$user->login($_POST['username'],$_POST['password'])) {
-		$login_failed = true;
-		if(isset($_REQUEST['url'])) {
-			header("Location: " . $_REQUEST['url']);
-			exit();
+$logout = false;
+
+if(isset($_REQUEST['logout'])) {
+	$user->logout();	
+	$logout = true;
+}
+else {
+	if(!isset($user)) $user = new user();
+	$login_failed = false;
+	if(isset($_POST['username'])) { 
+		if(!$user->login($_POST['username'],$_POST['password'])) {
+			$login_failed = true;
+			if(isset($_REQUEST['url'])) {
+				header("Location: " . $_REQUEST['url']);
+				exit();
+			}
 		}
 	}
 }
 include("header.inc.php");
-if(($login_failed)||(!$user->id)) {
+if($logout) {
+	?>
+	<h2>Goodbye</h2>
+	<p>User logged out</p>
+	<p><a href="login.php">Login</a></p>
+	<?php
+}
+elseif(($login_failed)||(!$user->id)) {
 ?>
 <? if($user->lastError) { ?><p class="error"><?= $user->lastError ?></p><? } ?>
 <p>If you are artist or label and wish to be able to update your profile, please email shop@inspiralled.net to have an account created for you</p>
