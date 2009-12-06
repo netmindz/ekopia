@@ -41,7 +41,11 @@ if(isset($_REQUEST['id'])) {
 			$image->show($typeObj->image_id,150,150,"align='right'");
 		}
 		print $typeObj->summary;
-		if($typeObj->website) { ?><p><a href="<?= $typeObj->website ?>"><?= $typeObj->DN ?> website</a></p><? }
+		if($typeObj->website) { ?><p><a href="<?= $typeObj->website ?>" target="_new"><?= $typeObj->DN ?> website</a></p><? }
+		if($typeObj->myspace) { ?><p><a href="http://www.myspace.com/<?= $typeObj->myspace ?>" target="_new"><?= $typeObj->DN ?> on MySpace</a></p><? } 
+		if($typeObj->facebook_fanid) { ?><p>Become a fan of <a href="http://www.facebook.com/pages/fan/<?= $typeObj->facebook_fanid ?>" target="_new"><?= $typeObj->DN ?></a> on Facebook</p><? } 
+		if($typeObj->facebook_profileid) { ?><p>Become a friend of <a href="http://www.facebook.com/profile.php?id=<?= $typeObj->facebook_profileid ?>" target="_new"><?= $typeObj->DN ?></a> on Facebook</p><? } 
+		
 		$keywords[] = $typeObj->DN;
 		?>
 		<div class="edit">[&nbsp;<a href="edit.php?id=<?= $id ?>&amp;type=<?= $type ?>">edit</a>&nbsp;]</div>

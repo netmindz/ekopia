@@ -3,6 +3,12 @@
 $user->checkLogin();
 $type_name = $_REQUEST['type'];
 $type_perm = "user_" . $type_name;
+
+$fields = array(
+	'artist'=>array("name","website","image_id","summary","myspace","facebook_fanid","facebook_profileid"),
+	'label'=>array("name","website","image_id","summary"),
+);
+
 ?>
 <?php include("header.inc.php"); ?>
 <?php
@@ -31,7 +37,7 @@ else {
 	<input type="hidden" name="type" value="<?= $type_name ?>">
 	<table>
 	<?
-	foreach(array("name","website","image_id","summary") as $key) {
+	foreach($fields[$type_name] as $key) {
 		?>
 	<tr>
 		<th><?= $type->createFormLabel($key,"values[]") ?></th>
