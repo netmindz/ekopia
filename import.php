@@ -2,7 +2,7 @@
 <?php
 
 require("include/common.php");
-require("include/amazon.inc.php");
+require("/home/www/codebase/amazon.inc.php");
 
 function import_dir($src)
 {
@@ -106,6 +106,8 @@ foreach($albums as $album_id=>$a) {
 	$album = new album();
 	$album->get($album_id);
 	if(!$album->image_id) {
+		print "Searching for " . implode(", ",$a['artists']) .  ", " . $a['name'] . "\n";
+		
 		$details = amazon_getAlbum($a['artists'],$a['name'],"");
 
 		if(($details)&&(count($details))) {
