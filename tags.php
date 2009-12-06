@@ -44,7 +44,7 @@ else {
 	<div id="albm_list">
 	<?
 	$atag = new album_tag();
-	$atag->getList("where tag_FK=".$tag->id,"order by rand()");
+	$atag->getList("where tag_FK=".$tag->id . " and album_FK in (select id from artists where published = 'yes')","order by rand()");
 	while($atag->getNext()) {
 		$album = new album();
 		$album->get($atag->album_FK);

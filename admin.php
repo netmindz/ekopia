@@ -24,8 +24,9 @@ foreach(array("label","artist") as $type) {
 			$album = new album();
 			$album->getListByType($type,$typeObj->id,true);
 			while($album->getNext()) {
+				$artist = $album->getArtist();
 				?>
-				<li><a href="admin-album.php?id=<?= $album->id ?>"><?= $album->DN ?></a> - <?php if($album->download_price) { ?>&pound; <?= format_price($album->download_price) ?><?php } else { ?>No whole-album Download price<?php } ?></li>
+				<li><a href="admin-album.php?id=<?= $album->id ?>"><?= $album->DN ?></a> - <?php if($album->download_price) { ?>&pound; <?= format_price($album->download_price) ?><?php } else { ?>No whole-album Download price<?php } ?><?php if($artist->published != 'yes') print " Not yet published"; ?></li>
 				<?
 			}
 			?>	
