@@ -32,7 +32,7 @@ if(isset($_REQUEST['id'])) {
 		$typeObj = new $type();
 		$typeObj->get($id);
 		?>
-		<h2><?= ucwords($type) ?> - <?= $typeObj->DN ?></h2>
+		<?php page_title(ucwords($type) . " - $typeObj->DN") ?>
 		<?php
 
 		$page_title = ucwords($type) . " - " . $typeObj->DN . " @ inSpiral shop";
@@ -63,7 +63,8 @@ if(isset($_REQUEST['id'])) {
 			}
 			$count = $typeObj->getList($where);
 			?>
-			<h2><?= ucwords($type) ?>s</h2>
+
+			<?php page_title(ucwords($type) . "s") ?>
 			<p><?= $count ?> found</p>
 			<ul>
 			<?php

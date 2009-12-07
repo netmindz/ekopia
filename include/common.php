@@ -74,4 +74,13 @@ function format_price($price)
 	return sprintf("%1.2f",$price);
 }
 
+function page_title($title)
+{
+	?>
+	<div class="side-style-h3">
+		<h3 class="module-title"><?= $title ?></h3>
+	</div>
+	<?php
+}
+
 ?>

@@ -13,7 +13,7 @@ if(isset($_REQUEST['id'])) {
 	$page_title =  $type->name . " Products";
 	$keywords[] = $type->name;
 	?>
-	<h1><?= $type->name ?> Products</h1>
+	<?php page_title($type->name . " Products") ?>
 	<?= $type->description ?>
 	<?
 	$product = new product();

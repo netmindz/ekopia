@@ -1,6 +1,8 @@
 <?php include("include/common.php"); ?>
 <?php include("header.inc.php"); ?>
-<h2>Digital Downloads</h2>
+
+<?php page_title("Digital Downloads") ?>
+
 <div id="album_list">
 <?php
 $album = new album();

@@ -1,6 +1,6 @@
 <?php require("include/common.php"); ?>
 <?php include("header.inc.php"); ?>
-<h1>Search</h1>
+<?php page_title("Search") ?>
 <?
 if($_REQUEST['keyword']) {
 	$album = new album();

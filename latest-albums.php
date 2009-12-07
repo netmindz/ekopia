@@ -1,6 +1,8 @@
 <?php include("include/common.php"); ?>
 <?php include("header.inc.php"); ?>
-<h2>Latest Albums</h2>
+
+<?php page_title("Latest Albums") ?>
+
 <div id="album_list">
 <?php
 $album = new album();
