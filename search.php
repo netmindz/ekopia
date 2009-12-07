@@ -81,8 +81,8 @@ if($_REQUEST['keyword']) {
 			<?
 		}
 		else {
-			while($artist->getNext()) {
-				print "<result title=\"" . htmlentities($artist->DN) . "\" section=\"artists\" href=\"".browse_link("label",$label->id,$label->DN)."\" />\n";
+			while($label->getNext()) {
+				print "<result title=\"" . htmlentities($label->DN) . "\" section=\"label\" href=\"".browse_link("label",$label->id,$label->DN)."\" />\n";
 			}
 		}
 	}
