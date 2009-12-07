@@ -2,7 +2,13 @@
 <?php
 
 $product = new product();
-$product->get($_REQUEST['id']);
+if(ereg("/product/([^/]+)(.*)",$_SERVER['PHP_SELF'],$matches)) {
+	$product->get($matches[1]);
+}
+else {
+	$product->get($_REQUEST['id']);
+}
+
 
 $type = new type();
 $type->get($product->type_id);
