@@ -30,7 +30,7 @@ if($_REQUEST['keyword']) {
 		}
 		else {
 			while($album->getNext()) {
-				print "<result title=\"" . htmlentities($album->DN) . "\" section=\"albums\" href=\"".album_link($album->id,$album->name)."\"/>\n";
+				print "<result title=\"" . htmlentities($album->DN) . "\" section=\"albums\" href=\"".$CONF['url'].album_link($album->id,$album->name)."\"/>\n";
 			}
 		}
 	}
@@ -56,7 +56,7 @@ if($_REQUEST['keyword']) {
 		}
 		else {
 			while($artist->getNext()) {
-				print "<result title=\"" . htmlentities($artist->DN) . "\" section=\"artists\" href=\"".browse_link("artist",$artist->id,$artist->DN)."\"/>\n";
+				print "<result title=\"" . htmlentities($artist->DN) . "\" section=\"artists\" href=\"".$CONF['url'].browse_link("artist",$artist->id,$artist->DN)."\"/>\n";
 			}
 		}
 	}
@@ -82,7 +82,7 @@ if($_REQUEST['keyword']) {
 		}
 		else {
 			while($artist->getNext()) {
-				print "<result title=\"" . htmlentities($artist->DN) . "\" section=\"artists\" href=\"".browse_link("label",$label->id,$label->DN)."\" />\n";
+				print "<result title=\"" . htmlentities($artist->DN) . "\" section=\"artists\" href=\"".$CONF['url'].browse_link("label",$label->id,$label->DN)."\" />\n";
 			}
 		}
 	}
@@ -108,7 +108,7 @@ if($_REQUEST['keyword']) {
 		else {
 			while($track->getNext()) {
 				$album = $track->getAlbum();
-				print "<result title=\"" . htmlentities($track->DN) . "\" section=\"track\" href=\"".browse_link("album",$album->id,$album->DN)."\"/>\n";
+				print "<result title=\"" . htmlentities($track->DN) . "\" section=\"track\" href=\"".$CONF['url'].browse_link("album",$album->id,$album->DN)."\"/>\n";
 			}
 		}
 	}
