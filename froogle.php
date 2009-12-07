@@ -117,7 +117,7 @@ function get_rss($rate,$country) {
 <description>'.$description.'</description>
 <guid>'.$country.'p'.$product->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$product->image_id.'</g:image_link>
-<link>'.$CONF['url'] . '/product.php?id='.$product->id.'</link>
+<link>'.$product->getURL().'</link>
 <g:price>'.round(($product->price * $rate),2).'</g:price>
 <g:product_type>'.$type->DN.'</g:product_type>
 <g:payment_accepted>Visa</g:payment_accepted>
