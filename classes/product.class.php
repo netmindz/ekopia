@@ -18,8 +18,8 @@ class product extends product_template {
 	        $image->show($image_id,100,0,"alt=\"$this->name\" title=\"Click to view $this->name\"");
                 ?></a>
                 </div>
-                <a href="<?= $CONF['url'] ?>/product.php?id=<?= $this->id ?>"><?= $this->name ?></a><br/>
-		<?= substr($this->intro,0,80) ?>
+                <a href="<?= $this->getURL() ?>"><?= $this->name ?></a><br/>
+				<?= substr($this->intro,0,80) ?>
                 <?php if($this->price) { ?>
                 <form action="<?= $CONF['url'] ?>/basket.php" method="post">
                 <input type="hidden" name="action" value="add" />
@@ -37,6 +37,17 @@ class product extends product_template {
 	function getTypeList(type $type, $order="order by name")
 	{
 		return($this->getList("where type_id=" . $type->id . ' and published="yes"',$order));
+	}
+	
+	function getURL()
+	{
+		global $CONF;
+		if($CONF['use_rewrite']) {
+			return($CONF['url'] . "/product/$this->id/" . urlencode($this->name));
+		}
+		else {
+			return($CONF['url'] . "/product.php?id=$this->id");
+		}
 	}
 }
 ?>

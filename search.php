@@ -133,7 +133,7 @@ if($_REQUEST['keyword']) {
 		}
 		else {
 			while($product->getNext()) {
-				print "<result title=\"" . htmlentities($product->DN) . "\" section=\"products\" href=\"".$CONF['url'] ."/product.php?id=" . $product->id."\" />\n";
+				print "<result title=\"" . htmlentities($product->DN) . "\" section=\"products\" href=\"".$product->getURL()."\" />\n";
 			}
 		}
 	}
