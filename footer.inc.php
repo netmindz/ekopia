@@ -19,16 +19,13 @@
             <!--End Main Bottom-->
 
           </div>
-
         </div>
       </div>
     </div>
 
     <div class="main-bm">
       <div class="main-bl"></div>
-
       <div class="main-br"></div>
-
     </div><!--End Main Body-->
   </div><!--Begin Footer-->
 
@@ -43,13 +40,9 @@
                 <div class="module-padding">
 
                   <h3 class="showcase">inSpiral Shop</h3>
-					&copy; <a href="http://www.netmindz.net/?shop">WJT 2009</a> || <a href="froogle.php?download">RSS</a>
-
-                  <!-- content bits here -->
-
+					<p>&copy; <a href="http://www.netmindz.net/?shop">WJT 2009</a> || <a href="froogle.php?download">RSS</a></p>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -58,15 +51,13 @@
               <div class="moduletable">
                 <div class="module-padding">
 
-                  <h3 class="showcase">Contact Us</h3>
-
-                  <p>250 Camden High Street<br />
-                  London<br />
-                  NW1 8QS</p>
-                  <p>office: 0207 419 6798</p>
-                  <p>lounge: 0207 4825875</p>
-
-                  <p><a href="mailto:dom@inspiralled.net">e-mail</a></p>
+                  <h3 class="showcase">Lounge Opening Hours</h3>
+					<ul>
+						<li>Mon - Thu: 10:00 - 22:00</li>
+						<li>Fri - Sat: 10:00 - 2:00</li>
+						<li>Sun:&nbsp;10:00 - 23:30</li>
+					</ul>
+					<p>&nbsp;</p>
                 </div>
               </div>
             </div>
@@ -77,9 +68,14 @@
 
               <div class="moduletable">
                 <div class="module-padding">
-                  <h3 class="showcase">Newsletter</h3>
+                  <h3 class="showcase">Follow us on</h3>
+								<div id="modstalker">
 
-                  <p>We are working hard on our new newsletter '<strong>inSpiral eyes</strong>' - full of exciting information about our events, food and community interests. To subscribe just sign up <a href="http://www.idspiral.org/cgi-local/dada/mail.cgi/list/inspiralled/">here</a>.</p>
+	<a href="http://www.facebook.com/group.php?gid=100000264106042" rel="nofollow" title="Facebook Group: 100000264106042" target="_blank"><img src="/modules/mod_stalker/images/facebook.png" alt="Facebook Group: 100000264106042" width="28" height="28" id="FacebookGroup"  /></a>
+	<a href="http://myspace.com/inSpiralevents" rel="nofollow" title="MySpace: inSpiralevents" target="_blank"><img src="/modules/mod_stalker/images/myspace.png" alt="MySpace: inSpiralevents" width="28" height="28" id="MySpace"  /></a>
+	<a href="http://twitter.com/inSpiral_eye" rel="nofollow" title="Twitter: inSpiral_eye" target="_blank"><img src="/modules/mod_stalker/images/twitter.png" alt="Twitter: inSpiral_eye" width="28" height="28" id="Twitter"  /></a>
+								</div>
+
                 </div>
 
               </div>
