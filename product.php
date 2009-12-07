@@ -18,7 +18,8 @@ $page_keywords = implode(", ",array($product->name,$type->name));
 $page_meta = $product->intro;
 ?>
 <?php include("header.inc.php"); ?>
-<h1><?= $product->name ?></h1>
+
+<?php page_title($product->name) ?>
 
 <?php  $image = new image(); $image->show($product->image_id); ?>
 <p><?= $product->description ?></p>
