@@ -48,7 +48,7 @@ if($variation->getListForProduct($product->id)) { ?>
 
 <p>&nbsp;</p>
 <hr/>
-<p><a href="type.php?id=<?= $type->id ?>">Back to <?= $type->name ?></a></p>
+<p><a href="<?= $CONF['url'] ?>/type.php?id=<?= $type->id ?>">Back to <?= $type->name ?></a></p>
 
 <?php include("footer.inc.php"); ?>
 
