@@ -42,10 +42,10 @@ function browse_link($type,$id="",$name="")
         global $CONF;
         if($CONF['use_rewrite']) {
                 if($id) {
-                        return("/browse/$type/".urlencode($name)."/$id");
+                        return($CONF['url']."/browse/$type/".urlencode($name)."/$id");
                 }
                 else {
-                        return("/browse/$type");
+                        return($CONF['url']."/browse/$type");
                 }
         }
         else {
@@ -62,7 +62,7 @@ function album_link($album_id,$name)
 {
 	global $CONF;
 	if($CONF['use_rewrite']) {
-		return("/album/$album_id/" . urlencode($name));
+		return($CONF['url']."/album/$album_id/" . urlencode($name));
 	}
 	else {
 		return($CONF['url']."/album.php?album_id=".$album_id);
