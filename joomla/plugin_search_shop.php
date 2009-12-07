@@ -116,9 +116,7 @@ function plgSearchplugin_search_shop( $text, $phrase='', $ordering='', $areas=nu
  
  		$rows = array();
  		$doc = simplexml_load_file($pluginParams->get('shop_url') . "/search.php?keyword=" . urlencode($text) . "&output=xml");
- 		print_r($doc);
 		foreach($doc->result as $xmlResult) {
-			print_r($xmlResult);
 			$result = new stdclass();
 			$result->title = $xmlResult->attributes()->title . "";
 			$result->section = $xmlResult->attributes()->section . "";
