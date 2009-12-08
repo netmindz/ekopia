@@ -42,6 +42,7 @@ function get_rss($rate,$country) {
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:payment_notes>Cash only for pickup from store</g:payment_notes>
 <g:pickup>true</g:pickup>
+<g:product_type>music</g:product_type>
 </item>';
 	}
 
@@ -71,6 +72,7 @@ function get_rss($rate,$country) {
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:payment_notes>Cash only for pickup from store</g:payment_notes>
 <g:pickup>false</g:pickup>
+<g:product_type>music</g:product_type>
 </item>';
 	}
 
@@ -101,6 +103,7 @@ function get_rss($rate,$country) {
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:pickup>false</g:pickup>
+<g:product_type>music</g:product_type>
 </item>';
 	}
 
@@ -123,6 +126,7 @@ function get_rss($rate,$country) {
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:pickup>true</g:pickup>
+<g:product_type>'.$type->name.'</g:product_type>
 </item>';
 	}
 
@@ -147,6 +151,7 @@ function get_rss($rate,$country) {
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:pickup>true</g:pickup>
+<g:product_type>'.$type->name.'</g:product_type>
 </item>';
         }
 
