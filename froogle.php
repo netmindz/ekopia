@@ -126,7 +126,7 @@ function get_rss($rate,$country) {
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
 <g:pickup>true</g:pickup>
-<g:product_type>'.$type->name.'</g:product_type>'
+<g:product_type>'.$type->name.'</g:product_type>';
 	if($product->shipping_weight) $rss .= "<g:weight>$product->shipping_weight g</g:weight>";
 	$rss .= '</item>';
 	}
