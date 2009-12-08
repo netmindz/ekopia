@@ -15,6 +15,7 @@ $artist = new artist();
 $artist->get($album->artist_id);
 
 $page_title =  $album->DN . " by " . $artist->DN . " on " . $label->DN;
+$keywords = array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN);
 
 $artists = array();
 $track = new track();
@@ -24,9 +25,17 @@ $download_avail = false;
 while($track->getNext()) {
 	$track_artist->get($track->artist_id);
 	$artists[] = $track_artist->name;
+	if($track->price) {
+		$download_avail = true;
+		$keywords[] = "mp3";
+		$keywords[] = "ogg";
+		$keywords[] = "vorbis";
+		$keywords[] = "download";
+		$keywords[] = "digital";
+	}
 }
 
-$page_keywords = implode(", ",array_unique(array_merge(array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN),$artists)));
+$page_keywords = implode(", ",array_unique(array_merge($keywords,$artists)));
 $page_meta = "$album->name by $artist->DN featuring " . implode(", ",array_unique($artists));
 	?>
 <?php include("header.inc.php"); ?>
@@ -83,7 +92,7 @@ $page_meta = "$album->name by $artist->DN featuring " . implode(", ",array_uniqu
 	if($download_avail == true) { ?>
 		<tr>
 			<td></td>
-			<td><input type="submit" class="inputbox" value=" Add Selected Tracks to basket "/></td>
+			<td><input type="submit" class="inputbox" value=" Add Selected Tracks to basket "/><br/>(MP3/Ogg Vorbis/FLAC)</td>
 		</tr>
 		<?php
 	}
