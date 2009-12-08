@@ -4,7 +4,7 @@ require("include/common.php");
 $ftp_server = "uploads.google.com";
 $ftp_username = "inspiralled";
 $ftp_password = "feedme2008!";
-$destinations = array("albums-uk.xml"=>1,"albums.xml"=>1.97330,'albums-de.xml'=>1.28);
+$destinations = array("albums-uk.xml"=>1,"albums.xml"=>1.63328,'albums-de.xml'=>1.10438);
 
 
 function get_rss($rate,$country) {
@@ -30,7 +30,7 @@ function get_rss($rate,$country) {
 <description>'.$description.'</description>
 <guid>'.$country.$album->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
-<link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
+<link>'.album_link($album->id,$album->name).'</link>
 <g:price>'.round(($album->price * $rate),2).'</g:price>
 <g:product_type>CD</g:product_type>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
@@ -59,7 +59,7 @@ function get_rss($rate,$country) {
 <description>'.$description.'</description>
 <guid>'.$country.$album->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
-<link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
+<link>'.album_link($album->id,$album->name).'</link>
 <g:price>'.round(($album->price * $rate),2).'</g:price>
 <g:product_type>Download (MP3/Ogg Vorbis/Flac)</g:product_type>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
@@ -91,7 +91,7 @@ function get_rss($rate,$country) {
 <description>'.$description.'</description>
 <guid>'.$country.'t'.$track->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$album->image_id.'</g:image_link>
-<link>'.$CONF['url'] . album_link($album->id,$album->name).'</link>
+<link>'.album_link($album->id,$album->name).'</link>
 <g:price>'.round(($track->price * $rate),2).'</g:price>
 <g:format>Download (MP3,Ogg Vorbis,Flac,Wav)</g:format>
 <g:artist>'.htmlspecialchars($artist->name).'</g:artist>
@@ -141,7 +141,7 @@ function get_rss($rate,$country) {
 <description>'.$description.'</description>
 <guid>'.$country.'p'.$product->id.'</guid>
 <g:image_link>'.$CONF['url'].'/showimage.php?id='.$product->image_id.'</g:image_link>
-<link>'.$CONF['url'] . '/product.php?id='.$product->id.'</link>
+<link>'.$product->getURL().'</link>
 <g:price>'.round(($variation->price * $rate),2).'</g:price>
 <g:product_type>'.$type->DN.'</g:product_type>
 <g:payment_accepted>Visa</g:payment_accepted>
