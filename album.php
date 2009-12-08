@@ -14,7 +14,7 @@ $label->get($album->label_id);
 $artist = new artist();
 $artist->get($album->artist_id);
 
-$page_title = $artist->DN . " - " . $album->DN . " on " . $label->DN;
+$page_title =  $album->DN . " by " . $artist->DN . " on " . $label->DN;
 
 $artists = array();
 $track = new track();
