@@ -15,9 +15,21 @@ $artist = new artist();
 $artist->get($album->artist_id);
 
 $page_title = $artist->DN . " - " . $album->DN . " on " . $label->DN;
-$page_keywords = implode(", ",array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN));
+
+$artists = array();
+$track = new track();
+$track->getTrackListings($album->id);
+$track_artist = new artist();
+$download_avail = false;
+while($track->getNext()) {
+	$track_artist->get($track->artist_id);
+	$artists[] = $track_artist->name;
+}
+
+$page_keywords = implode(", ",array_unique(array_merge(array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN),$artists)));
+$page_meta = "$album->name by $artist->DN featuring " . implode(", ",array_unique($artists));
 	?>
-	<?php include("header.inc.php"); ?>
+<?php include("header.inc.php"); ?>
 	<h2><?= $album->DN ?> by <a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></h2>
 	<div style="float: right">
 	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="280" height="280" id="player" align="middle">
