@@ -19,6 +19,7 @@ $template_root = "http://www.inspiralled.net";
 <link rel="shortcut icon" href="<?= $template_root ?>/templates/rt_infuse_j15/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <?php if(isset($page_meta)) { ?><meta name="description" content="<?= $page_meta ?>" /><?php } ?>
+<meta name="keywords" content="inSpiral, chillout, psychill, idm, <?php if(isset($page_keywords)) print $page_keywords ?>" />
 
   <link rel="stylesheet" href="<?= $template_root ?>/plugins/system/rokbox/themes/light/rokbox-style.css" type="text/css" />
   <link rel="stylesheet" href="<?= $template_root ?>/templates/rt_infuse_j15/css/template.css" type="text/css" />
