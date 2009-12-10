@@ -12,7 +12,7 @@ ticker_start();
 function ticker_start() {
 	var tickerSupported = false;
 	TICKER_WIDTH = document.getElementById("TICKER").style.width;
-	var img = "<img src=ticker_space.gif width="+TICKER_WIDTH+" height=0>";
+	var img = "<img src=spacer.gif width="+TICKER_WIDTH+" height=0>";
 
 	// Firefox
 	if (navigator.userAgent.indexOf("Firefox")!=-1 || navigator.userAgent.indexOf("Safari")!=-1) {
