@@ -11,7 +11,7 @@ if(isset($_GET['type'])) $_SESSION['radio_type'] = $_GET['type'];
 <body>
 <?php
 if(!isset($_SESSION['radio_type'])) {
-	$_SESSION['radio_type'] = "java";
+	$_SESSION['radio_type'] = "flash";
 }
 if($_SESSION['radio_type'] == "java") {
 	?>
