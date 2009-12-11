@@ -37,10 +37,8 @@ function get_rss($rate,$country) {
 <g:edition>'.$album->release_year.'</g:edition>
 <g:year>'.$album->release_year.'</g:year>
 <g:format>CD</g:format>
-<g:payment_accepted>Cash</g:payment_accepted>
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
-<g:payment_notes>Cash only for pickup from store</g:payment_notes>
 <g:pickup>true</g:pickup>
 <g:product_type>music</g:product_type>
 </item>';
@@ -67,10 +65,8 @@ function get_rss($rate,$country) {
 <g:edition>'.$album->release_year.'</g:edition>
 <g:year>'.$album->release_year.'</g:year>
 <g:format>Download (MP3,Ogg Vorbis,Flac,Wav)</g:format>
-<g:payment_accepted>Cash</g:payment_accepted>
 <g:payment_accepted>Visa</g:payment_accepted>
 <g:payment_accepted>MasterCard</g:payment_accepted>
-<g:payment_notes>Cash only for pickup from store</g:payment_notes>
 <g:pickup>false</g:pickup>
 <g:product_type>music</g:product_type>
 </item>';
