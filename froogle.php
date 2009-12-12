@@ -4,7 +4,8 @@ require("include/common.php");
 $ftp_server = "uploads.google.com";
 $ftp_username = "inspiralled";
 $ftp_password = "feedme2008!";
-$destinations = array("albums-uk.xml"=>1,"albums.xml"=>1.63328,'albums-de.xml'=>1.10438);
+#$destinations = array("albums-uk.xml"=>1,"albums.xml"=>1.63328,'albums-de.xml'=>1.10438);
+$destinations = array("albums-uk.xml"=>1,"albums.xml"=>1.63328);
 
 
 function get_rss($rate,$country) {
