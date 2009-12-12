@@ -17,6 +17,7 @@ $artist->get($album->artist_id);
 $page_title =  $album->DN . " by " . $artist->DN . " on " . $label->DN;
 $keywords = array($artist->DN,$album->name,$album->release_year,$album->label_reference,$label->DN);
 
+$download_avail = false;
 $artists = array();
 $track = new track();
 $track->getTrackListings($album->id);
@@ -36,8 +37,11 @@ while($track->getNext()) {
 
 $page_keywords = implode(", ",array_unique(array_merge($keywords,$artists)));
 $page_meta = "$album->name by $artist->DN featuring " . implode(", ",array_unique($artists));
-if(($download_avail)||($album->download_price > 0)) $page_meta .= " available for digital download as MP3, OggVorbis and FLAC";
-	?>
+if(($download_avail)||($album->download_price > 0)) {
+	$page_meta .= " available for digital download as MP3, OggVorbis and FLAC";
+	$page_title . = " digital download (MP3, OggVorbis & FLAC)";
+}
+?>
 <?php include("header.inc.php"); ?>
 	<h2><?= $album->DN ?> by <a href="<?= browse_link("artist",$artist->id,$artist->name) ?>"><?= $artist->DN ?></a></h2>
 	<div style="float: right">
