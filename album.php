@@ -39,7 +39,7 @@ $page_keywords = implode(", ",array_unique(array_merge($keywords,$artists)));
 $page_meta = "$album->name by $artist->DN featuring " . implode(", ",array_unique($artists));
 if(($download_avail)||($album->download_price > 0)) {
 	$page_meta .= " available for digital download as MP3, OggVorbis and FLAC";
-	$page_title . = " digital download (MP3, OggVorbis & FLAC)";
+	$page_title .= " digital download (MP3, OggVorbis & FLAC)";
 }
 ?>
 <?php include("header.inc.php"); ?>
