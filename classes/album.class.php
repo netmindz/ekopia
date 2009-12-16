@@ -142,7 +142,7 @@ class album extends album_template {
 		$track->getAlbumList($this);
 		$files = array();
 		$zip = new ZipArchive;
-		$zipname = "../encoded/$this->id/album.zip";
+		$zipname = "../encoded/$this->id/album-$type.zip";
 		if(!is_file($zipname)) {
 			if($zip->open($zipname,ZipArchive::CREATE) === TRUE) {
 				while($track->getNext()) {
