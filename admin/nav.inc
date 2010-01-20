@@ -1,6 +1,7 @@
 <p>
 [ <a href="index.php?table=albums&subtable=tracks">albums</a> ] 
 [ <a href="index.php?table=artists">artists</a> ] 
+[ <a href="moderate.php">Artist Moderate</a> ] 
 [ <a href="index.php?table=labels">labels</a> ] 
 [ <a href="index.php?table=pages">pages</a> ] 
 [ <a href="index.php?table=tags">tags</a> ] 
@@ -12,5 +13,5 @@
 [ <a href="stock.php">Stock Control</a> ] 
 [ <a href="tidy.php">Tidy Albums</a> ] 
 [ <a href="reports.php">reports</a> ] 
-[ <a href="pos-export-products.php">ePOS export</a> ] 
+[ <a href="pos-export-products.php">ePOS export</a> ]
 </p>
