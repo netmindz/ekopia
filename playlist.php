@@ -7,7 +7,7 @@ if(isset($_REQUEST['artist_id'])) {
 	$artist->get($_REQUEST['artist_id']);
 	$track->getArtistList($artist);
 	?>
-	<player showDisplay="yes" showPlaylist="no" autoStart="yes">
+	<player showDisplay="yes" showPlaylist="yes" autoStart="yes">
 		<?php while($track->getNext()) { ?>
 		<song path="<?= $CONF['media_url'] ?>/preview.php?track_id=<?= $track->id ?>&amp;nofade=1" title="<?= htmlspecialchars($track->name) ?>" />
 		<?php } ?>
