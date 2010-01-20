@@ -16,7 +16,10 @@ class track extends track_template {
 
 	function addTrack($info)
 	{
-		if($this->getByOther(array('track_number'=>$info['track_number'],'album_id'=>$info['album_id']))) {
+		if(($info['track_number'])&&($this->getByOther(array('track_number'=>$info['track_number'],'album_id'=>$info['album_id'])))) {
+			return($this->id);
+		}
+		elseif($this->getByOther(array('name'=>$info['name'],'album_id'=>$info['album_id']))) {
 			return($this->id);
 		}
 		else {
