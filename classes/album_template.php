@@ -1,7 +1,7 @@
 <?
 class album_template
 {
-	var $id, $name, $price, $download_price, $summary, $artist_id, $label_id, $release_year, $location, $label_reference, $image_id, $amazon_asin, $stock_count, $added, $tag_FKL;
+	var $id, $name, $price, $download_price, $summary, $artist_id, $label_id, $release_year, $location, $label_reference, $image_id, $amazon_asin, $stock_count, $added, $user_id, $tag_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -44,6 +44,7 @@ class album_template
 		$this->amazon_asin = "";
 		$this->stock_count = "";
 		$this->added = "";
+		$this->user_id = "";
 		$this->tag_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
@@ -89,6 +90,7 @@ class album_template
 		$this->_field_descs['amazon_asin'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['stock_count'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['added'] = array ("type" => "datetime", "gen_type" => "datetime");
+		$this->_field_descs['user_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "user", "gen_type" => "int");
 		$this->_field_descs['tag_FKL'] = array ("fk" => "album_tag", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
@@ -139,10 +141,16 @@ class album_template
 		}//IF
 
 
+		if($this->user_id != (int)$this->user_id && $this->user_id!='NOW()' && $this->user_id!='NULL'){
+			trigger_error("wrong type for album->user_id",E_USER_WARNING);
+			settype($this->user_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO albums (`name`, `price`, `download_price`, `summary`, `artist_id`, `label_id`, `release_year`, `location`, `label_reference`, `image_id`, `amazon_asin`, `stock_count`, `added`)";
+		$raw_sql  = "INSERT INTO albums (`name`, `price`, `download_price`, `summary`, `artist_id`, `label_id`, `release_year`, `location`, `label_reference`, `image_id`, `amazon_asin`, `stock_count`, `added`, `user_id`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->download_price)."', '".$this->database->escape($this->summary)."', '".$this->database->escape($this->artist_id)."', '".$this->database->escape($this->label_id)."', '".$this->database->escape($this->release_year)."', '".$this->database->escape($this->location)."', '".$this->database->escape($this->label_reference)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->amazon_asin)."', '".$this->database->escape($this->stock_count)."', '".$this->database->escape($this->added)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->download_price)."', '".$this->database->escape($this->summary)."', '".$this->database->escape($this->artist_id)."', '".$this->database->escape($this->label_id)."', '".$this->database->escape($this->release_year)."', '".$this->database->escape($this->location)."', '".$this->database->escape($this->label_reference)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->amazon_asin)."', '".$this->database->escape($this->stock_count)."', '".$this->database->escape($this->added)."', '".$this->database->escape($this->user_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -203,8 +211,14 @@ class album_template
 		}//IF
 
 
+		if($this->user_id != (int)$this->user_id && $this->user_id!='NOW()' && $this->user_id!='NULL'){
+			trigger_error("wrong type for album->user_id",E_USER_WARNING);
+			settype($this->user_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE albums SET ";
-		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."', `download_price`='".$this->database->escape($this->download_price)."', `summary`='".$this->database->escape($this->summary)."', `artist_id`='".$this->database->escape($this->artist_id)."', `label_id`='".$this->database->escape($this->label_id)."', `release_year`='".$this->database->escape($this->release_year)."', `location`='".$this->database->escape($this->location)."', `label_reference`='".$this->database->escape($this->label_reference)."', `image_id`='".$this->database->escape($this->image_id)."', `amazon_asin`='".$this->database->escape($this->amazon_asin)."', `stock_count`='".$this->database->escape($this->stock_count)."', `added`='".$this->database->escape($this->added)."'";
+		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."', `download_price`='".$this->database->escape($this->download_price)."', `summary`='".$this->database->escape($this->summary)."', `artist_id`='".$this->database->escape($this->artist_id)."', `label_id`='".$this->database->escape($this->label_id)."', `release_year`='".$this->database->escape($this->release_year)."', `location`='".$this->database->escape($this->location)."', `label_reference`='".$this->database->escape($this->label_reference)."', `image_id`='".$this->database->escape($this->image_id)."', `amazon_asin`='".$this->database->escape($this->amazon_asin)."', `stock_count`='".$this->database->escape($this->stock_count)."', `added`='".$this->database->escape($this->added)."', `user_id`='".$this->database->escape($this->user_id)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -335,6 +349,18 @@ class album_template
 		$image = new image();
 		$image->get($this->image_id);
 		return($image);
+	}
+	
+
+	function getUserList(user $user) {
+		return($this->getList("where user_id=$user->id"));
+	}
+	
+	function getUser()
+	{
+		$user = new user();
+		$user->get($this->user_id);
+		return($user);
 	}
 	
 

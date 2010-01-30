@@ -1,7 +1,7 @@
 <?
 class artist_template
 {
-	var $id, $name, $website, $image_id, $summary, $user_FKL;
+	var $id, $name, $website, $image_id, $summary, $published, $myspace, $facebook_fanid, $facebook_profileid, $user_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -35,6 +35,10 @@ class artist_template
 		$this->website = "";
 		$this->image_id = "";
 		$this->summary = "";
+		$this->published = "";
+		$this->myspace = "";
+		$this->facebook_fanid = "";
+		$this->facebook_profileid = "";
 		$this->user_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
@@ -71,6 +75,10 @@ class artist_template
 		$this->_field_descs['website'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
 		$this->_field_descs['image_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "image", "gen_type" => "int");
 		$this->_field_descs['summary'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
+		$this->_field_descs['published'] = array ("type" => "enum('no','yes')", "default" => "no", "values" => array('no','yes',), "gen_type" => "enum");
+		$this->_field_descs['myspace'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['facebook_fanid'] = array ("type" => "bigint(15)", "length" => "15", "gen_type" => "int");
+		$this->_field_descs['facebook_profileid'] = array ("type" => "bigint(15)", "length" => "15", "gen_type" => "int");
 		$this->_field_descs['user_FKL'] = array ("fk" => "user_artist", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
@@ -97,10 +105,27 @@ class artist_template
 		}//IF
 
 
+		if(!in_array($this->published,$this->_field_descs['published']['values']) && $this->published!='NULL') {
+			if($this->published!='') trigger_error("Invalid enum value ".$this->published." for artist->published, using default",E_USER_WARNING);
+			$this->published = $this->_field_descs['published']['default'];
+		}//IF
+
+		if($this->facebook_fanid != (int)$this->facebook_fanid && $this->facebook_fanid!='NOW()' && $this->facebook_fanid!='NULL'){
+			trigger_error("wrong type for artist->facebook_fanid",E_USER_WARNING);
+			settype($this->facebook_fanid,"int");
+		}//IF
+
+
+		if($this->facebook_profileid != (int)$this->facebook_profileid && $this->facebook_profileid!='NOW()' && $this->facebook_profileid!='NULL'){
+			trigger_error("wrong type for artist->facebook_profileid",E_USER_WARNING);
+			settype($this->facebook_profileid,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO artists (`name`, `website`, `image_id`, `summary`)";
+		$raw_sql  = "INSERT INTO artists (`name`, `website`, `image_id`, `summary`, `published`, `myspace`, `facebook_fanid`, `facebook_profileid`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->website)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->summary)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->website)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->summary)."', '".$this->database->escape($this->published)."', '".$this->database->escape($this->myspace)."', '".$this->database->escape($this->facebook_fanid)."', '".$this->database->escape($this->facebook_profileid)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -137,8 +162,25 @@ class artist_template
 		}//IF
 
 
+		if(!in_array($this->published,$this->_field_descs['published']['values']) && $this->published!='NULL') {
+			if($this->published!='') trigger_error("Invalid enum value ".$this->published." for artist->published, using default",E_USER_WARNING);
+			$this->published = $this->_field_descs['published']['default'];
+		}//IF
+
+		if($this->facebook_fanid != (int)$this->facebook_fanid && $this->facebook_fanid!='NOW()' && $this->facebook_fanid!='NULL'){
+			trigger_error("wrong type for artist->facebook_fanid",E_USER_WARNING);
+			settype($this->facebook_fanid,"int");
+		}//IF
+
+
+		if($this->facebook_profileid != (int)$this->facebook_profileid && $this->facebook_profileid!='NOW()' && $this->facebook_profileid!='NULL'){
+			trigger_error("wrong type for artist->facebook_profileid",E_USER_WARNING);
+			settype($this->facebook_profileid,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE artists SET ";
-		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `website`='".$this->database->escape($this->website)."', `image_id`='".$this->database->escape($this->image_id)."', `summary`='".$this->database->escape($this->summary)."'";
+		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `website`='".$this->database->escape($this->website)."', `image_id`='".$this->database->escape($this->image_id)."', `summary`='".$this->database->escape($this->summary)."', `published`='".$this->database->escape($this->published)."', `myspace`='".$this->database->escape($this->myspace)."', `facebook_fanid`='".$this->database->escape($this->facebook_fanid)."', `facebook_profileid`='".$this->database->escape($this->facebook_profileid)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		

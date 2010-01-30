@@ -1,7 +1,7 @@
 <?
 class track_template
 {
-	var $id, $album_id, $track_number, $name, $artist_id, $duration, $price, $tag_FKL;
+	var $id, $album_id, $track_number, $name, $artist_id, $duration, $price, $user_id, $tag_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -37,6 +37,7 @@ class track_template
 		$this->artist_id = "";
 		$this->duration = "";
 		$this->price = "";
+		$this->user_id = "";
 		$this->tag_FKL = "I AM FKL, PLEASE ONLY DEREFERENCE";
 		
 		$this->database = new database();
@@ -75,6 +76,7 @@ class track_template
 		$this->_field_descs['artist_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "artist", "gen_type" => "int");
 		$this->_field_descs['duration'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
+		$this->_field_descs['user_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "user", "gen_type" => "int");
 		$this->_field_descs['tag_FKL'] = array ("fk" => "track_tag", "gen_type" => "many2many", "fkl" => "1");
 
 	}//__constructor
@@ -119,10 +121,16 @@ class track_template
 		}//IF
 
 
+		if($this->user_id != (int)$this->user_id && $this->user_id!='NOW()' && $this->user_id!='NULL'){
+			trigger_error("wrong type for track->user_id",E_USER_WARNING);
+			settype($this->user_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO tracks (`album_id`, `track_number`, `name`, `artist_id`, `duration`, `price`)";
+		$raw_sql  = "INSERT INTO tracks (`album_id`, `track_number`, `name`, `artist_id`, `duration`, `price`, `user_id`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->album_id)."', '".$this->database->escape($this->track_number)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->artist_id)."', '".$this->database->escape($this->duration)."', '".$this->database->escape($this->price)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->album_id)."', '".$this->database->escape($this->track_number)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->artist_id)."', '".$this->database->escape($this->duration)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->user_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -177,8 +185,14 @@ class track_template
 		}//IF
 
 
+		if($this->user_id != (int)$this->user_id && $this->user_id!='NOW()' && $this->user_id!='NULL'){
+			trigger_error("wrong type for track->user_id",E_USER_WARNING);
+			settype($this->user_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE tracks SET ";
-		$raw_sql.= "`album_id`='".$this->database->escape($this->album_id)."', `track_number`='".$this->database->escape($this->track_number)."', `name`='".$this->database->escape($this->name)."', `artist_id`='".$this->database->escape($this->artist_id)."', `duration`='".$this->database->escape($this->duration)."', `price`='".$this->database->escape($this->price)."'";
+		$raw_sql.= "`album_id`='".$this->database->escape($this->album_id)."', `track_number`='".$this->database->escape($this->track_number)."', `name`='".$this->database->escape($this->name)."', `artist_id`='".$this->database->escape($this->artist_id)."', `duration`='".$this->database->escape($this->duration)."', `price`='".$this->database->escape($this->price)."', `user_id`='".$this->database->escape($this->user_id)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -297,6 +311,18 @@ class track_template
 		$artist = new artist();
 		$artist->get($this->artist_id);
 		return($artist);
+	}
+	
+
+	function getUserList(user $user) {
+		return($this->getList("where user_id=$user->id"));
+	}
+	
+	function getUser()
+	{
+		$user = new user();
+		$user->get($this->user_id);
+		return($user);
 	}
 	
 
