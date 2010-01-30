@@ -3,7 +3,7 @@ require("album_template.php");
 
 class album extends album_template {
 
-	function lookupOrAdd($name,$artist_id,$release_year)
+	function lookupOrAdd($name,$artist_id,$release_year,user $user)
 	{
 		// not getting the album artist, just the track artist
 		#if($this->getByOther(array('name'=>$name,'artist_id'=>$artist_id))) {
@@ -27,7 +27,7 @@ class album extends album_template {
 		}
 		else {
 			$this->setProperties(array('name'=>$name,'artist_id'=>$artist_id,
-			'release_year'=>$release_year,'label_reference'=>$label_reference,'label_id'=>$label_id,'added'=>'NOW()'));
+			'release_year'=>$release_year,'label_reference'=>$label_reference,'label_id'=>$label_id,'added'=>'NOW()','user_id'=>$user->id));
 			return($this->add());
 		}
 	}		

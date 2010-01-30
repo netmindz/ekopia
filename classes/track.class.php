@@ -14,7 +14,7 @@ class track extends track_template {
 		return($this->getList("where album_id='$album_id' and price > 0"));
 	}
 
-	function addTrack($info)
+	function addTrack($info, user $user)
 	{
 		if(($info['track_number'])&&($this->getByOther(array('track_number'=>$info['track_number'],'album_id'=>$info['album_id'])))) {
 			return($this->id);
@@ -24,6 +24,7 @@ class track extends track_template {
 		}
 		else {
 			$this->setProperties($info,"addslashes");
+			$this->setProperties(array('user_id'=>$user->id));
 			return($this->add());
 		}
 	}
@@ -204,7 +205,7 @@ class track extends track_template {
 		<div id="track_thumb">
 		Track: <?= $this->name ?><br>
 		Artist: <a href="<?= browse_link("artist",$artist->id,$artist->DN) ?>"><?= $artist->DN ?></a><br/>
-		Album: <a href="album.php?album_id=<?= $album->id ?>"><?= $album->DN ?></a><br/>
+		Album: <a href="<?= browse_link("album",$album->id,$album->DN) ?>"><?= $album->DN ?></a><br/>
 		</div>
 		<?php
 	}

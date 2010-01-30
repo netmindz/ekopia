@@ -4,14 +4,14 @@ require("user_artist_template.php");
 class user_artist extends user_artist_template {
 	
 	function check($id, user $user)
-        {
-                if($this->getByOther(array('artist_FK'=>$id,'user_FK'=>$user->id))) {
-                        return(1);
-                }
-                else {
-                        return(0);
-                }
-        }
+	{
+		if($this->getByOther(array('artist_FK'=>$id,'user_FK'=>$user->id))) {
+			return(1);
+		}
+		else {
+			return(0);
+		}
+	}
 		
 	function getUserList(user $user)
 	{
@@ -23,6 +23,12 @@ class user_artist extends user_artist_template {
 		$artist = new artist();
 		$artist->get($this->artist_FK);
 		return($artist);
+	}
+	
+	function addLink($id, user $user)
+	{
+		$this->setProperties(array('artist_FK'=>$id, 'user_FK'=>$user->id));
+		return($this->add());
 	}
 }
 ?>

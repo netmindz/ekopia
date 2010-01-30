@@ -24,5 +24,11 @@ class user_label extends user_label_template {
 		$label->get($this->label_FK);
 		return($label);
 	}
+	
+	function addLink($id, user $user)
+	{
+		$this->setProperties(array('label_FK'=>$id, 'user_FK'=>$user->id));
+		return($this->add());
+	}
 }
 ?>
