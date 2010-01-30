@@ -4,7 +4,7 @@ $user->checkLogin();
 ?>
 <?php include("header.inc.php"); ?>
 <h1>Artist/Label Admin Area</h1>
-<p>This is the admin area from which you can administer any Artists or Labels that are associated to you</p>
+<p>This is the admin area from which you can administer items associated to you</p>
 <?php
 foreach(array("label","artist") as $type) {
 	$perm = "user_$type";
@@ -19,24 +19,28 @@ foreach(array("label","artist") as $type) {
 			$typeObj = $typelist->$get();
 			?>
 			<li><a href="<?= $CONF['url'] ?>/edit.php?id=<?= $typeObj->id ?>&type=<?= $type ?>"><?= $typeObj->DN ?></a></li>
-			<ul>
-			<?php
-			$album = new album();
-			$album->getListByType($type,$typeObj->id,true);
-			while($album->getNext()) {
-				$artist = $album->getArtist();
-				?>
-				<li><a href="admin-album.php?id=<?= $album->id ?>"><?= $album->DN ?></a> - <?php if($album->download_price) { ?>&pound; <?= format_price($album->download_price) ?><?php } else { ?>No whole-album Download price<?php } ?><?php if($artist->published != 'yes') print " Not yet published"; ?></li>
-				<?
-			}
-			?>	
-			</ul>
 			<?
 		}
 		?>
 		</ul>
 		<?php
 	 }
+}
+
+$album = new album();
+if($album->getUserList($user)) {
+	?>
+	<h2>Albums</h2>
+	<ul>
+	<?php
+	while($album->getNext()) {
+		?>
+		<li><a href="admin-album.php?id=<?= $album->id ?>"><?= $album->DN ?></a> - <?php if($album->download_price) { ?>&pound; <?= format_price($album->download_price) ?><?php } else { ?>No whole-album Download price<?php } ?><?php if($artist->published != 'yes') print " Not yet published"; ?></li>
+			<?
+	}
+	?>
+	</ul>
+	<?php
 }
 ?>
 <h2>Reports</h2>
