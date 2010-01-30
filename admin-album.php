@@ -5,11 +5,8 @@ $user->checkLogin();
 $type = new album();
 $type->get($_GET['id']);
 
-$artist_perm = new user_artist();
-$label_perm = new user_label();
-
-if((!$artist_perm->check($type->artist_id, $user))&&(!$label_perm->check($type->label_id,$user))) {
-	exit("perm fail");
+if($album->user_id != $user->id) {
+	exit("permission to album denied");
 }
 ?>
 <?php include("header.inc.php"); ?>
