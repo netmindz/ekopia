@@ -8,7 +8,15 @@ ob_start();
 <?php include("header.inc.php"); ?>
 <?php
 $type = new type();
-if(isset($_REQUEST['id'])) {
+$id = 0;
+if(ereg("/type/([^/]+)s?",$_SERVER['PHP_SELF'],$matches)) {
+	$id = $type->getByOther(array('name'=>$matches[1]));
+}
+elseif(isset($_REQUEST['id'])) {
+	$id = $_REQUEST['id'];
+}
+
+if($id) {
 	$type->get($_REQUEST['id']) or die("invalid type");
 	$page_title =  $type->name . " Products";
 	$keywords[] = $type->name;

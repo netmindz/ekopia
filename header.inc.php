@@ -278,7 +278,7 @@ InputsExclusion.push('.content_vote')
 				$nav_type->getList("where type_id=0");
 				while($nav_type->getNext()) {
 						?>
-					<li class="item283"><a href="<?= $CONF['url'] ?>/type.php?id=<?= $nav_type->id ?>"><span><?= $nav_type->DN ?></span></a></li>
+					<li class="item283"><a href="<?= $CONF['url'] ?>/type/<?= $nav_type->name ?>"><span><?= $nav_type->DN ?></span></a></li>
 				<?php } ?>
 				</ul>			
 						</div>						
