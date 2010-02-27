@@ -17,7 +17,7 @@ foreach(array_keys($limit) as $type) {
 	}
 }
 
-$sql = "SELECT date_format(orders.created,'%Y-%m') as purchase_month,count(*) as num,if(albums.id is not null,concat('Album: ',albums.name),concat('Track: ',tracks.name)) as name,
+$sql = "SELECT date_format(orders.created,'%Y-%m') as month,count(*) as num,if(albums.id is not null,concat('Album: ',albums.name),concat('Track: ',tracks.name)) as name,
  if(albums.id is not null,albums.artist_id,tracks.artist_id) as artist,
  if(albums.id is not null,albums.label_id,track_album.label_id) as label,
  sum(line_items.price) as total_paid
@@ -26,11 +26,13 @@ $sql = "SELECT date_format(orders.created,'%Y-%m') as purchase_month,count(*) as
    left join albums track_album on (tracks.album_id=track_album.id)
     inner join orders on (order_id=orders.id)
      where delivery='download' and item_id > 0 and payment_status='Completed'
-      group by purchase_month, item_id 
-      having artist in (" . implode(",", $limit['artist']) . ") or label in (" . implode(",", $limit['label']) . ")
+      group by month, item_id 
+      having artist in (" . implode(",", $limit['artist']) . ") or label in (" . implode(",", $limit['label']) . ") or tracks.user_id=$user->id
 	 order by purchase_month, num";
 
 $title = "Download Sales";
+
+$sizes = array('table'=>10,'data'=>8);
 
 require("/home/www/codebase/premier_report_engine.php");
 
