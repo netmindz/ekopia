@@ -54,6 +54,8 @@ class order extends order_template {
 
 		ob_start();
 		print_r($paypal);
+		print_r($_GET);
+		print_r($_POST);
 		$message = ob_get_contents();
 		ob_end_clean();
 
@@ -87,7 +89,7 @@ class order extends order_template {
 			mail($this->customer_email,"Order Confirmation #$this->id","Thankyou for you order from our online shop.\n\nPayment Status: $this->payment_status\n\nItems:\n" . $item_list . "\nAddress: " . $address ."\n\n".$CONF['url']."/complete.php?order_id=$this->id&email=".urlencode($this->customer_email),"From: ".$CONF['shop_email']."\nBcc: will@netmindz.net");
 		}
 		elseif($payment_updated) {
-			mail($CONF['shop_email'],"Order Update : #$this->id","Payment Status: $this->payment_status");
+			mail($CONF['shop_email'],"Order Update : #$this->id","Payment Status: $this->payment_status\nDebug: $message");
 		}
 
 	}
