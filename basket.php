@@ -57,7 +57,7 @@ if(count($items)) { ?>
 	$basket_has_downloads = false;
 	foreach($items as $id=>$details) {
 		$total += $details['value'];
-		if($id != "shipping") {
+		if($id != "packing") {
 			$shipping += $details['shipping'];
 			if($details['type'] == "track") $basket_has_downloads = true;
 			if($details['type'] == "album" && $details['delivery'] == "download") $basket_has_downloads = true;
