@@ -16,6 +16,7 @@ class order extends order_template {
 			// what it used to be and still seams to be used for ipn
 			if(isset($_REQUEST['txn_id'])) {
 				$paypal_txn_id = $_REQUEST['txn_id'];
+				$new_order = true;
 			}
 			elseif(isset($_REQUEST['tx'])) {
 				// what is passed to order confirm page
@@ -27,7 +28,6 @@ class order extends order_template {
 			if(!$this->getByOther(array('paypal_txn_id'=>$paypal_txn_id))) {
 				$this->paypal_txn_id = $paypal_txn_id;
 				$this->add();
-				$new_order = true;
 			}
 		}
 
