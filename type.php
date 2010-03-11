@@ -45,7 +45,7 @@ else {
 	while($type->getNext()) {
 		$keywords[] = $type->name;
 		?>
-		<li><a href="type.php?id=<?= $type->id ?>"><?= $type->name ?></li>
+		<li><a href="<?=$CONF['url'] ?>/type.php?id=<?= $type->id ?>"><?= $type->name ?></li>
 	<?
 	}
 	?>
