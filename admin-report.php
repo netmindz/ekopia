@@ -18,12 +18,14 @@ foreach(array_keys($limit) as $type) {
 }
 
 $sql = "SELECT date_format(orders.created,'%Y-%m') as purchase_month,count(*) as num,if(albums.id is not null,concat('Album: ',albums.name),concat('Track: ',tracks.name)) as name,
- if(albums.id is not null,albums.artist_id,tracks.artist_id) as artist,
- if(albums.id is not null,albums.label_id,track_album.label_id) as label,
+ if(albums.id is not null,album_artists.name,track_artists.name) as artist,
+ if(albums.id is not null,albums.label_id,track_album.label_id) as label_id,
  sum(line_items.price) as total_paid
   FROM line_items left join albums on (type='album' and item_id=albums.id)
    left join tracks on (type='track' and item_id=tracks.id)
    left join albums track_album on (tracks.album_id=track_album.id)
+   left join artists track_artists on (track_artists.id = tracks.artist_id)
+   left join artists album_artists on (album_artists.id = albums.artist_id)
     inner join orders on (order_id=orders.id)
      where delivery='download' and item_id > 0 and payment_status='Completed'
       group by purchase_month, item_id 
