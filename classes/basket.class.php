@@ -27,6 +27,7 @@ class basket extends basket_template {
 	function getItems()
 	{
 		$format_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'0.50','wav'=>'0.6');
+		$format_album_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'3','wav'=>'6');
 		$country_costs = array('uk'=>array('start'=>1.5,'inc'=>0.5),'eu'=>array('start'=>2,'inc'=>0.5),'row'=>array('start'=>2.5,'inc'=>0.5));
 		$list = array();
 		$item = new basket_item();
@@ -83,6 +84,10 @@ class basket extends basket_template {
 			if($type == "track") {
 				$list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
 				$list[$item->id]['value'] += $format_prices[$_SESSION['format']];	
+			}
+			elseif($type == "album" && $item->delivery == "download") {
+				$list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
+				$list[$item->id]['value'] += $format_album_prices[$_SESSION['format']];	
 			}
 			else {
 				if(property_exists($detail,"image_id")&&($detail->image_id)) $list[$item->id]['image_id'] = $detail->image_id;
