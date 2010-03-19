@@ -155,6 +155,7 @@ class album extends album_template {
 				trigger_error("Failed to open zip");
 			}
 		}
+		clearstatcache();
 		header("Content-Type: application/zip");
 		header("Content-Length: " . filesize($zipname));
 		header("Content-Disposition: attachment;filename=album-$this->id.zip");

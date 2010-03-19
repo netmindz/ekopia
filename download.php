@@ -61,7 +61,7 @@ elseif($li->type == "album") {
 		print_r($_SERVER);
 		$message .= "\n\n" . ob_get_contents();
 		ob_end_clean();
-		mail($CONF['shop_email'],"Order $order->id - Album Download - $album->DN",$message);
+		mail($CONF['shop_email'],"Order $order->id - Album Download - $album->DN as $type",$message);
 	}
 	
 }
