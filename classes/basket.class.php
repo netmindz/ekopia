@@ -81,6 +81,7 @@ class basket extends basket_template {
 			if(!isset($list[$item->id]['value'])) {
 				$list[$item->id]['value'] = $detail->price;
 			}
+			
 			if($type == "track") {
 				$list[$item->id]['name'] .= " (" . $_SESSION['format'] . ")";
 				$list[$item->id]['value'] += $format_prices[$_SESSION['format']];	
@@ -90,11 +91,11 @@ class basket extends basket_template {
 				$list[$item->id]['value'] += $format_album_prices[$_SESSION['format']];	
 			}
 			else {
-				if(property_exists($detail,"image_id")&&($detail->image_id)) $list[$item->id]['image_id'] = $detail->image_id;
 				if($item->delivery) {
 					$list[$item->id]['name'] .= " (" . $item->delivery . ")";
 				}
 			}
+			if(property_exists($detail,"image_id")&&($detail->image_id)) $list[$item->id]['image_id'] = $detail->image_id;
 		}
 		if($total_weight) {
 			$list['packing']['name'] = "Packaging";
