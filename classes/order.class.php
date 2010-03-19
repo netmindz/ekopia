@@ -91,6 +91,9 @@ class order extends order_template {
 		elseif($payment_updated) {
 			mail($CONF['shop_email'],"Order Update : #$this->id","Payment Status: $this->payment_status\nDebug: $message");
 		}
+		else {
+			mail($CONF['shop_email'],"Order Update : #$this->id","Debug: $message");
+		}
 
 	}
 
