@@ -57,7 +57,7 @@ $template_root = "http://www.inspiralled.net";
 	.x-c-s .col3 { left:230px;width:230px;}
 
 
-	.moduletable1 { background-color:#eae9b8;}
+	.moduletable1 { background-color:#eae9b8;margin-left:10px;} 
 	.side-style-h3 { background-color:#f1eed9;}
 	.sidecol-m { background-color:#eae9b8;}
 	.topic1 {padding:10px;}
