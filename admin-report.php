@@ -37,10 +37,24 @@ $title = "Download Sales";
 
 $sizes = array('table'=>10,'data'=>8);
 
+$db = new database();
 $data = array();
 $db->query($sql);
 while($row = $db->getNextRow()) {
+	foreach($row as $key=>$v) {
+		if(ereg("_id",$key)) unset($row[$key]);
+	}
 	$data[] = $row;
+}
+
+if(isset($_REQUEST['type'])) {
+	header("Content-Type: text/csv");
+	header("Content-Disposition: attachment; filename=report.csv");
+	foreach($data as $i=>$row) {
+		if(!$i) print '"' . implode('","', array_keys($row)) . "\"\n";
+		print '"' . implode('","', $row) . "\"\n";
+	}
+	exit();
 }
 
 ?>
@@ -50,14 +64,16 @@ while($row = $db->getNextRow()) {
 </head>
 <body>
 <h1><?= $title ?></h1>
-<table>
+<table border=1>
 <tr>
-	<th><?php implode("</th><th>",array_keys($data[0])) ?></th>
+	<th><?= implode("</th><th>",array_keys($data[0])) ?></th>
 </tr>
 <?php
 foreach($data as $row) {
 	?>
 <tr>
-	<td><?php implode("</td><td>",$row) ?></td>
+	<td><?= implode("</td><td>",$row) ?></td>
 </tr>
+<?php } ?>
 </table>
+<p><a href="admin-report.php?type=csv">Download CSV</a></p>
