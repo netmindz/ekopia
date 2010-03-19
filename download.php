@@ -41,13 +41,15 @@ if($li->type == "track") {
 elseif($li->type == "album") {
 	$album = new album();
 	$album->get($li->item_id);
+/*
 	if(!isset($_REQUEST['format'])) {
 		$format = "mp3";
 	}
 	else {
 		$format = $_REQUEST['format'];
 	}
-	$error = $album->downloadAlbum($format);
+*/
+	$error = $album->downloadAlbum($type);
 	if($error) {
 		?>
 		<h2>Album ERROR</h2>
