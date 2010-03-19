@@ -34,6 +34,27 @@ $title = "Download Sales";
 
 $sizes = array('table'=>10,'data'=>8);
 
-require("/home/www/codebase/premier_report_engine.php");
+$data = array();
+$db->query($sql);
+while($row = $db->getNextRow()) {
+	$data[] = $row;
+}
 
 ?>
+<html>
+<head>
+<title><?= $title ?></title>
+</head>
+<body>
+<h1><?= $title ?></h1>
+<table>
+<tr>
+	<th><?php implode("</th><th>",array_keys($data[0])) ?></th>
+</tr>
+<?php
+foreach($data as $row) {
+	?>
+<tr>
+	<td><?php implode("</td><td>",$row) ?></td>
+</tr>
+</table>
