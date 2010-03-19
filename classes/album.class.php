@@ -157,9 +157,16 @@ class album extends album_template {
 		}
 		clearstatcache();
 		header("Content-Type: application/zip");
-		//header("Content-Length: " . filesize($zipname));
+		header("Content-Length: " . filesize($zipname));
 		header("Content-Disposition: attachment;filename=album-$this->id.zip");
-		fpassthru(fopen($zipname,'r'));
+		
+		$fd = fopen($zipname,'r');
+		ob_flush();
+		flush();
+		while(!feof($fd)) {
+			print fread($fd, 32 * 1024);
+		}
+		fclose ($fd);
 	}
 }
 ?>
