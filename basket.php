@@ -103,13 +103,16 @@ if($basket_has_downloads) { ?>
 <p>Please select the download format for the tracks</p>
 <form method="POST" name="format">
 <select name="format" onChange="document.forms.format.submit()">
-<option value="mp3" <? if($_SESSION['format'] == "mp3") print "selected"; ?>>MP3</option>
-<option value="ogg" <? if($_SESSION['format'] == "ogg") print "selected"; ?>>Ogg Vorbis</option>
-<option value="flac" <? if($_SESSION['format'] == "flac") print "selected"; ?>>Flac</option>
+<option value="mp3" <? if($_SESSION['format'] == "mp3") print "selected"; ?>>MP3 (192k)</option>
+<option value="ogg" <? if($_SESSION['format'] == "ogg") print "selected"; ?>>Ogg Vorbis (Q7)</option>
+<option value="flac" <? if($_SESSION['format'] == "flac") print "selected"; ?>>Flac (lossless)</option>
 <option value="wav" <? if($_SESSION['format'] == "wav") print "selected"; ?>>Wave</option>
 </select>
 <input type="submit" value=" Change Format " class="inputbox">
 </form>
+<p>
+Our MP3s are higher than the standard 128k sold by many online stores and are compatibile with almost all music players and all iPods. Our OggVorbis files are encoded with a Quality of 7 for suprior playback on supported devices. Flac is a lossless format that gives the exact same output as a pysical CD
+</p>
 <? } ?>
 <?php if($shipping) { ?>
 <h2>Shipping Region</h2>
