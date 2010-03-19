@@ -19,8 +19,9 @@ foreach(array_keys($limit) as $type) {
 
 $sql = "SELECT date_format(orders.created,'%Y-%m') as purchase_month,count(*) as num,if(albums.id is not null,concat('Album: ',albums.name),concat('Track: ',tracks.name)) as name,
  if(albums.id is not null,album_artists.name,track_artists.name) as artist,
+ sum(line_items.price) as total_paid,
  if(albums.id is not null,albums.label_id,track_album.label_id) as label_id,
- sum(line_items.price) as total_paid
+ tracks.user_id
   FROM line_items left join albums on (type='album' and item_id=albums.id)
    left join tracks on (type='track' and item_id=tracks.id)
    left join albums track_album on (tracks.album_id=track_album.id)
@@ -29,7 +30,7 @@ $sql = "SELECT date_format(orders.created,'%Y-%m') as purchase_month,count(*) as
     inner join orders on (order_id=orders.id)
      where delivery='download' and item_id > 0 and payment_status='Completed'
       group by purchase_month, item_id 
-      having artist in (" . implode(",", $limit['artist']) . ") or label in (" . implode(",", $limit['label']) . ") or tracks.user_id=$user->id
+      having artist in (" . implode(",", $limit['artist']) . ") or label_id in (" . implode(",", $limit['label']) . ") or tracks.user_id=$user->id
 	 order by purchase_month, num";
 
 $title = "Download Sales";
