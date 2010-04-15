@@ -67,7 +67,7 @@ class order extends order_template {
 						$bi = new basket_item();
 						$li = new line_item();
 						if($bi->get($item['number'])) {
-							if($bi->type == "album") {
+							if(($bi->type == "album")&&($bi->delivery == "cd")) {
 								$album = new album();
 								$album->get($bi->item_id);
 								$album->setField("stock_count",($album->stock_count - 1));
