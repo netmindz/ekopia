@@ -28,7 +28,7 @@ class basket extends basket_template {
 	{
 		$format_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'0.50','wav'=>'0.6');
 		$format_album_prices = array('ogg'=>0,'mp3'=>0,'flac'=>'3','wav'=>'6');
-		$country_costs = array('uk'=>array('start'=>1.5,'inc'=>0.5),'eu'=>array('start'=>2,'inc'=>0.5),'row'=>array('start'=>2.5,'inc'=>0.5));
+//		$country_costs = array('uk'=>array('start'=>1.5,'inc'=>0.5),'eu'=>array('start'=>2,'inc'=>0.5),'row'=>array('start'=>2.5,'inc'=>0.5));
 		$list = array();
 		$item = new basket_item();
 		$item->getList("where basket_id='$this->id'");
@@ -47,7 +47,9 @@ class basket extends basket_template {
 					$list[$item->id]['shipping'] = 0;
 				}
 				else {	
-					$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
+					$total_weight += 100;
+#					$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
+					$list[$item->id]['shipping'] = 10;
 					$shipping_type = "inc";
 				}
 			}
@@ -99,8 +101,8 @@ class basket extends basket_template {
 		}
 		if($total_weight) {
 			$list['packing']['name'] = "Packaging";
-			$list['packing']['value'] = 1;
-			$list['packing']['shipping'] = $this->calculatePostage($total_weight,$_SESSION['country']);
+			$list['packing']['value'] = 0;
+ 			$list['packing']['shipping'] = $this->calculatePostage($total_weight,$_SESSION['country']) * 0.3;
 		}
 		return($list);
 	}

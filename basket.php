@@ -70,7 +70,9 @@ if(count($items)) { ?>
 			</tr>
 			<?php
 		}
-		else { ?>
+		else {
+		/*
+		 ?>
 			<tr valign="middle">
 				<td>&nbsp;</td>
                                 <td><?= $details['name'] ?></td>
@@ -78,6 +80,7 @@ if(count($items)) { ?>
                                 <td>&nbsp;</td>
                         </tr>
 			<?
+		*/
 			$shipping += $details['shipping'];
 		}
 	}
