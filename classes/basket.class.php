@@ -49,7 +49,7 @@ class basket extends basket_template {
 				else {	
 					$total_weight += 100;
 #					$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
-					$list[$item->id]['shipping'] = 10;
+					$list[$item->id]['shipping'] = 0.10;
 					$shipping_type = "inc";
 				}
 			}
@@ -102,7 +102,7 @@ class basket extends basket_template {
 		if($total_weight) {
 			$list['packing']['name'] = "Packaging";
 			$list['packing']['value'] = 0;
- 			$list['packing']['shipping'] = $this->calculatePostage($total_weight,$_SESSION['country']) * 0.3;
+ 			$list['packing']['shipping'] = round($this->calculatePostage($total_weight,$_SESSION['country']) * 0.3,2);
 		}
 		return($list);
 	}
