@@ -102,7 +102,7 @@ class basket extends basket_template {
 		if($total_weight) {
 			$list['packing']['name'] = "Packaging";
 			$list['packing']['value'] = 0;
- 			$list['packing']['shipping'] = round($this->calculatePostage($total_weight,$_SESSION['country']) * 0.3,2);
+ 			$list['packing']['shipping'] = round($this->calculatePostage($total_weight,$_SESSION['country']) * 1.3,2);
 		}
 		return($list);
 	}
