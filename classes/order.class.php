@@ -62,7 +62,7 @@ class order extends order_template {
 		$item_list = "";
 		if(isset($paypal['item'])) {
 			foreach($paypal['item'] as $key=>$item) {
-					$item_list .= $item['name'] . "\n";
+					$item_list .= "* " . $item['quantity'] . " X " . $item['name'] . "\n";
 					if($new_order) {
 						$bi = new basket_item();
 						$li = new line_item();
