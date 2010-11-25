@@ -73,11 +73,11 @@ class order extends order_template {
 								$album->setField("stock_count",($album->stock_count - 1));
 							}
 							//$li->create($this->id,$bi->type.":".$bi->item_id,$item['price']);
-							$li->create($this->id,$item['name'],$item['price'],$bi->type,$bi->item_id,$bi->delivery);
+							$li->create($this->id,$item['name'],$item['price'],$bi->type,$bi->item_id,$bi->delivery,$bi->quantity);
 							// $bi->delete($bi->id);
 						}
 						else {
-							$li->create($this->id,$item['name'] . "[#".$item['number']."]",$item['price'],"unknown",0,"unknown");
+							$li->create($this->id,$item['name'] . "[#".$item['number']."]",$item['price'],"unknown",0,"unknown",$item['quantity']);
 						}
 					}
 			}

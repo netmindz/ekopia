@@ -20,8 +20,16 @@ class basket extends basket_template {
 	function addItem($type,$id,$delivery)
 	{
 		$item = new basket_item();
-		$item->setproperties(array('basket_id'=>$this->id,'type'=>$type,'item_id'=>$id,'delivery'=>$delivery));
-		$item->add();
+		$props = array('basket_id'=>$this->id,'type'=>$type,'item_id'=>$id,'delivery'=>$delivery);
+		if($item->getByOther($props)) {
+			$item->quantity = $item->quantity + 1;
+			$item->update();
+		}
+		else {
+			$props['quantity'] = 1;
+			$item->setproperties($props);
+			$item->add();
+		}
 	}
 
 	function getItems()
@@ -34,6 +42,7 @@ class basket extends basket_template {
 		$item->getList("where basket_id='$this->id'");
 		$shipping_type = "start";
 		$total_weight = 0;
+		$total_packing = 0;
 		while($item->getNext()) {
 			$type = $item->type;
 			$detail = new $type();
@@ -49,7 +58,7 @@ class basket extends basket_template {
 				else {	
 					$total_weight += 100;
 #					$list[$item->id]['shipping'] = $country_costs[$_SESSION['country']][$shipping_type];
-					$list[$item->id]['shipping'] = 0.10;
+					$total_packing += 0.10;
 					$shipping_type = "inc";
 				}
 			}
@@ -74,14 +83,15 @@ class basket extends basket_template {
 				else {
 					if($detail->shipping_weight) $total_weight += $detail->shipping_weight;
 				}
-
+				$list[$item->id]['quantity'] = $item->quantity;
 			}
 			else {
 				$name = ucwords($item->type) . ": " . $detail->DN;
 			}
 			$list[$item->id]['name'] = $name;
+
 			if(!isset($list[$item->id]['value'])) {
-				$list[$item->id]['value'] = $detail->price;
+				$list[$item->id]['value'] = $detail->price * $item->quantity;
 			}
 			
 			if($type == "track") {
@@ -99,10 +109,11 @@ class basket extends basket_template {
 			}
 			if(property_exists($detail,"image_id")&&($detail->image_id)) $list[$item->id]['image_id'] = $detail->image_id;
 		}
-		if($total_weight) {
+		if($total_weight || $total_packing) {
+			$shipping = round($this->calculatePostage($total_weight,$_SESSION['country']) * 1.3,2);
 			$list['packing']['name'] = "Packaging";
-			$list['packing']['value'] = 0;
- 			$list['packing']['shipping'] = round($this->calculatePostage($total_weight,$_SESSION['country']) * 1.3,2);
+			$list['packing']['value'] = $total_packing;
+ 			$list['packing']['shipping'] = $shipping;
 		}
 		return($list);
 	}

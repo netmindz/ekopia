@@ -48,6 +48,7 @@ if(count($items)) { ?>
 <table width="100%" border="0" id="basket">
 <tr>
 	<th colspan="2">Item</th>
+	<th>Quantity</th>
 	<th>Price</th>
 	<td>&nbsp;</td>
 </tr>
@@ -65,6 +66,7 @@ if(count($items)) { ?>
 			<tr valign="middle">
 				<td><? if(isset($details['image_id'])) { $image = new image(); $image->show($details['image_id'],50,50,"align=\"left\""); } ?></td>
 				<td><?= $details['name'] ?></td>
+				<td><?php if(isset($details['quantity'])) { ?><?= $details['quantity'] ?><?php } else {  ?>1<?php } ?></td>
 				<td align="center">&pound;<?= format_price($details['value']) ?></td>
 				<td align="center"><a href="basket.php?remove_id=<?= $id ?>">Remove</a></td>
 			</tr>
@@ -86,17 +88,17 @@ if(count($items)) { ?>
 	}
 	?>
 <tr>
-	<th colspan="2" align="right">Sub Total:</th>
-        <th>&pound; <?= $total ?></th>
+	<th colspan="3" align="right">Sub Total:</th>
+        <th>&pound; <?= format_price($total) ?></th>
         <td rowspan="3" align="center"><form method="POST"><input type="hidden" name="clear" value="true"><input type="submit" class="inputbox" value=" Clear Basket "></form></td>
 </tr>
 <tr>
-	<th colspan="2" align="right">Shipping Total:</th>
-        <th>&pound; <?= $shipping ?></th>
+	<th colspan="3" align="right">Shipping Total:</th>
+        <th>&pound; <?= format_price($shipping) ?></th>
 </tr>
 <tr>
-	<th colspan="2" align="right">Total:</th>
-        <th>&pound; <?= ($shipping + $total) ?></th>
+	<th colspan="3" align="right">Total:</th>
+        <th>&pound; <?= format_price($shipping + $total) ?></th>
 </tr>
 </table>
 </form>
@@ -132,11 +134,13 @@ Our MP3s are higher than the standard 128k sold by many online stores and are co
 <h2>Checkout</h2>
 <form name="_xclick" action="https://<?= $CONF['paypal_host'] ?>/uk/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="_cart" value="upload">
 <input type="hidden" name="upload" value="1">
 <input type="hidden" name="notify_url" value="<?= $CONF['url'] ?>/ipn.php">
 <input type="hidden" name="return" value="<?= $CONF['url'] ?>/complete.php">
 <input type="hidden" name="rm" value="2">
 <input type="hidden" name="cancel_return" value="<?= $CONF['url'] ?>/basket.php">
+<input type="hidden" name="shopping_url" value="<?= $CONF['url'] ?>/basket.php">
 <input type="hidden" name="business" value="<?= $CONF['paypal_address'] ?>">
 <input type="hidden" name="currency_code" value="GBP">
 <?php
@@ -144,13 +148,19 @@ Our MP3s are higher than the standard 128k sold by many online stores and are co
 	foreach($items as $id=>$details) {
 		$i++;
 	?>
+
 <input type="hidden" name="item_number_<?= $i ?>" value="<?= $id ?>">
 <input type="hidden" name="item_name_<?= $i ?>" value="<?= $details['name'] ?>">
 <input type="hidden" name="shipping_<?= $i ?>" value="<?= $details['shipping'] ?>">
 <input type="hidden" name="amount_<?= $i ?>" value="<?= $details['value'] ?>">
+<?php if(isset($details['quantity'])&&$details['quantity']) { ?>
+<input type="hidden" name="quantity_<?= $i ?>" value="<?= $details['quantity'] ?>">
+<?php } ?>
 	<?php
 	}
 ?>
+
+
 <div align="right" style="margin-right: 20px">
 Goto secure paypal checkout : <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </div>
