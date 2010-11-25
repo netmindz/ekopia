@@ -1,7 +1,7 @@
 <?
 class basket_item_template
 {
-	var $id, $basket_id, $type, $item_id, $delivery;
+	var $id, $basket_id, $type, $item_id, $delivery, $quantity;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -35,6 +35,7 @@ class basket_item_template
 		$this->type = "";
 		$this->item_id = "";
 		$this->delivery = "";
+		$this->quantity = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -63,6 +64,7 @@ class basket_item_template
 			'user_artists'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'user_labels'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'users'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'download_sales'	=>	array ("comment"	=>	"VIEW"),
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -70,6 +72,7 @@ class basket_item_template
 		$this->_field_descs['type'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['item_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['delivery'] = array ("type" => "varchar(15)", "length" => "15", "gen_type" => "string");
+		$this->_field_descs['quantity'] = array ("type" => "int(10) unsigned", "length" => "10", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -101,10 +104,16 @@ class basket_item_template
 		}//IF
 
 
+		if($this->quantity != (int)$this->quantity && $this->quantity!='NOW()' && $this->quantity!='NULL'){
+			trigger_error("wrong type for basket_item->quantity",E_USER_WARNING);
+			settype($this->quantity,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO basket_items (`basket_id`, `type`, `item_id`, `delivery`)";
+		$raw_sql  = "INSERT INTO basket_items (`basket_id`, `type`, `item_id`, `delivery`, `quantity`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->basket_id)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."', '".$this->database->escape($this->delivery)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->basket_id)."', '".$this->database->escape($this->type)."', '".$this->database->escape($this->item_id)."', '".$this->database->escape($this->delivery)."', '".$this->database->escape($this->quantity)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -147,8 +156,14 @@ class basket_item_template
 		}//IF
 
 
+		if($this->quantity != (int)$this->quantity && $this->quantity!='NOW()' && $this->quantity!='NULL'){
+			trigger_error("wrong type for basket_item->quantity",E_USER_WARNING);
+			settype($this->quantity,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE basket_items SET ";
-		$raw_sql.= "`basket_id`='".$this->database->escape($this->basket_id)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."', `delivery`='".$this->database->escape($this->delivery)."'";
+		$raw_sql.= "`basket_id`='".$this->database->escape($this->basket_id)."', `type`='".$this->database->escape($this->type)."', `item_id`='".$this->database->escape($this->item_id)."', `delivery`='".$this->database->escape($this->delivery)."', `quantity`='".$this->database->escape($this->quantity)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -752,7 +767,7 @@ class basket_item_template
 				
 			  case 'text' :
 				//get field length
-				if (strpos($this->_field_descs[$property]['type'], "medium") || strpos($this->_field_descs[$property]['type'], "long") || ereg('^text$',$this->_field_descs[$property]['type']) ) {
+				if (strpos($this->_field_descs[$property]['type'], "medium") || strpos($this->_field_descs[$property]['type'], "long") || preg_match('#^text$#',$this->_field_descs[$property]['type']) ) {
 					$cols = 50;
 					$rows = 12;
 				}else{
@@ -872,7 +887,7 @@ class basket_item_template
 	 */
 	function _createFormObjectID($input_name)
 	{
-		$input_name = eregi_replace("[^a-z0-9_-]","",$input_name);
+		$input_name = preg_replace("/[^a-z0-9_-]/i","",$input_name);
 		if(!isset($this->_form_label_ids[$input_name])) {
 			$this->_form_label_ids[$input_name]  = $input_name . "_" . substr(microtime(),-4) . "_" .  rand(0,99);
 		}

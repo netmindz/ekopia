@@ -60,6 +60,7 @@ class basket_template
 			'user_artists'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'user_labels'	=>	array ("pk"	=>	"id", "link_table"	=>	"1", "comment"	=>	""),
 			'users'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'download_sales'	=>	array ("comment"	=>	"VIEW"),
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -710,7 +711,7 @@ class basket_template
 				
 			  case 'text' :
 				//get field length
-				if (strpos($this->_field_descs[$property]['type'], "medium") || strpos($this->_field_descs[$property]['type'], "long") || ereg('^text$',$this->_field_descs[$property]['type']) ) {
+				if (strpos($this->_field_descs[$property]['type'], "medium") || strpos($this->_field_descs[$property]['type'], "long") || preg_match('#^text$#',$this->_field_descs[$property]['type']) ) {
 					$cols = 50;
 					$rows = 12;
 				}else{
@@ -830,7 +831,7 @@ class basket_template
 	 */
 	function _createFormObjectID($input_name)
 	{
-		$input_name = eregi_replace("[^a-z0-9_-]","",$input_name);
+		$input_name = preg_replace("/[^a-z0-9_-]/i","",$input_name);
 		if(!isset($this->_form_label_ids[$input_name])) {
 			$this->_form_label_ids[$input_name]  = $input_name . "_" . substr(microtime(),-4) . "_" .  rand(0,99);
 		}
