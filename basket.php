@@ -131,7 +131,7 @@ Our MP3s are higher than the standard 128k sold by many online stores and are co
 </form>
 <?php } ?>
 <br/>
-<h2>Checkout</h2>
+<h2>Go to secure paypal and card payment checkout</h2>
 <form name="_xclick" action="https://<?= $CONF['paypal_host'] ?>/uk/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_cart">
 <input type="hidden" name="_cart" value="upload">
@@ -162,7 +162,7 @@ Our MP3s are higher than the standard 128k sold by many online stores and are co
 
 
 <div align="right" style="margin-right: 20px">
-Goto secure paypal checkout : <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+Click to proceed : <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </div>
 </form>
 <br/>
