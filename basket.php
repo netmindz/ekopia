@@ -162,7 +162,7 @@ Our MP3s are higher than the standard 128k sold by many online stores and are co
 
 
 <div align="right" style="margin-right: 20px">
-Click to proceed : <input type="image" src="http://<?= $CONF['paypal_host'] ?>/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+Click to proceed : <input type="image" src="https://www.paypal.com/en_GB/i/bnr/vertical_solution_PP.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </div>
 </form>
 <br/>
