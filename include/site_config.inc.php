@@ -45,5 +45,6 @@ $CONF['db_username'] = $CONF['db_name'];
 $CONF['db_pass'] = $CONF['db_username'] . "pass";
 $CONF['db_sys_admin'] = "will@netmindz.net";
 
+$CONF['ignore_tables'] = array('download_sales');
 
 ?>
