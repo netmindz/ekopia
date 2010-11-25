@@ -18,6 +18,7 @@ elseif(isset($_REQUEST['id'])) {
 
 if($id) {
 	$type->get($id) or die("invalid type");
+	if($type->visibility == "wholesale") die("wholesale only");
 	$page_title =  $type->name . " Products";
 	$keywords[] = $type->name;
 	?>
@@ -36,7 +37,7 @@ if($id) {
 	<?
 }
 else {
-	$type->getList();
+	$type->getPublicTopList();
 	$page_title = "Products"
 	?>
 	<h1>Products</h1>
