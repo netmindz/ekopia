@@ -275,7 +275,7 @@ InputsExclusion.push('.content_vote')
 				<ul class="menu">
 				<?php
 				$nav_type = new type();
-				$nav_type->getList("where type_id=0");
+				$nav_type->getPublicTopList();
 				while($nav_type->getNext()) {
 						?>
 					<li class="item283"><a href="<?= $CONF['url'] ?>/type/<?= $nav_type->name ?>"><span><?= $nav_type->DN ?></span></a></li>

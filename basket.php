@@ -19,6 +19,18 @@ if(isset($_POST['tracks'])) {
 	}
 }
 
+if(isset($_POST['products'])) {
+	foreach($_POST['products'] as $pid=>$qty) {
+		if($qty) $basket->addItem("product",$pid,"",$qty);
+	}
+}
+
+if(isset($_POST['product_variations'])) {
+	foreach($_POST['product_variations'] as $pid=>$qty) {
+		if($qty) $basket->addItem("product_variation",$pid,"",$qty);
+	}
+}
+
 if(!isset($_SESSION['format'])) $_SESSION['format'] = "mp3";
 if(isset($_POST['format'])) $_SESSION['format'] = $_POST['format'];
 

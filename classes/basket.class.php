@@ -17,16 +17,16 @@ class basket extends basket_template {
 		if(!$this->getByOther(array('basket_ref'=>$this->basket_ref))) $this->add();
 	}		
 
-	function addItem($type,$id,$delivery)
+	function addItem($type,$id,$delivery,$qty=1)
 	{
 		$item = new basket_item();
 		$props = array('basket_id'=>$this->id,'type'=>$type,'item_id'=>$id,'delivery'=>$delivery);
 		if($item->getByOther($props)) {
-			$item->quantity = $item->quantity + 1;
+			$item->quantity = $item->quantity + $qty;
 			$item->update();
 		}
 		else {
-			$props['quantity'] = 1;
+			$props['quantity'] = $qty;
 			$item->setproperties($props);
 			$item->add();
 		}

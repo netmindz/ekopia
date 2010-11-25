@@ -1,7 +1,7 @@
 <?
 class type_template
 {
-	var $id, $type_id, $name, $description, $sort;
+	var $id, $type_id, $name, $description, $sort, $visibility;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -35,6 +35,7 @@ class type_template
 		$this->name = "";
 		$this->description = "";
 		$this->sort = "";
+		$this->visibility = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -71,6 +72,7 @@ class type_template
 		$this->_field_descs['name'] = array ("type" => "varchar(50)", "length" => "50", "gen_type" => "string");
 		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
 		$this->_field_descs['sort'] = array ("type" => "enum('name','sort_id')", "default" => "name", "values" => array('name','sort_id',), "gen_type" => "enum");
+		$this->_field_descs['visibility'] = array ("type" => "enum('public','wholesale','both')", "default" => "public", "values" => array('public','wholesale','both',), "gen_type" => "enum");
 
 	}//__constructor
 	
@@ -101,10 +103,15 @@ class type_template
 			$this->sort = $this->_field_descs['sort']['default'];
 		}//IF
 
+		if(!in_array($this->visibility,$this->_field_descs['visibility']['values']) && $this->visibility!='NULL') {
+			if($this->visibility!='') trigger_error("Invalid enum value ".$this->visibility." for type->visibility, using default",E_USER_WARNING);
+			$this->visibility = $this->_field_descs['visibility']['default'];
+		}//IF
+
 		
-		$raw_sql  = "INSERT INTO types (`type_id`, `name`, `description`, `sort`)";
+		$raw_sql  = "INSERT INTO types (`type_id`, `name`, `description`, `sort`, `visibility`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->sort)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->sort)."', '".$this->database->escape($this->visibility)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -146,8 +153,13 @@ class type_template
 			$this->sort = $this->_field_descs['sort']['default'];
 		}//IF
 
+		if(!in_array($this->visibility,$this->_field_descs['visibility']['values']) && $this->visibility!='NULL') {
+			if($this->visibility!='') trigger_error("Invalid enum value ".$this->visibility." for type->visibility, using default",E_USER_WARNING);
+			$this->visibility = $this->_field_descs['visibility']['default'];
+		}//IF
+
 		$raw_sql  = "UPDATE types SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `description`='".$this->database->escape($this->description)."', `sort`='".$this->database->escape($this->sort)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `description`='".$this->database->escape($this->description)."', `sort`='".$this->database->escape($this->sort)."', `visibility`='".$this->database->escape($this->visibility)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
