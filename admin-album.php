@@ -5,7 +5,7 @@ $user->checkLogin();
 $type = new album();
 $type->get($_GET['id']);
 
-if($album->user_id != $user->id) {
+if($type->user_id != $user->id) {
 	exit("permission to album denied");
 }
 ?>
