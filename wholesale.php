@@ -21,6 +21,7 @@ while($type->getNext()) {
 		<th>Code</th>
 		<th><?= $type->name ?></th>
 		<th>Unit</th>
+		<th>Price</th>
 		<th>Qty</th>
 	</tr>
 	<?php
@@ -33,6 +34,7 @@ while($type->getNext()) {
 				<td><?= $product->code ?></td>
 				<td><?= $product->name ?></td>
 				<td><?= $product->unit ?></td>
+				<td><?= $product->price ?></td>
 				<td><input type="text" size="5" name="products[<?= $product->id ?>]"/></td>
 			</tr>
 			<?php
@@ -46,6 +48,7 @@ while($type->getNext()) {
 					<td><?= $product->code ?></td>
 					<td><?= $product->name ?> - <?= $varient->name ?></td>
 					<td><?= $product->unit ?></td>
+					<td><?= $varient->price ?></td>
 					<td><input type="text" size="5" name="product_variations[<?= $varient->id ?>]"/></td>
 				</tr>
 				<?php
@@ -55,7 +58,7 @@ while($type->getNext()) {
 } 
 ?>
 <tr>
-	<td colspan="4" align="right"><input type="submit" value=" Add to Basket "/></td>
+	<td colspan="5" align="right"><input type="submit" value=" Add to Basket "/></td>
 </tr>
 </table>
 <?php include("footer.inc.php"); ?>
