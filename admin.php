@@ -29,12 +29,12 @@ foreach(array("label","artist") as $type) {
 
 $album = new album();
 if($album->getUserList($user)) {
-	$artist = $album->getArtist();
 	?>
 	<h2>Albums</h2>
 	<ul>
 	<?php
 	while($album->getNext()) {
+		$artist = $album->getArtist();
 		?>
 		<li><a href="admin-album.php?id=<?= $album->id ?>"><?= $album->DN ?></a> - <?php if($album->download_price) { ?>&pound; <?= format_price($album->download_price) ?><?php } else { ?>No whole-album Download price<?php } ?><?php if($artist->published != 'yes') print " Not yet published"; ?></li>
 			<?
