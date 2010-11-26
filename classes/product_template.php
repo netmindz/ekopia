@@ -1,7 +1,7 @@
 <?
 class product_template
 {
-	var $id, $type_id, $name, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published, $sort_id;
+	var $id, $type_id, $name, $code, $unit, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published, $sort_id;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -33,6 +33,8 @@ class product_template
 
 		$this->type_id = "";
 		$this->name = "";
+		$this->code = "";
+		$this->unit = "";
 		$this->intro = "";
 		$this->description = "";
 		$this->image_id_thumb = "";
@@ -76,6 +78,8 @@ class product_template
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['type_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "type", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['code'] = array ("type" => "varchar(20)", "length" => "20", "gen_type" => "string");
+		$this->_field_descs['unit'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
 		$this->_field_descs['intro'] = array ("type" => "tinytext", "gen_type" => "text");
 		$this->_field_descs['description'] = array ("type" => "text", "gen_type" => "text", "extra_type" => "richtext");
 		$this->_field_descs['image_id_thumb'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
@@ -139,9 +143,9 @@ class product_template
 
 
 		
-		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`, `sort_id`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `code`, `unit`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`, `sort_id`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."', '".$this->database->escape($this->sort_id)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->code)."', '".$this->database->escape($this->unit)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."', '".$this->database->escape($this->sort_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -208,7 +212,7 @@ class product_template
 
 
 		$raw_sql  = "UPDATE products SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."', `sort_id`='".$this->database->escape($this->sort_id)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `code`='".$this->database->escape($this->code)."', `unit`='".$this->database->escape($this->unit)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."', `sort_id`='".$this->database->escape($this->sort_id)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		

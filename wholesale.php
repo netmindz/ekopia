@@ -18,7 +18,9 @@ $type->getWholesaleList();
 while($type->getNext()) {
 	?>
 	<tr>
+		<th>Code</th>
 		<th><?= $type->name ?></th>
+		<th>Unit</th>
 		<th>Qty</th>
 	</tr>
 	<?php
@@ -28,7 +30,9 @@ while($type->getNext()) {
 		if($product->price) {
 			?>
 			<tr>
+				<td><?= $product->code ?></td>
 				<td><?= $product->name ?></td>
+				<td><?= $product->unit ?></td>
 				<td><input type="text" size="5" name="products[<?= $product->id ?>]"/></td>
 			</tr>
 			<?php
@@ -39,7 +43,9 @@ while($type->getNext()) {
 			if($varient->price) {
 				?>
 				<tr>
+					<td><?= $product->code ?></td>
 					<td><?= $product->name ?> - <?= $varient->name ?></td>
+					<td><?= $product->unit ?></td>
 					<td><input type="text" size="5" name="product_variations[<?= $varient->id ?>]"/></td>
 				</tr>
 				<?php
@@ -49,7 +55,7 @@ while($type->getNext()) {
 } 
 ?>
 <tr>
-	<td colspan="2" align="right"><input type="submit" value=" Add to Basket "/></td>
+	<td colspan="4" align="right"><input type="submit" value=" Add to Basket "/></td>
 </tr>
 </table>
 <?php include("footer.inc.php"); ?>
