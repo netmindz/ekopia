@@ -34,7 +34,7 @@ while($type->getNext()) {
 				<td><?= $product->code ?></td>
 				<td><?= $product->name ?></td>
 				<td><?= $product->unit ?></td>
-				<td><?= $product->price ?></td>
+				<td><?= format_price($product->price) ?></td>
 				<td><input type="text" size="5" name="products[<?= $product->id ?>]"/></td>
 			</tr>
 			<?php
@@ -48,7 +48,7 @@ while($type->getNext()) {
 					<td><?= $product->code ?></td>
 					<td><?= $product->name ?> - <?= $varient->name ?></td>
 					<td><?= $product->unit ?></td>
-					<td><?= $varient->price ?></td>
+					<td><?= format_price($varient->price) ?></td>
 					<td><input type="text" size="5" name="product_variations[<?= $varient->id ?>]"/></td>
 				</tr>
 				<?php
