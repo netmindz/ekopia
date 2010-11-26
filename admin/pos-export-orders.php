@@ -10,13 +10,16 @@ header("Content-Disposition: attachment;filename=pos-export-orders.csv");
 */
 
 $order = new order();
-$order->getList();
+$order->getList("where payment_status='Completed'");
 while($order->getNext()) {
 	$item = new line_item();
 	$item->getOrderList($order);
 	$customer = $order->getCustomer();
 	while($item->getNext()) {
-		if($item->type == "product") {
+		if($item->type == "product" || $item->type == "product_variation") {
+			$xref = "PRD";
+			if($item->type == "product_variation") $xref .= "V";
+			$xref .= $item->item_id;
 			$line = array();
 			$line[] = $order->id; // ORDERREF
 			$line[] = $order->created; // DATE_TIME
@@ -42,7 +45,7 @@ while($order->getNext()) {
 			$line[] =  ""; // SHIP_COUNTY
 			$line[] =  ""; // SHIP_POSTCODE
 			$line[] =  ""; // SHIP_COUNTRY
-			$line[] =  $item->item_id; // ITEMNUMBER 
+			$line[] =  $xref; // ITEMNUMBER 
 			$line[] =  $item->item; // DESCRIPTION
 			$line[] =  $item->item; // LONG_DESCRIPTION
 			$line[] =  $item->price; // SELL_PRICE
