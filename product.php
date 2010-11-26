@@ -9,7 +9,6 @@ else {
 	$product->get($_REQUEST['id']);
 }
 
-
 $type = new type();
 $type->get($product->type_id);
 
@@ -19,6 +18,8 @@ $page_meta = $product->intro;
 ?>
 <?php include("header.inc.php"); ?>
 
+<?php
+if($product->published == "yes") { ?>
 <?php page_title($product->name) ?>
 
 <?php  $image = new image(); $image->show($product->image_id); ?>
@@ -45,6 +46,9 @@ if($variation->getListForProduct($product->id)) { ?>
 	?>
 	<input type="submit" value="Add to basket" class="inputbox" />
 	</form>
+<?php } ?>
+<?php } else { ?>
+<p>Sorry, this item is no longer on sale</p>
 <?php } ?>
 
 <p>&nbsp;</p>
