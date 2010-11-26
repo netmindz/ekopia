@@ -1,7 +1,7 @@
 <?
-class basket_template
+class customer_template
 {
-	var $id, $basket_ref;
+	var $id, $title, $first_name, $last_name, $address1, $address2, $city, $county, $postcode, $country, $phone, $email, $username, $password;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -15,7 +15,7 @@ class basket_template
 	 * @return void
 	 * @desc This is the PHP4 constructor. It calles the PHP5 constructor __construct()
 	 */
-	function basket_template()
+	function customer_template()
 	{
 		$this->__construct();
 	}//PHP4 constructor
@@ -31,12 +31,24 @@ class basket_template
 	{
 		$this->id = 0;
 
-		$this->basket_ref = "";
+		$this->title = "";
+		$this->first_name = "";
+		$this->last_name = "";
+		$this->address1 = "";
+		$this->address2 = "";
+		$this->city = "";
+		$this->county = "";
+		$this->postcode = "";
+		$this->country = "";
+		$this->phone = "";
+		$this->email = "";
+		$this->username = "";
+		$this->password = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
 		$this->_PKs = array('id');
-		$this->_table = 'baskets';
+		$this->_table = 'customers';
 		$this->_data_format = 'php';
 		$this->_labels = array(); 
 		$this->_form_label_ids = array();
@@ -65,7 +77,19 @@ class basket_template
 		);
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
-		$this->_field_descs['basket_ref'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
+		$this->_field_descs['title'] = array ("type" => "varchar(50)", "length" => "50", "gen_type" => "string");
+		$this->_field_descs['first_name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['last_name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['address1'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['address2'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['city'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['county'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['postcode'] = array ("type" => "varchar(15)", "length" => "15", "gen_type" => "string");
+		$this->_field_descs['country'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['phone'] = array ("type" => "varchar(20)", "length" => "20", "gen_type" => "string");
+		$this->_field_descs['email'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['username'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['password'] = array ("type" => "varchar(32)", "length" => "32", "gen_type" => "string");
 
 	}//__constructor
 	
@@ -80,15 +104,15 @@ class basket_template
 	function add() {
 		
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for basket->id",E_USER_WARNING);
+			trigger_error("wrong type for customer->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
 		
-		$raw_sql  = "INSERT INTO baskets (`basket_ref`)";
+		$raw_sql  = "INSERT INTO customers (`title`, `first_name`, `last_name`, `address1`, `address2`, `city`, `county`, `postcode`, `country`, `phone`, `email`, `username`, `password`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->basket_ref)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->title)."', '".$this->database->escape($this->first_name)."', '".$this->database->escape($this->last_name)."', '".$this->database->escape($this->address1)."', '".$this->database->escape($this->address2)."', '".$this->database->escape($this->city)."', '".$this->database->escape($this->county)."', '".$this->database->escape($this->postcode)."', '".$this->database->escape($this->country)."', '".$this->database->escape($this->phone)."', '".$this->database->escape($this->email)."', '".$this->database->escape($this->username)."', '".$this->database->escape($this->password)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -114,13 +138,13 @@ class basket_template
 	{
 	
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
-			trigger_error("wrong type for basket->id",E_USER_WARNING);
+			trigger_error("wrong type for customer->id",E_USER_WARNING);
 			settype($this->id,"int");
 		}//IF
 
 
-		$raw_sql  = "UPDATE baskets SET ";
-		$raw_sql.= "`basket_ref`='".$this->database->escape($this->basket_ref)."'";
+		$raw_sql  = "UPDATE customers SET ";
+		$raw_sql.= "`title`='".$this->database->escape($this->title)."', `first_name`='".$this->database->escape($this->first_name)."', `last_name`='".$this->database->escape($this->last_name)."', `address1`='".$this->database->escape($this->address1)."', `address2`='".$this->database->escape($this->address2)."', `city`='".$this->database->escape($this->city)."', `county`='".$this->database->escape($this->county)."', `postcode`='".$this->database->escape($this->postcode)."', `country`='".$this->database->escape($this->country)."', `phone`='".$this->database->escape($this->phone)."', `email`='".$this->database->escape($this->email)."', `username`='".$this->database->escape($this->username)."', `password`='".$this->database->escape($this->password)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -149,9 +173,9 @@ class basket_template
 		
 		//define the SQL to use to UPDATE the field...
 		if ($this->_field_descs[$fieldname]['gen_type'] == 'int' || $this->$fieldname == "NULL" || $this->$fieldname == "NOW()")
-			$sql = "UPDATE baskets SET $fieldname = ".$this->$fieldname;
+			$sql = "UPDATE customers SET $fieldname = ".$this->$fieldname;
 		else
-			$sql = "UPDATE baskets SET $fieldname = '".$this->database->escape($this->$fieldname)."'";
+			$sql = "UPDATE customers SET $fieldname = '".$this->database->escape($this->$fieldname)."'";
 		
 		
 		//Now add the WHERE clause
@@ -188,7 +212,7 @@ class basket_template
 	 */
 	function delete($id)
 	{
-		$sql = "DELETE FROM baskets WHERE id = '".$this->database->escape($id)."' ";
+		$sql = "DELETE FROM customers WHERE id = '".$this->database->escape($id)."' ";
 		
 		if ($this->database->query($sql))
 			return true;
@@ -209,7 +233,7 @@ class basket_template
 	function getList($where="", $order="", $limit="")
 	{
 		if(!$order) $order = "";
-		$select = "SELECT baskets.* FROM baskets ";
+		$select = "SELECT customers.* FROM customers ";
 		if ($this->database->query("$select $where $order $limit")) {
 			return($this->database->RowCount);
 		}else{
@@ -360,7 +384,7 @@ class basket_template
 					$child = new $child_class();
 					if($this->_field_descs[$key]['gen_type'] == "many2many") {
 					
-	                        $child->_setPropertiesLinkages("basket", $this->id, array_keys($value));
+	                        $child->_setPropertiesLinkages("customer", $this->id, array_keys($value));
                         
 					}
 					else {
@@ -627,7 +651,7 @@ class basket_template
 				$fk = new $fk_class();
 				if($this->_field_descs[$property]['gen_type'] == "many2many") {
 				
-						$html .= $fk->createMatrix($input_name,"basket",$this->id);
+						$html .= $fk->createMatrix($input_name,"customer",$this->id);
 						
 				}
 				elseif($fk_class == "image") {
@@ -661,7 +685,7 @@ class basket_template
 			  case 'number' :
 				preg_match ("/\((\d+)\)/", $this->_field_descs[$property]['type'], $matches);		//get field length
 				if (isset($matches[1]) && ($matches[1] ==1 || 			//a tiny int of display length 1 char is presumed to be a boolean
-						(isset($CONF['basket'][$property]['max']) && $CONF['basket'][$property]['max']==1)) ){		//or setting the max value to 1 presumes a boolean
+						(isset($CONF['customer'][$property]['max']) && $CONF['customer'][$property]['max']==1)) ){		//or setting the max value to 1 presumes a boolean
 					$html.= "<input type=\"radio\" name=\"$input_name\" value=\"1\" id=\"$html_id\"";
 					if($property_value)	//allow any possible value for True
 						$html.= " checked";
@@ -674,12 +698,12 @@ class basket_template
 					
 					break;	//escape SWITCH statement
 					
-				}elseif (isset($CONF['basket'][$property]['max']) && $CONF['basket'][$property]['max']){
-					$min = ($CONF['basket'][$property]['min'])? $CONF['basket'][$property]['min'] : 0;
-					$step = ($CONF['basket'][$property]['step'])? $CONF['basket'][$property]['step'] : 1;
+				}elseif (isset($CONF['customer'][$property]['max']) && $CONF['customer'][$property]['max']){
+					$min = ($CONF['customer'][$property]['min'])? $CONF['customer'][$property]['min'] : 0;
+					$step = ($CONF['customer'][$property]['step'])? $CONF['customer'][$property]['step'] : 1;
 					if ($empty=='-None-')
 						$empty = '--';
-					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['basket'][$property]['max'], $step, $empty);
+					$html.= createNumberSelect($input_name, $property_value, $min, $CONF['customer'][$property]['max'], $step, $empty);
 					break;	//escape SWITCH statement
 				}//IF integer is a Boolean
 				
@@ -694,8 +718,8 @@ class basket_template
 				else
 					$maxlength = 11;
 				
-				if (isset($CONF['basket'][$property]['size']))
-					$size = $CONF['basket'][$property]['size'];
+				if (isset($CONF['customer'][$property]['size']))
+					$size = $CONF['customer'][$property]['size'];
 				elseif($maxlength <= 30)
 					$size = $maxlength+1;
 				elseif ($maxlength <= 50)
@@ -793,11 +817,11 @@ class basket_template
 						$future = 5;
 					}//IF date of birth field
 					
-					if (isset($CONF['basket'][$property]['past']))
-						$past = $CONF['basket'][$property]['past'];
+					if (isset($CONF['customer'][$property]['past']))
+						$past = $CONF['customer'][$property]['past'];
 					
-					if (isset($CONF['basket'][$property]['future']))
-						$future = $CONF['basket'][$property]['future'];
+					if (isset($CONF['customer'][$property]['future']))
+						$future = $CONF['customer'][$property]['future'];
 					
 					$html.= createDateSelect($input_name, $property_value, $past, $future);
 					$separator = " @ ";

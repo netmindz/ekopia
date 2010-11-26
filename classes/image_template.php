@@ -51,6 +51,7 @@ class image_template
 			'artists'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'basket_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'baskets'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'customers'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'images'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'labels'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'line_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),

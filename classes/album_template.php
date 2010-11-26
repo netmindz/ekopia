@@ -1,7 +1,7 @@
 <?
 class album_template
 {
-	var $id, $name, $price, $download_price, $summary, $artist_id, $label_id, $release_year, $location, $label_reference, $image_id, $amazon_asin, $stock_count, $added, $user_id, $tag_FKL;
+	var $id, $name, $disk_number, $price, $download_price, $summary, $artist_id, $label_id, $release_year, $location, $label_reference, $image_id, $amazon_asin, $stock_count, $added, $user_id, $tag_FKL;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -32,6 +32,7 @@ class album_template
 		$this->id = 0;
 
 		$this->name = "";
+		$this->disk_number = "";
 		$this->price = "";
 		$this->download_price = "";
 		$this->summary = "";
@@ -60,6 +61,7 @@ class album_template
 			'artists'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'basket_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'baskets'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'customers'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'images'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'labels'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'line_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
@@ -79,6 +81,7 @@ class album_template
 
 		$this->_field_descs['id'] = array ("pk" => "1", "auto" => "1", "type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['name'] = array ("type" => "varchar(125)", "length" => "125", "gen_type" => "string");
+		$this->_field_descs['disk_number'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['download_price'] = array ("type" => "double", "gen_type" => "number");
 		$this->_field_descs['summary'] = array ("type" => "longtext", "gen_type" => "text", "extra_type" => "richtext");
@@ -109,6 +112,12 @@ class album_template
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
 			trigger_error("wrong type for album->id",E_USER_WARNING);
 			settype($this->id,"int");
+		}//IF
+
+
+		if($this->disk_number != (int)$this->disk_number && $this->disk_number!='NOW()' && $this->disk_number!='NULL'){
+			trigger_error("wrong type for album->disk_number",E_USER_WARNING);
+			settype($this->disk_number,"int");
 		}//IF
 
 
@@ -149,9 +158,9 @@ class album_template
 
 
 		
-		$raw_sql  = "INSERT INTO albums (`name`, `price`, `download_price`, `summary`, `artist_id`, `label_id`, `release_year`, `location`, `label_reference`, `image_id`, `amazon_asin`, `stock_count`, `added`, `user_id`)";
+		$raw_sql  = "INSERT INTO albums (`name`, `disk_number`, `price`, `download_price`, `summary`, `artist_id`, `label_id`, `release_year`, `location`, `label_reference`, `image_id`, `amazon_asin`, `stock_count`, `added`, `user_id`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->download_price)."', '".$this->database->escape($this->summary)."', '".$this->database->escape($this->artist_id)."', '".$this->database->escape($this->label_id)."', '".$this->database->escape($this->release_year)."', '".$this->database->escape($this->location)."', '".$this->database->escape($this->label_reference)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->amazon_asin)."', '".$this->database->escape($this->stock_count)."', '".$this->database->escape($this->added)."', '".$this->database->escape($this->user_id)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->name)."', '".$this->database->escape($this->disk_number)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->download_price)."', '".$this->database->escape($this->summary)."', '".$this->database->escape($this->artist_id)."', '".$this->database->escape($this->label_id)."', '".$this->database->escape($this->release_year)."', '".$this->database->escape($this->location)."', '".$this->database->escape($this->label_reference)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->amazon_asin)."', '".$this->database->escape($this->stock_count)."', '".$this->database->escape($this->added)."', '".$this->database->escape($this->user_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -179,6 +188,12 @@ class album_template
 		if($this->id != (int)$this->id && $this->id!='NOW()' && $this->id!='NULL'){
 			trigger_error("wrong type for album->id",E_USER_WARNING);
 			settype($this->id,"int");
+		}//IF
+
+
+		if($this->disk_number != (int)$this->disk_number && $this->disk_number!='NOW()' && $this->disk_number!='NULL'){
+			trigger_error("wrong type for album->disk_number",E_USER_WARNING);
+			settype($this->disk_number,"int");
 		}//IF
 
 
@@ -219,7 +234,7 @@ class album_template
 
 
 		$raw_sql  = "UPDATE albums SET ";
-		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `price`='".$this->database->escape($this->price)."', `download_price`='".$this->database->escape($this->download_price)."', `summary`='".$this->database->escape($this->summary)."', `artist_id`='".$this->database->escape($this->artist_id)."', `label_id`='".$this->database->escape($this->label_id)."', `release_year`='".$this->database->escape($this->release_year)."', `location`='".$this->database->escape($this->location)."', `label_reference`='".$this->database->escape($this->label_reference)."', `image_id`='".$this->database->escape($this->image_id)."', `amazon_asin`='".$this->database->escape($this->amazon_asin)."', `stock_count`='".$this->database->escape($this->stock_count)."', `added`='".$this->database->escape($this->added)."', `user_id`='".$this->database->escape($this->user_id)."'";
+		$raw_sql.= "`name`='".$this->database->escape($this->name)."', `disk_number`='".$this->database->escape($this->disk_number)."', `price`='".$this->database->escape($this->price)."', `download_price`='".$this->database->escape($this->download_price)."', `summary`='".$this->database->escape($this->summary)."', `artist_id`='".$this->database->escape($this->artist_id)."', `label_id`='".$this->database->escape($this->label_id)."', `release_year`='".$this->database->escape($this->release_year)."', `location`='".$this->database->escape($this->location)."', `label_reference`='".$this->database->escape($this->label_reference)."', `image_id`='".$this->database->escape($this->image_id)."', `amazon_asin`='".$this->database->escape($this->amazon_asin)."', `stock_count`='".$this->database->escape($this->stock_count)."', `added`='".$this->database->escape($this->added)."', `user_id`='".$this->database->escape($this->user_id)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		

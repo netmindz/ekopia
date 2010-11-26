@@ -1,7 +1,7 @@
 <?
 class order_template
 {
-	var $id, $created, $order_ref, $paypal_txn_id, $payment_status, $customer_email;
+	var $id, $created, $order_ref, $paypal_txn_id, $payment_status, $customer_email, $customer_id;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -36,6 +36,7 @@ class order_template
 		$this->paypal_txn_id = "";
 		$this->payment_status = "";
 		$this->customer_email = "";
+		$this->customer_id = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -50,6 +51,7 @@ class order_template
 			'artists'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'basket_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'baskets'	=>	array ("pk"	=>	"id", "comment"	=>	""),
+			'customers'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'images'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'labels'	=>	array ("pk"	=>	"id", "comment"	=>	""),
 			'line_items'	=>	array ("pk"	=>	"id", "comment"	=>	""),
@@ -73,6 +75,7 @@ class order_template
 		$this->_field_descs['paypal_txn_id'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
 		$this->_field_descs['payment_status'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
 		$this->_field_descs['customer_email'] = array ("type" => "varchar(255)", "length" => "255", "gen_type" => "string");
+		$this->_field_descs['customer_id'] = array ("type" => "int(11)", "length" => "11", "fk" => "customer", "gen_type" => "int");
 
 	}//__constructor
 	
@@ -92,10 +95,16 @@ class order_template
 		}//IF
 
 
+		if($this->customer_id != (int)$this->customer_id && $this->customer_id!='NOW()' && $this->customer_id!='NULL'){
+			trigger_error("wrong type for order->customer_id",E_USER_WARNING);
+			settype($this->customer_id,"int");
+		}//IF
+
+
 		
-		$raw_sql  = "INSERT INTO orders (`order_ref`, `paypal_txn_id`, `payment_status`, `customer_email`)";
+		$raw_sql  = "INSERT INTO orders (`order_ref`, `paypal_txn_id`, `payment_status`, `customer_email`, `customer_id`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->order_ref)."', '".$this->database->escape($this->paypal_txn_id)."', '".$this->database->escape($this->payment_status)."', '".$this->database->escape($this->customer_email)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->order_ref)."', '".$this->database->escape($this->paypal_txn_id)."', '".$this->database->escape($this->payment_status)."', '".$this->database->escape($this->customer_email)."', '".$this->database->escape($this->customer_id)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -126,8 +135,14 @@ class order_template
 		}//IF
 
 
+		if($this->customer_id != (int)$this->customer_id && $this->customer_id!='NOW()' && $this->customer_id!='NULL'){
+			trigger_error("wrong type for order->customer_id",E_USER_WARNING);
+			settype($this->customer_id,"int");
+		}//IF
+
+
 		$raw_sql  = "UPDATE orders SET ";
-		$raw_sql.= "`order_ref`='".$this->database->escape($this->order_ref)."', `paypal_txn_id`='".$this->database->escape($this->paypal_txn_id)."', `payment_status`='".$this->database->escape($this->payment_status)."', `customer_email`='".$this->database->escape($this->customer_email)."'";
+		$raw_sql.= "`order_ref`='".$this->database->escape($this->order_ref)."', `paypal_txn_id`='".$this->database->escape($this->paypal_txn_id)."', `payment_status`='".$this->database->escape($this->payment_status)."', `customer_email`='".$this->database->escape($this->customer_email)."', `customer_id`='".$this->database->escape($this->customer_id)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -224,6 +239,18 @@ class order_template
 		}//IF
 	}//getList
 
+
+	function getCustomerList(customer $customer) {
+		return($this->getList("where customer_id=$customer->id"));
+	}
+	
+	function getCustomer()
+	{
+		$customer = new customer();
+		$customer->get($this->customer_id);
+		return($customer);
+	}
+	
 
 		
 	
