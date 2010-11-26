@@ -29,6 +29,7 @@ foreach(array("label","artist") as $type) {
 
 $album = new album();
 if($album->getUserList($user)) {
+	$artist = $album->getArtist();
 	?>
 	<h2>Albums</h2>
 	<ul>
