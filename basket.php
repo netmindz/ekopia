@@ -164,7 +164,7 @@ Our MP3s are higher than the standard 128k sold by many online stores and are co
 <input type="hidden" name="item_number_<?= $i ?>" value="<?= $id ?>">
 <input type="hidden" name="item_name_<?= $i ?>" value="<?= $details['name'] ?>">
 <input type="hidden" name="shipping_<?= $i ?>" value="<?= $details['shipping'] ?>">
-<input type="hidden" name="amount_<?= $i ?>" value="<?= $details['value'] ?>">
+<input type="hidden" name="amount_<?= $i ?>" value="<?= $details['item_value'] ?>">
 <?php if(isset($details['quantity'])&&$details['quantity']) { ?>
 <input type="hidden" name="quantity_<?= $i ?>" value="<?= $details['quantity'] ?>">
 <?php } ?>

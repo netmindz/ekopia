@@ -92,6 +92,10 @@ class basket extends basket_template {
 
 			if(!isset($list[$item->id]['value'])) {
 				$list[$item->id]['value'] = $detail->price * $item->quantity;
+				$list[$item->id]['item_value'] = $detail->price;
+			}
+			else {
+				$list[$item->id]['item_value'] = $list[$item->id]['value'];
 			}
 			
 			if($type == "track") {
