@@ -74,10 +74,10 @@ class basket extends basket_template {
 					$product->get($varient->product_id);
 					if($product->image_id) $list[$item->id]['image_id'] = $product->image_id;
 					if($varient->weight) {
-						$total_weight += $varient->weight;
+						$total_weight += $varient->weight * $item->quantity;
 					}
 					else {
-						$total_weight += $product->shipping_weight;
+						$total_weight += $product->shipping_weight * $item->quantity;
 					}
 				}
 				else {
