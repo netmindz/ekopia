@@ -117,6 +117,7 @@ class basket extends basket_template {
 			$shipping = round($this->calculatePostage($total_weight,$_SESSION['country']) * 1.3,2);
 			$list['packing']['name'] = "Packaging";
 			$list['packing']['value'] = $total_packing;
+			$list['packing']['item_value'] = $total_packing;
  			$list['packing']['shipping'] = $shipping;
 		}
 		return($list);
