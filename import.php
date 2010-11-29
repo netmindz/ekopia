@@ -70,7 +70,7 @@ function import_file($src, user $user)
 
 	print_r($info);
 
-	if($user) {
+	if($user->id) {
 		$userArtist = new user_artist();
 		if(!$userArtist->check($track->artist_id, $user)) {
 			// user not attached to aritst
