@@ -44,6 +44,9 @@ class order extends order_template {
 			if(ereg('mc_gross_([0-9]+)',$k,$matches)) {
 				$paypal['item'][$matches[1]]['price'] = $v;
 			}
+			if(ereg('^(quantity)([0-9]+)',$k,$matches)) {
+				$paypal['item'][$matches[2]] = $v;
+			}
 			if(ereg('^(address)_(.+)',$k,$matches)) {
 				$paypal[$matches[1]][$matches[2]] = $v;
 			}
