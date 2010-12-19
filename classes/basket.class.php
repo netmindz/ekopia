@@ -81,7 +81,7 @@ class basket extends basket_template {
 					}
 				}
 				else {
-					if($detail->shipping_weight) $total_weight += $detail->shipping_weight;
+					if($detail->shipping_weight) $total_weight += $detail->shipping_weight * $item->quantity;
 				}
 				$list[$item->id]['quantity'] = $item->quantity;
 			}
