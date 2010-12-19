@@ -21,7 +21,7 @@ $line_item = new line_item();
 $labels = array("-1");
 $artists = array("-1");
 $albums = array("-1");
-$line_item->getList("where order_id=" . $order->id . " and type != ''");
+$line_item->getList("where order_id=" . $order->id . " and type != '' and type != 'unknown'");
 while($line_item->getNext()) {
 	$item = new $line_item->type();
 	$item->get($line_item->item_id);
