@@ -45,7 +45,7 @@ class order extends order_template {
 				$paypal['item'][$matches[1]]['price'] = $v;
 			}
 			if(ereg('^(quantity)([0-9]+)',$k,$matches)) {
-				$paypal['item'][$matches[1]] = $v;
+				$paypal['item'][$matches[1]]['quantity'] = $v;
 			}
 			if(ereg('^(address)_(.+)',$k,$matches)) {
 				$paypal[$matches[1]][$matches[2]] = $v;
