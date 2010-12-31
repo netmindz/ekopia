@@ -10,7 +10,7 @@ if ((!isset($_SERVER['PHP_AUTH_USER']))||($_SERVER['PHP_AUTH_USER'] != "wholesal
 <?php include("header.inc.php"); ?>
 <h2>Wholesale Order</h2>
 <form action="basket.php" method="post">
-<table>
+<table width="100%">
 <?php
 ini_set("display_errors","on");
 $type = new type();
@@ -21,6 +21,7 @@ while($type->getNext()) {
 		<th>Code</th>
 		<th><?= $type->name ?></th>
 		<th>Unit</th>
+		<th>Ex VAT</th>
 		<th>Price</th>
 		<th>Qty</th>
 	</tr>
@@ -34,6 +35,7 @@ while($type->getNext()) {
 				<td><?= $product->code ?></td>
 				<td><?= $product->name ?></td>
 				<td><?= $product->unit ?></td>
+				<td><?php if($product->vat_exempt == 'no') print format_price(round($product->price / (1 + VAT_RATE),2)); ?></td>
 				<td><?= format_price($product->price) ?></td>
 				<td><input type="text" size="5" name="products[<?= $product->id ?>]"/></td>
 			</tr>
@@ -48,6 +50,7 @@ while($type->getNext()) {
 					<td><?= $product->code ?></td>
 					<td><?= $product->name ?> - <?= $varient->name ?></td>
 					<td><?= $product->unit ?></td>
+					<td><?php if($product->vat_exempt == 'no') print format_price(round($product->price / (1 + VAT_RATE),2)); ?></td>
 					<td><?= format_price($varient->price) ?></td>
 					<td><input type="text" size="5" name="product_variations[<?= $varient->id ?>]"/></td>
 				</tr>
@@ -58,7 +61,7 @@ while($type->getNext()) {
 } 
 ?>
 <tr>
-	<td colspan="5" align="right"><input type="submit" value=" Add to Basket "/></td>
+	<td colspan="6" align="right"><input type="submit" value=" Add to Basket "/></td>
 </tr>
 </table>
 <?php include("footer.inc.php"); ?>

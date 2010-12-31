@@ -10,6 +10,7 @@ if(ereg('~',$_SERVER['PHP_SELF'])||(!isset($_SERVER['HTTP_HOST']))) {
 	$CONF['shop_email'] = "will@netmindz.net";
 	$CONF['use_rewrite'] = false;
 	$CONF['db_host'] = "bert.netmindz.net";
+	ini_set("display_errors","on");
 }
 else {
 	$docroot=$_SERVER['DOCUMENT_ROOT'];
@@ -46,5 +47,7 @@ $CONF['db_pass'] = $CONF['db_username'] . "pass";
 $CONF['db_sys_admin'] = "will@netmindz.net";
 
 $CONF['ignore_tables'] = array('download_sales');
+
+define('VAT_RATE',0.2);
 
 ?>
