@@ -1,7 +1,7 @@
 <?
 class product_template
 {
-	var $id, $type_id, $name, $code, $unit, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published, $sort_id;
+	var $id, $type_id, $name, $code, $unit, $intro, $description, $image_id_thumb, $image_id, $price, $shipping_weight, $published, $sort_id, $vat_exempt;
 	
 	var $database, $lastError, $DN;
 	var $_PK, $_table;
@@ -43,6 +43,7 @@ class product_template
 		$this->shipping_weight = "";
 		$this->published = "";
 		$this->sort_id = "";
+		$this->vat_exempt = "";
 		
 		$this->database = new database();
 		$this->_PK = 'id';
@@ -88,6 +89,7 @@ class product_template
 		$this->_field_descs['shipping_weight'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
 		$this->_field_descs['published'] = array ("type" => "enum('yes','no')", "default" => "yes", "values" => array('yes','no',), "gen_type" => "enum");
 		$this->_field_descs['sort_id'] = array ("type" => "int(11)", "length" => "11", "gen_type" => "int");
+		$this->_field_descs['vat_exempt'] = array ("type" => "enum('no','yes')", "default" => "no", "values" => array('no','yes',), "gen_type" => "enum");
 
 	}//__constructor
 	
@@ -142,10 +144,15 @@ class product_template
 		}//IF
 
 
+		if(!in_array($this->vat_exempt,$this->_field_descs['vat_exempt']['values']) && $this->vat_exempt!='NULL') {
+			if($this->vat_exempt!='') trigger_error("Invalid enum value ".$this->vat_exempt." for product->vat_exempt, using default",E_USER_WARNING);
+			$this->vat_exempt = $this->_field_descs['vat_exempt']['default'];
+		}//IF
+
 		
-		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `code`, `unit`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`, `sort_id`)";
+		$raw_sql  = "INSERT INTO products (`type_id`, `name`, `code`, `unit`, `intro`, `description`, `image_id_thumb`, `image_id`, `price`, `shipping_weight`, `published`, `sort_id`, `vat_exempt`)";
 		
-		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->code)."', '".$this->database->escape($this->unit)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."', '".$this->database->escape($this->sort_id)."')";
+		$raw_sql.= " VALUES ('".$this->database->escape($this->type_id)."', '".$this->database->escape($this->name)."', '".$this->database->escape($this->code)."', '".$this->database->escape($this->unit)."', '".$this->database->escape($this->intro)."', '".$this->database->escape($this->description)."', '".$this->database->escape($this->image_id_thumb)."', '".$this->database->escape($this->image_id)."', '".$this->database->escape($this->price)."', '".$this->database->escape($this->shipping_weight)."', '".$this->database->escape($this->published)."', '".$this->database->escape($this->sort_id)."', '".$this->database->escape($this->vat_exempt)."')";
 		
 		$raw_sql = str_replace("'NOW()'", "NOW()", $raw_sql);		//remove quotes
 		$sql = str_replace("'NULL'", "NULL", $raw_sql);			//remove quotes
@@ -211,8 +218,13 @@ class product_template
 		}//IF
 
 
+		if(!in_array($this->vat_exempt,$this->_field_descs['vat_exempt']['values']) && $this->vat_exempt!='NULL') {
+			if($this->vat_exempt!='') trigger_error("Invalid enum value ".$this->vat_exempt." for product->vat_exempt, using default",E_USER_WARNING);
+			$this->vat_exempt = $this->_field_descs['vat_exempt']['default'];
+		}//IF
+
 		$raw_sql  = "UPDATE products SET ";
-		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `code`='".$this->database->escape($this->code)."', `unit`='".$this->database->escape($this->unit)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."', `sort_id`='".$this->database->escape($this->sort_id)."'";
+		$raw_sql.= "`type_id`='".$this->database->escape($this->type_id)."', `name`='".$this->database->escape($this->name)."', `code`='".$this->database->escape($this->code)."', `unit`='".$this->database->escape($this->unit)."', `intro`='".$this->database->escape($this->intro)."', `description`='".$this->database->escape($this->description)."', `image_id_thumb`='".$this->database->escape($this->image_id_thumb)."', `image_id`='".$this->database->escape($this->image_id)."', `price`='".$this->database->escape($this->price)."', `shipping_weight`='".$this->database->escape($this->shipping_weight)."', `published`='".$this->database->escape($this->published)."', `sort_id`='".$this->database->escape($this->sort_id)."', `vat_exempt`='".$this->database->escape($this->vat_exempt)."'";
 		$raw_sql.= " WHERE 
 		id = '".$this->database->escape($this->id)."'";
 		
@@ -828,7 +840,7 @@ class product_template
 				
 			  case 'text' :
 				//get field length
-				if (strpos($this->_field_descs[$property]['type'], "medium") || strpos($this->_field_descs[$property]['type'], "long") || preg_match('#^text$#',$this->_field_descs[$property]['type']) ) {
+				if (strpos($this->_field_descs[$property]['type'], "medium") || strpos($this->_field_descs[$property]['type'], "long") || ereg('^text$',$this->_field_descs[$property]['type']) ) {
 					$cols = 50;
 					$rows = 12;
 				}else{
@@ -948,7 +960,7 @@ class product_template
 	 */
 	function _createFormObjectID($input_name)
 	{
-		$input_name = preg_replace("/[^a-z0-9_-]/i","",$input_name);
+		$input_name = eregi_replace("[^a-z0-9_-]","",$input_name);
 		if(!isset($this->_form_label_ids[$input_name])) {
 			$this->_form_label_ids[$input_name]  = $input_name . "_" . substr(microtime(),-4) . "_" .  rand(0,99);
 		}
