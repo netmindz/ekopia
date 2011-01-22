@@ -51,8 +51,11 @@ class track extends track_template {
 		else {
 			$album = new album();
 			$album->get($this->album_id);
-			$artist = new artist();
-			$artist->get($album->artist_id); 	
+			
+			$artist = $album->getArtist();
+			$image = $album->getImage();
+			$cover = $image->createThumb(300,300);
+
 			if(!is_file($download)) {
 				if(!is_dir(dirname($download))) {
 					exec("mkdir -m 777 -p " . dirname($download));
@@ -64,6 +67,9 @@ class track extends track_template {
 				$id3 .= "--ta \"$artist->name\" ";
 				$id3 .= "--tl \"$album->name\" ";
 				$id3 .= "--tn $this->track_number ";
+				if(is_file($cover)) {
+					$id3 .= "--ti $cover ";
+				}
 				$exec = $this->_getRaw() . " | lame --preset cd --brief -c $id3 - $download 2>&1";
 			}
 			elseif($type == "ogg") {
