@@ -3,6 +3,28 @@ require("order_template.php");
 
 class order extends order_template {
 
+	function paypalComplete()
+	{
+			// what it used to be and still seams to be used for ipn
+			if(isset($_REQUEST['txn_id'])) {
+				$paypal_txn_id = $_REQUEST['txn_id'];
+				$new_order = true;
+			}
+			elseif(isset($_REQUEST['tx'])) {
+				// what is passed to order confirm page
+				$paypal_txn_id = $_REQUEST['tx'];
+			}
+			else {
+				$paypal_txn_id = "unknown" . time();
+			}
+			if($this->getByOther(array('paypal_txn_id'=>$paypal_txn_id))) {
+				return $this->id;
+			}
+			else {
+				return false;
+			}
+	}
+
 	function paypalIPN()
 	{
 		global $CONF;

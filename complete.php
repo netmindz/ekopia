@@ -9,7 +9,11 @@ if(isset($_REQUEST['order_id'])) {
 	if(($order->customer_email)&&($order->customer_email != $_REQUEST['email'])) exit("Order Load failed");
 }
 else {
-	$order->paypalIPN();
+	if(!$order->paypalComplete()) {
+		?>
+		<p>Your order is still being processed by paypal. You will be sent an email once your has been processed</p>
+		<?php
+	}
 }
 ?>
 <p>Your order ID is <?= $order->id ?> and we have your email address listed as  <?= $order->customer_email ?></p>
