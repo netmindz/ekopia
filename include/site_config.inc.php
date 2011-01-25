@@ -9,7 +9,7 @@ if(ereg('~',$_SERVER['PHP_SELF'])||(!isset($_SERVER['HTTP_HOST']))) {
 	$CONF['paypal_host'] = 'www.sandbox.paypal.com';
 	$CONF['shop_email'] = "will@netmindz.net";
 	$CONF['use_rewrite'] = false;
-	$CONF['db_host'] = "bert.netmindz.net";
+	$CONF['db_host'] = "ralf.netmindz.net";
 	ini_set("display_errors","on");
 }
 else {
@@ -18,7 +18,7 @@ else {
 	$CONF['paypal_address'] = 'shop@inspiralled.net';
 	$CONF['paypal_host'] = 'www.paypal.com';
 	$CONF['shop_email'] = "shop@inspiralled.net";
-	$CONF['db_host'] = "bert.netmindz.net";
+	$CONF['db_host'] = "ralf.netmindz.net";
 	$CONF['use_rewrite'] = true;
 }
 ini_set("include_path",".:$docroot/includes:$docroot/classes:" . ini_get("include_path"));
