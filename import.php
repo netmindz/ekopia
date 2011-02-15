@@ -83,7 +83,7 @@ function import_file($src, user $user)
 			if(!$userLabel->check($album->label_id, $user)) {
 				$label = $album->getLabel();
 				// user not attached to label
-				$userLabel->addLink($track->artist_id, $user);
+				$userLabel->addLink($track->label_id, $user);
 				mail($CONF['shop_email'],"Label Attachment","$user->DN has been attached to $label->DN as they uploaded $src");
 			}
 		}
