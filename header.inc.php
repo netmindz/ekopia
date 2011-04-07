@@ -218,7 +218,6 @@ InputsExclusion.push('.content_vote')
                                     <div class="module-inner">
 
 				<ul class="menu">
-					<li class="item283"><a href="<?= $CONF['url']?>/latest-albums.php"><span>Latest Albums</span></a></li>
 					<li class="item283"><a href="<?= $CONF['url']?>/downloads.php"><span>Latest Downloads</span></a></li>
 					<li class="item283"><a href="<?= browse_link("album") ?>"><span>Albums</span></a></li>
 					<li class="item283"><a href="<?= browse_link("artist") ?>"><span>Artists</span></a></li>
