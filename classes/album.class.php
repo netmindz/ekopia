@@ -70,6 +70,7 @@ class album extends album_template {
 
 	function displayThumb($showBuyCD=true)
 	{
+		$showBuyCD=false;
 		global $CONF;
 		$label = new label();
                 $label->get($this->label_id);
@@ -94,11 +95,11 @@ class album extends album_template {
 	                &pound; <?= format_price($this->download_price) ?>
 	                <input type="submit" value="Download" class="inputbox"/>
 	                </form>
-			(MP3 / OggVorbis / FLAC)
+			(MP3 / OggVorbis / FLAC)<br/>
 	        <?php } elseif($this->countDownloads()) { ?>
 			<a href="<?= album_link($this->id,$this->name) ?>"><img src="/download.gif" width="15"></a>&nbsp;Downloads Avalible<br/>
 			<br/>
-			(MP3 / OggVorbis / FLAC)
+			(MP3 / OggVorbis / FLAC)<br/>
 	        <?php } ?>
 
 		<?php if($showBuyCD) { ?>
