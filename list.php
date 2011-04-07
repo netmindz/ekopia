@@ -4,9 +4,9 @@
 <div id="album_list">
 <?php
 $album = new album();
-$album->getList("where artist_id in (select id from artists where published = 'yes')");
+$album->getList("where artist_id in (select id from artists where published = 'yes') and download_price > 0 ");
 while($album->getNext()) { 
-	if(($album->image_id)&&($album->price)) {
+	if($album->image_id) {
 	?>
 		<div id="album_thumb_image">
                 <a href="<?= album_link($album->id,$album->name) ?>"><?php
