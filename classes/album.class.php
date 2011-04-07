@@ -40,7 +40,7 @@ class album extends album_template {
 		else {
 			$published = " and artist_id in (select id from artists where published = 'yes')";
 		}
-		return($this->getList("where ${type}_id='".$id."' $published"));
+		return($this->getList("where ${type}_id='".$id."' and download_price > 0 $published"));
 	}
 	
 	function getListPrefixes()
@@ -48,7 +48,7 @@ class album extends album_template {
 		$tmp = new album();
 		$tmp->getList();
 		$prefixes = array();
-		$tmp->getList("where artist_id in (select id from artists where published = 'yes')");
+		$tmp->getList("where artist_id in (select id from artists where published = 'yes') and download_price > 0");
 		while($tmp->getNext()) {
 			$prefixes[substr(strtoupper($tmp->name),0,1)] = 1;
 		}
@@ -59,7 +59,7 @@ class album extends album_template {
 
 	function getListByPrefix($prefix)
 	{
-		return($this->getList("where name like '$prefix%' and artist_id in (select id from artists where published = 'yes')"));
+		return($this->getList("where name like '$prefix%' and artist_id in (select id from artists where published = 'yes') and download_price > 0"));
 	}	
 	
 	function getByName($name)
