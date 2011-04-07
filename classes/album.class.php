@@ -111,7 +111,7 @@ class album extends album_template {
         	        &pound; <?= format_price($this->price) ?> <input type="submit" value="Buy CD" class="inputbox" />
 	                </form>
 	                <?php } elseif(($this->download_price <=0)&&($this->price <=0)) { ?>
-	                Coming soon to buy here
+	                Not availible for purchase
 			<?php } elseif($this->stock_count <= 0) { ?>
 	                CD Out of stock
               	 	<?php } ?>

@@ -143,7 +143,7 @@ if(($download_avail)||($album->download_price > 0)) {
 		<?php } elseif($album->price > 0 && $album->stock_count <= 0) { ?>
 		CD Out of stock
 		<?php } elseif(($album->download_price <= 0)&&($album->price <= 0)) { ?>
-		Coming soon to buy here
+		No availible for purchase
 		<?php } else { ?>
 		Download only
 		<?php } ?>
