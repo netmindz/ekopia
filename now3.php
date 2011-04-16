@@ -18,6 +18,11 @@ img {
 </head>
 <body>
 <?php
+$onClick = "onClick=\"window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;\"";
+?>
+<div style="position: absolute; left: 300px; right 0px; width: 190px; height: 100px" <?= $onClick ?>></div>
+<div style="position: absolute; left: 490px; right 0px; width: 90px; height: 60px" <?= $onClick ?>></div>
+<?php
 $div_pos = "position: absolute; left: 500px; top: 69px; width:340px;";
 #$debug_style = "border: 1px solid; background-color: white;";
 $debug_style = "";
@@ -55,8 +60,7 @@ elseif($data = mpd_now_playing()) {
 	</div>
 		<?php if($album->image_id) { ?>
 			<div style="position: absolute; left: 885px;">
-			<!-- <a href="album.php?album_id=<?= $album->id ?>" target="_new"> -->
-			<a href="radio.php" nClick="window.open('radio.php','radio','menubar=0,resizable=1,width=400,height=200'); return false;" target="_new">
+			<a href="album.php?album_id=<?= $album->id ?>" target="_new">
 			<?php
 				$image = new image();
 				$image->show($album->image_id,78,78);
